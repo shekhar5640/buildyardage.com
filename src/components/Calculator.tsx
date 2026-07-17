@@ -18,6 +18,8 @@ interface CalculatorProps {
   type: string;
   defaultWastePercent: number;
   defaultThickness: number;
+  lsiTitle?: string;
+  lsiText?: string;
 }
 
 interface HistoryItem {
@@ -34,10 +36,366 @@ interface HistoryItem {
 interface ShoppingItem {
   id: string;
   slug: string;
-  title: string;
   material: string;
+  shape: string;
+  type: string;
+  title: string;
   details: string;
   checked: boolean;
+  inputs?: Record<string, any>;
+  outputs?: Record<string, any>;
+  isMetric?: boolean;
+}
+
+// Helper function to render a clean visual SVG diagram for print documents
+function renderPrintSVG(item: ShoppingItem) {
+  const { type, inputs = {}, isMetric = false } = item;
+  const length = inputs.length || 0;
+  const width = inputs.width || 0;
+  const thickness = inputs.thickness || 0;
+  const drywallWidth = inputs.drywallWidth || 0;
+  const sheetSize = inputs.sheetSize || '4x8';
+  const studSpacing = inputs.studSpacing || 16;
+  
+  if (type === 'rectangular') {
+    return (
+      <svg viewBox="0 0 300 180" className="w-full max-h-[140px]">
+        <polygon points="150,30 240,65 150,100 60,65" fill="#e2e8f0" stroke="#475569" strokeWidth="1.5" />
+        <polygon points={`60,65 150,100 150,${100 + (thickness * 0.8)} 60,${65 + (thickness * 0.8)}`} fill="#cbd5e1" stroke="#475569" strokeWidth="1.5" />
+        <polygon points={`150,100 240,65 240,${65 + (thickness * 0.8)} 150,${100 + (thickness * 0.8)}`} fill="#f1f5f9" stroke="#475569" strokeWidth="1.5" />
+        <text x="75" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">L: {length} {isMetric ? 'm' : 'ft'}</text>
+        <text x="210" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">W: {width} {isMetric ? 'm' : 'ft'}</text>
+        <text x="155" y={115 + (thickness * 0.5)} fontSize="9" fill="#4f46e5" className="font-mono font-bold">T: {thickness} {isMetric ? 'cm' : 'in'}</text>
+      </svg>
+    );
+  }
+
+  if (type === 'cylindrical') {
+    return (
+      <svg viewBox="0 0 200 200" className="w-full max-h-[140px]">
+        <ellipse cx="100" cy="40" rx={Math.max(20, thickness * 1.5)} ry={Math.max(8, thickness * 0.5)} fill="#e2e8f0" stroke="#475569" strokeWidth="1.5" />
+        <path d={`M${100 - (thickness * 1.5)},40 L${100 - (thickness * 1.5)},${40 + (length * 0.8)} A${thickness * 1.5},${thickness * 0.5} 0 0,0 ${100 + (thickness * 1.5)},${40 + (length * 0.8)} L${100 + (thickness * 1.5)},40 Z`} fill="#cbd5e1" fillOpacity="0.8" stroke="#475569" strokeWidth="1.5" />
+        <text x="100" y="25" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold">D: {thickness} {isMetric ? 'cm' : 'in'}</text>
+        <text x={120 + (thickness * 1.5)} y={40 + (length * 0.4)} fontSize="10" fill="#4f46e5" className="font-mono font-bold">H: {length} {isMetric ? 'cm' : 'in'}</text>
+      </svg>
+    );
+  }
+
+  if (type === 'gravel-rect') {
+    return (
+      <svg viewBox="0 0 300 180" className="w-full max-h-[140px]">
+        <defs>
+          <pattern id={`print-gravel-pat-${item.id}`} width="10" height="10" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#64748b" />
+            <circle cx="7" cy="5" r="1" fill="#334155" />
+            <circle cx="4" cy="8" r="1.2" fill="#94a3b8" />
+          </pattern>
+        </defs>
+        <polygon points="150,30 240,65 150,100 60,65" fill={`url(#print-gravel-pat-${item.id})`} stroke="#475569" strokeWidth="1.5" />
+        <polygon points={`60,65 150,100 150,${100 + (thickness * 0.8)} 60,${65 + (thickness * 0.8)}`} fill="#cbd5e1" stroke="#475569" strokeWidth="1.5" />
+        <polygon points={`150,100 240,65 240,${65 + (thickness * 0.8)} 150,${100 + (thickness * 0.8)}`} fill="#f1f5f9" stroke="#475569" strokeWidth="1.5" />
+        <text x="75" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">L: {length} {isMetric ? 'm' : 'ft'}</text>
+        <text x="210" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">W: {width} {isMetric ? 'm' : 'ft'}</text>
+        <text x="155" y={115 + (thickness * 0.5)} fontSize="9" fill="#4f46e5" className="font-mono font-bold">Depth: {thickness} {isMetric ? 'cm' : 'in'}</text>
+      </svg>
+    );
+  }
+
+  if (type === 'drywall') {
+    return (
+      <svg viewBox="0 0 240 140" className="w-full max-h-[140px]">
+        <rect x="30" y="20" width="180" height="90" fill="#e2e8f0" stroke="#475569" strokeWidth="1.5" />
+        <line x1="75" y1="20" x2="75" y2="110" stroke="#94a3b8" strokeDasharray="3" />
+        <line x1="120" y1="20" x2="120" y2="110" stroke="#94a3b8" strokeDasharray="3" />
+        <line x1="165" y1="20" x2="165" y2="110" stroke="#94a3b8" strokeDasharray="3" />
+        <text x="120" y="125" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold">W: {length} {isMetric ? 'm' : 'ft'}</text>
+        <text x="15" y="70" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold" transform="rotate(-90,15,70)">H: {thickness} {isMetric ? 'm' : 'ft'}</text>
+      </svg>
+    );
+  }
+
+  if (type === 'framing') {
+    return (
+      <svg viewBox="0 0 300 120" className="w-full max-h-[140px]">
+        <rect x="20" y="15" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        <rect x="20" y="20" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        <rect x="20" y="95" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        {Array.from({ length: Math.min(15, Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5))) }).map((_, idx, arr) => {
+          const xPos = 20 + (idx * (260 / (arr.length - 1 || 1)));
+          return <rect key={idx} x={xPos} y="24" width="4" height="71" fill="#bbb" stroke="#475569" strokeWidth="0.5" />;
+        })}
+        <text x="150" y="112" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold">Wall Length: {length} {isMetric ? 'm' : 'ft'}</text>
+      </svg>
+    );
+  }
+
+  return null;
+}
+
+// Helper function to render detailed specification outputs for print documents
+function renderPrintSpecs(item: ShoppingItem) {
+  const { type, inputs = {}, outputs = {} } = item;
+  const sheetSize = inputs.sheetSize || '4x8';
+  const studSpacing = inputs.studSpacing || 16;
+  const corners = inputs.corners || 2;
+  const length = inputs.length || 0;
+  const isMetric = item.isMetric || false;
+  const gravelDensity = inputs.gravelDensity || 1.4;
+
+  if (type === 'rectangular') {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Concrete Volume</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicYards} cu yd</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Feet)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicFeet} cu ft</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Metric)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicMeters} m³</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">80lb / 60lb / 40lb Bags</span>
+          <span className="text-sm font-mono font-bold">{outputs.bags80lb} / {outputs.bags60lb} / {outputs.bags40lb} bags</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'cylindrical') {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Concrete Volume</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicYards} cu yd</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Feet)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicFeet} cu ft</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Metric)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicMeters} m³</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">80lb / 60lb / 40lb Bags</span>
+          <span className="text-sm font-mono font-bold">{outputs.bags80lb} / {outputs.bags60lb} / {outputs.bags40lb} bags</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'gravel-rect') {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Weight</span>
+          <span className="text-sm font-mono font-bold">{outputs.tons} tons</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Yards)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicYards} cu yd</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Volume (Feet)</span>
+          <span className="text-sm font-mono font-bold">{outputs.cubicFeet} cu ft</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Aggregate Density</span>
+          <span className="text-sm font-mono font-bold">{gravelDensity} tons/yd³</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'drywall') {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Drywall Panels</span>
+          <span className="text-sm font-mono font-bold">{outputs.sheetsNeeded} pcs ({sheetSize})</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Surface Area</span>
+          <span className="text-sm font-mono font-bold">{outputs.totalAreaSqFt} sq ft</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Joint Tape / Mud</span>
+          <span className="text-xs font-mono font-bold">{outputs.tapeFeet} ft / {outputs.compoundLbs} lbs</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Joint Screws</span>
+          <span className="text-sm font-mono font-bold">~{outputs.screwsNeeded} pcs</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'framing') {
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Framing Studs</span>
+          <span className="text-sm font-mono font-bold">{outputs.studsCount} pcs ({studSpacing}" o.c.)</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Total Plates</span>
+          <span className="text-sm font-mono font-bold">{outputs.topPlates16ft + outputs.bottomPlates16ft} pcs (16ft)</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Plates Footage</span>
+          <span className="text-sm font-mono font-bold">{outputs.totalPlatesLinearFt} linear ft</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Corners / Blocks</span>
+          <span className="text-sm font-mono font-bold">{corners} corners</span>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+// Utility to parse legacy shopping items without structured inputs/outputs and map them dynamically
+function fillLegacyItemData(item: ShoppingItem): ShoppingItem {
+  if (item.inputs && item.outputs) return item;
+
+  const inputs: Record<string, any> = {};
+  const outputs: Record<string, any> = {};
+  let isMetric = false;
+  let type = item.type;
+
+  // Determine type from slug or material if type is missing
+  if (!type) {
+    if (item.slug?.includes('concrete-slab')) type = 'rectangular';
+    else if (item.slug?.includes('concrete-column')) type = 'cylindrical';
+    else if (item.slug?.includes('gravel')) type = 'gravel-rect';
+    else if (item.slug?.includes('drywall')) type = 'drywall';
+    else if (item.slug?.includes('framing')) type = 'framing';
+    else if (item.material?.toLowerCase().includes('concrete')) {
+      type = item.title?.includes('Column') ? 'cylindrical' : 'rectangular';
+    } else if (item.material?.toLowerCase().includes('gravel')) type = 'gravel-rect';
+    else if (item.material?.toLowerCase().includes('drywall')) type = 'drywall';
+    else if (item.material?.toLowerCase().includes('framing')) type = 'framing';
+  }
+
+  const title = item.title || "";
+  const details = item.details || "";
+
+  // 1. Rectangular & Gravel Slabs
+  if (type === 'rectangular' || type === 'gravel-rect') {
+    const rectMatch = title.match(/([\d\.]+)\s*(ft|m)\s*x\s*([\d\.]+)\s*(ft|m)\s*x\s*([\d\.]+)\s*(in|cm)/i);
+    if (rectMatch) {
+      inputs.length = parseFloat(rectMatch[1]);
+      inputs.width = parseFloat(rectMatch[3]);
+      inputs.thickness = parseFloat(rectMatch[5]);
+      isMetric = rectMatch[2].toLowerCase() === 'm';
+    } else {
+      inputs.length = 10;
+      inputs.width = 10;
+      inputs.thickness = 4;
+    }
+
+    if (type === 'rectangular') {
+      const ydMatch = details.match(/([\d\.]+)\s*cu\s*yd/i);
+      const bagMatch = details.match(/(\d+)\s*bags\s*of\s*80lb/i);
+      outputs.cubicYards = ydMatch ? parseFloat(ydMatch[1]) : 1.23;
+      outputs.cubicFeet = Math.round(outputs.cubicYards * 27 * 100) / 100;
+      outputs.cubicMeters = Math.round(outputs.cubicYards * 0.76455 * 100) / 100;
+      outputs.bags80lb = bagMatch ? parseInt(bagMatch[1], 10) : 56;
+      outputs.bags60lb = Math.ceil(outputs.bags80lb * 1.33);
+      outputs.bags40lb = outputs.bags80lb * 2;
+    } else {
+      const tonMatch = details.match(/([\d\.]+)\s*tons/i);
+      const ydMatch = details.match(/([\d\.]+)\s*cu\s*yd/i);
+      outputs.tons = tonMatch ? parseFloat(tonMatch[1]) : 1.5;
+      outputs.cubicYards = ydMatch ? parseFloat(ydMatch[1]) : 1.1;
+      outputs.cubicFeet = Math.round(outputs.cubicYards * 27 * 100) / 100;
+    }
+  }
+
+  // 2. Column
+  else if (type === 'cylindrical') {
+    const colMatch = title.match(/Dia:\s*([\d\.]+)\s*(in|cm),\s*H:\s*([\d\.]+)\s*(ft|m|in|cm)/i);
+    if (colMatch) {
+      inputs.thickness = parseFloat(colMatch[1]);
+      inputs.length = parseFloat(colMatch[3]);
+      isMetric = colMatch[2].toLowerCase() === 'cm';
+    } else {
+      inputs.thickness = 12;
+      inputs.length = 8;
+    }
+
+    const ydMatch = details.match(/([\d\.]+)\s*cu\s*yd/i);
+    const bagMatch = details.match(/(\d+)\s*bags\s*of\s*80lb/i);
+    outputs.cubicYards = ydMatch ? parseFloat(ydMatch[1]) : 0.5;
+    outputs.cubicFeet = Math.round(outputs.cubicYards * 27 * 100) / 100;
+    outputs.cubicMeters = Math.round(outputs.cubicYards * 0.76455 * 100) / 100;
+    outputs.bags80lb = bagMatch ? parseInt(bagMatch[1], 10) : 23;
+    outputs.bags60lb = Math.ceil(outputs.bags80lb * 1.33);
+    outputs.bags40lb = outputs.bags80lb * 2;
+  }
+
+  // 3. Drywall
+  else if (type === 'drywall') {
+    const dryMatch = title.match(/\(([\d\.]+)(?:x([\d\.]+))?x([\d\.]+)\s*(ft|m)/i);
+    if (dryMatch) {
+      inputs.length = parseFloat(dryMatch[1]);
+      inputs.drywallWidth = dryMatch[2] ? parseFloat(dryMatch[2]) : 12;
+      inputs.thickness = parseFloat(dryMatch[3]);
+      isMetric = dryMatch[4].toLowerCase() === 'm';
+    } else {
+      inputs.length = 12;
+      inputs.drywallWidth = 12;
+      inputs.thickness = 8;
+    }
+    inputs.sheetSize = details.includes('4x12') ? '4x12' : '4x8';
+
+    const sheetMatch = details.match(/(\d+)\s*sheets/i);
+    const tapeMatch = details.match(/tape:\s*([\d\.]+)\s*ft/i);
+    const screwMatch = details.match(/screws:\s*(\d+)/i);
+
+    outputs.sheetsNeeded = sheetMatch ? parseInt(sheetMatch[1], 10) : 6;
+    outputs.totalAreaSqFt = outputs.sheetsNeeded * (inputs.sheetSize === '4x12' ? 48 : 32);
+    outputs.tapeFeet = tapeMatch ? parseFloat(tapeMatch[1]) : 75;
+    outputs.compoundLbs = Math.round(outputs.sheetsNeeded * 9 * 10) / 10;
+    outputs.screwsNeeded = screwMatch ? parseInt(screwMatch[1], 10) : 200;
+  }
+
+  // 4. Framing
+  else if (type === 'framing') {
+    const frameMatch = title.match(/([\d\.]+)\s*(ft|m)\s*Long,\s*(\d+)"/i);
+    if (frameMatch) {
+      inputs.length = parseFloat(frameMatch[1]);
+      inputs.studSpacing = parseInt(frameMatch[3], 10) as 16 | 24;
+      isMetric = frameMatch[2].toLowerCase() === 'm';
+    } else {
+      inputs.length = 12;
+      inputs.studSpacing = 16;
+    }
+    inputs.corners = 2;
+
+    const studMatch = details.match(/(\d+)\s*Studs/i);
+    const plateMatch = details.match(/(\d+)\s*Plates/i);
+
+    outputs.studsCount = studMatch ? parseInt(studMatch[1], 10) : 11;
+    const totPlates = plateMatch ? parseInt(plateMatch[1], 10) : 3;
+    outputs.topPlates16ft = Math.max(1, Math.round(totPlates * 0.67));
+    outputs.bottomPlates16ft = Math.max(1, totPlates - outputs.topPlates16ft);
+    outputs.totalPlatesLinearFt = totPlates * 16;
+  }
+
+  return {
+    ...item,
+    type,
+    inputs,
+    outputs,
+    isMetric
+  };
 }
 
 export default function Calculator({
@@ -46,7 +404,9 @@ export default function Calculator({
   shape,
   type,
   defaultWastePercent,
-  defaultThickness
+  defaultThickness,
+  lsiTitle,
+  lsiText
 }: CalculatorProps) {
   // State for Unit System: Imperial vs Metric
   const [isMetric, setIsMetric] = useState<boolean>(false);
@@ -237,8 +597,17 @@ export default function Calculator({
       slug,
       title: itemTitle,
       material,
+      shape,
+      type,
       details: itemDetails,
-      checked: true
+      checked: true,
+      inputs: {
+        length, width, thickness, waste, 
+        drywallWidth, includeCeiling, sheetSize,
+        studSpacing, corners, topPlates, bottomPlates, gravelDensity
+      },
+      outputs: results,
+      isMetric
     };
 
     saveShoppingList([...shoppingList, newItem]);
@@ -1196,68 +1565,178 @@ export default function Calculator({
       {/* Printable checklist container (only visible on print, spans full page width) */}
       <div className="hidden print:block print-only-checklist w-full max-w-4xl mx-auto p-8 bg-white text-black font-sans">
         {/* Header Section */}
-        <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-6">
+        <div className="flex items-center justify-between border-b-2 border-indigo-600 pb-4 mb-6">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-black flex items-center gap-2">
-              <span className="bg-black text-white px-2 py-0.5 rounded text-lg font-bold">BY</span>
+              <span className="bg-indigo-600 text-white px-2 py-0.5 rounded text-lg font-bold">BY</span>
               BUILD YARDAGE
             </h1>
-            <p className="text-xs text-zinc-600 mt-1 font-sans">Professional Material Estimate & Jobsite Checklist</p>
+            <p className="text-xs text-zinc-600 mt-1 font-sans">High-Performance Aggregates & Material Estimator</p>
             <p className="text-xs text-zinc-500 font-mono mt-0.5">URL: www.buildyardage.com</p>
           </div>
           <div className="text-right">
-            <p className="text-xs font-semibold uppercase text-zinc-700">Estimate Printout</p>
-            <p className="text-xs text-zinc-500 mt-1">Date: {printDate}</p>
+            <h2 className="text-md font-bold uppercase tracking-wider text-indigo-600">Jobsite Estimates Report</h2>
+            <p className="text-xs text-zinc-500 mt-1">Printed on: {printDate}</p>
           </div>
         </div>
 
-        {/* Checklist Table */}
-        <h2 className="text-md font-bold uppercase tracking-wider text-zinc-800 mb-3 border-b border-zinc-200 pb-1">
-          Shopping Checklist
-        </h2>
-        
-        {shoppingList.length === 0 ? (
-          <p className="text-xs text-zinc-500 py-4 text-center">No materials added to your checklist.</p>
-        ) : (
-          <table className="w-full text-left border-collapse border border-zinc-300 text-xs mb-8">
-            <thead>
-              <tr className="bg-zinc-100 border-b border-zinc-300">
-                <th className="p-3 border-r border-zinc-300 w-12 text-center">Done</th>
-                <th className="p-3 border-r border-zinc-300 font-bold">Material / Item Name</th>
-                <th className="p-3 font-mono text-zinc-700 font-bold">Estimated Quantities & Configurations</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shoppingList.map((item) => (
-                <tr key={item.id} className="border-b border-zinc-200 hover:bg-zinc-50">
-                  <td className="p-3 border-r border-zinc-300 text-center">
-                    <div className="mx-auto border border-black h-4 w-4 rounded-sm"></div>
-                  </td>
-                  <td className="p-3 border-r border-zinc-300 font-semibold text-zinc-900">
-                    {item.title}
-                    <span className="block text-[10px] text-zinc-500 mt-0.5 font-normal">Material Category: {item.material}</span>
-                  </td>
-                  <td className="p-3 font-mono text-zinc-900 leading-relaxed whitespace-pre-line">
-                    {item.details}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+        {/* Contractor Estimation Guide & Best Practices (First page, under header) */}
+        <div className="mb-10 border border-zinc-200 bg-zinc-50 rounded-lg p-8 page-break-inside-avoid text-zinc-800 text-xs">
+          {/* Top Title Section */}
+          <div className="border-b border-zinc-200 pb-4 mb-5">
+            <div className="flex items-center justify-between">
+              <h4 className="text-[10px] font-extrabold uppercase text-indigo-600 tracking-wider">Contractor Reference Manual</h4>
+              <span className="text-[9px] text-zinc-400 font-mono">Doc ID: BY-REF-001</span>
+            </div>
+            <h3 className="text-lg font-bold text-zinc-950 mt-1">{lsiTitle || `Material Estimation Guide`}</h3>
+            <p className="text-xs text-zinc-600 leading-relaxed font-sans mt-2">{lsiText || `Material volume is computed using physical dimensional inputs.`}</p>
+          </div>
 
-        {/* Notes Box */}
-        <div className="border border-zinc-300 p-4 rounded-md mb-8">
-          <h3 className="text-xs font-bold uppercase text-zinc-700 mb-2">Jobsite Notes</h3>
-          <div className="h-16 border-b border-dashed border-zinc-300 mb-4"></div>
-          <div className="h-16 border-b border-dashed border-zinc-300 mb-4"></div>
-          <div className="h-16 border-b border-dashed border-zinc-300"></div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Column 1: Waste Factors & Allowances */}
+            <div className="space-y-3">
+              <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                Waste Factor Allowances
+              </h4>
+              <p className="text-[11px] text-zinc-500 leading-normal">
+                Ordering exact volume leads to shortages due to form bowing, compaction, and spills:
+              </p>
+              <ul className="space-y-1.5 text-[11px] text-zinc-700 font-sans pl-1">
+                <li><strong>Slabs & Driveways:</strong> +10% waste buffer to account for sub-grade variation.</li>
+                <li><strong>Columns & Sonotubes:</strong> +5% to 10% waste buffer depending on hole smoothness.</li>
+                <li><strong>Gravel Bases:</strong> +10% to 15% to compensate for compaction sinking.</li>
+                <li><strong>Drywall Panels:</strong> +10% cuts, off-angles & window header waste.</li>
+                <li><strong>Wood Framing:</strong> +10% plates, blocking & warped stud allowance.</li>
+              </ul>
+            </div>
+
+            {/* Column 2: Materials & Density Conversions */}
+            <div className="space-y-3">
+              <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                Reference Constants
+              </h4>
+              <div className="space-y-2 text-[11px] text-zinc-700 font-sans">
+                <div>
+                  <span className="font-bold text-zinc-900 block">Concrete Weight (Standard):</span>
+                  1 Cubic Yard ≈ 4,050 lbs (approx. 2.025 Tons) of cured standard weight mix.
+                </div>
+                <div>
+                  <span className="font-bold text-zinc-900 block">Gravel Bulk Density:</span>
+                  1 Cubic Yard of compacted gravel subbase ≈ 2,800 lbs (approx. 1.4 Tons).
+                </div>
+                <div>
+                  <span className="font-bold text-zinc-900 block">Pre-mix Bag Coverage Yield:</span>
+                  80lb bag = 0.60 cu ft | 60lb bag = 0.45 cu ft | 40lb bag = 0.30 cu ft.
+                </div>
+              </div>
+            </div>
+
+            {/* Column 3: Wall & Drywall Estimating Rules */}
+            <div className="space-y-3">
+              <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                Site Estimation Rules
+              </h4>
+              <div className="space-y-2 text-[11px] text-zinc-700 font-sans">
+                <div>
+                  <span className="font-bold text-zinc-900 block">Wall Studs (16" O.C. Layout):</span>
+                  Calculate 1 stud per linear foot of wall length + 2 extra studs per corner or intersection.
+                </div>
+                <div>
+                  <span className="font-bold text-zinc-900 block">Drywall Seam & mud Estimation:</span>
+                  Approx. 75 ft of joint tape & 0.05 lbs of joint compound per 100 sq ft of sheet surface.
+                </div>
+                <div>
+                  <span className="font-bold text-zinc-900 block">Drywall Screws Coverage:</span>
+                  Approx. 30 screws needed per 4ft x 8ft panel (spaced 12" O.C. on studs).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Info Bar */}
+          <div className="mt-6 pt-4 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-[11px] text-zinc-500 gap-4">
+            <p className="leading-normal">
+              <strong>How to Use results:</strong> Volume and pieces results are compiled live into the **Jobsite Shopping List** sidebar. Click the add button to track aggregates. Verify all values before ordering material.
+            </p>
+            <div className="p-2.5 bg-white border border-zinc-200 rounded font-mono text-zinc-600 flex gap-4 shrink-0">
+              <span>Unit System: {isMetric ? 'Metric' : 'Imperial'}</span>
+              <span>Default Margin: +{waste}%</span>
+            </div>
+          </div>
         </div>
 
-        {/* Disclaimer Footer */}
-        <div className="border-t border-zinc-300 pt-4 text-[10px] text-zinc-500 leading-relaxed">
-          <p><strong>Disclaimer:</strong> This shopping checklist compiles mathematical material estimates based on inputs provided by the user. These figures are approximations and include custom waste margin factors. Field conditions, sub-grade variations, structural reinforcements, and contractor practices can affect actual quantities needed. Consult a licensed contractor or local building supplier to verify ordering requirements before purchasing material.</p>
-          <p className="mt-2 text-right text-zinc-400 font-mono">buildyardage.com</p>
+        {/* Section 1: Detailed Calculation Cards List */}
+        <div className="space-y-8">
+          <h2 className="text-md font-bold uppercase tracking-wider text-zinc-800 border-b border-zinc-300 pb-1 mb-4">
+            Compiled Project Specifications
+          </h2>
+          
+          {shoppingList.length === 0 ? (
+            <p className="text-xs text-zinc-500 py-6 text-center border border-dashed border-zinc-200 rounded">
+              No materials added to your jobsite checklist yet.
+            </p>
+          ) : (
+            <div className="space-y-6">
+              {shoppingList.map((rawItem) => {
+                const item = fillLegacyItemData(rawItem);
+                return (
+                  <div key={item.id} className="print-card-container border border-zinc-300 rounded-lg p-5 bg-white page-break-inside-avoid">
+                    {/* Item Header */}
+                    <div className="flex items-center justify-between border-b border-zinc-200 pb-2 mb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-indigo-600 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                          {item.material}
+                        </span>
+                        <h3 className="text-xs font-bold text-zinc-900">{item.title}</h3>
+                      </div>
+                      <span className="text-[9px] text-zinc-500 font-mono">ID: #{item.id.slice(-6)}</span>
+                    </div>
+
+                    {/* SVG & Specs grid */}
+                    {item.inputs && item.outputs ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        {/* SVG Visualizer (Left) */}
+                        <div className="flex items-center justify-center bg-zinc-50 border border-zinc-100 rounded-md p-3 min-h-[140px]">
+                          {renderPrintSVG(item)}
+                        </div>
+
+                        {/* Detailed Output Grid (Right) */}
+                        <div className="space-y-3">
+                          <h4 className="text-[10px] font-bold uppercase text-zinc-400 tracking-wider">Estimated Specifications</h4>
+                          {renderPrintSpecs(item)}
+                          <span className="text-[9px] text-zinc-400 font-sans block leading-relaxed mt-1">
+                            * Output includes waste factor (+{item.inputs.waste || 10}%). Inputs: {item.type === 'cylindrical' ? `Dia: ${item.inputs.thickness}${item.isMetric ? 'cm' : 'in'}, H: ${item.inputs.length}${item.isMetric ? 'cm' : 'in'}` : `${item.inputs.length}x${item.type === 'drywall' ? item.inputs.drywallWidth : item.inputs.width}x${item.inputs.thickness} ${item.isMetric ? 'm/cm' : 'ft/in'}`}.
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      // Fallback for simple checklist items
+                      <div className="text-xs text-zinc-700 font-mono bg-zinc-50 p-2 rounded">
+                        {item.details}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Section 2: Jobsite Notes */}
+        <div className="border border-zinc-300 p-4 rounded-md mt-8 page-break-inside-avoid">
+          <h3 className="text-xs font-bold uppercase text-zinc-700 mb-2">Jobsite Notes</h3>
+          <div className="h-12 border-b border-dashed border-zinc-300 mb-3"></div>
+          <div className="h-12 border-b border-dashed border-zinc-300 mb-3"></div>
+          <div className="h-12 border-b border-dashed border-zinc-300"></div>
+        </div>
+
+        {/* Section 3: Disclaimer Footer */}
+        <div className="border-t border-zinc-300 pt-4 text-[9px] text-zinc-500 leading-relaxed page-break-inside-avoid mt-8">
+          <p><strong>Disclaimer:</strong> This material estimate report compiles mathematical material calculations based on inputs provided by the user. These figures are approximations and include waste margin factors. Field conditions, sub-grade variations, structural reinforcements, and contractor practices can affect actual quantities needed. Consult a licensed contractor or local building supplier to verify ordering requirements before purchasing material.</p>
+          <p className="mt-1 text-right text-zinc-400 font-mono">buildyardage.com</p>
         </div>
       </div>
     </div>

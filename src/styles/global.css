@@ -133,7 +133,25 @@ input[type="range"]::-webkit-slider-thumb:hover {
 @media print {
   @page {
     margin: 1.5cm;
-    size: portrait;
+    size: A4 portrait; /* Standard A4 portrait sizing */
+  }
+
+  /* Reset layout wrapper margins and paddings, forcing block layout so page breaks work correctly */
+  html,
+  body,
+  main,
+  main > div,
+  astro-island,
+  .mx-auto.max-w-7xl:not(.no-print):not(.print\:hidden),
+  div[class*="px-4"]:not(.no-print):not(.print\:hidden),
+  div[class*="py-8"]:not(.no-print):not(.print\:hidden) {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    display: block !important; /* CRITICAL: Must be block for page-break properties to function */
   }
 
   body {
@@ -146,6 +164,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   header,
   footer,
   .no-print,
+  .print\:hidden,
   #theme-toggle,
   [role="ad"],
   button,
@@ -154,14 +173,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
   .shopping-list-print,
   .print-full-width,
   .print-card-border,
-  main > div > div:not(.print-only-checklist) {
+  main > section,
+  main > article,
+  .no-print * {
     display: none !important;
-  }
-
-  main {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
   }
 
   /* Expose only the print checklist view */
@@ -172,6 +187,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
     width: 100% !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0 !important; /* Padding is handled by @page margin */
+  }
+
+  /* Smart page breaking: prevent elements from being sliced in half */
+  .print-card-container,
+  .print-only-checklist > div,
+  .print-only-checklist table {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 24px !important;
   }
 }
