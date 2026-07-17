@@ -50,6 +50,11 @@
   }
 }
 
+/* Prevent layout shifts on page transitions by forcing vertical scrollbar gutter */
+html {
+  overflow-y: scroll;
+}
+
 /* Custom Base Typography & Layouts */
 html,
 body {

@@ -19,6 +19,8 @@ const defaultJsonLd = {
 };
 
 const activeJsonLd = jsonLd || defaultJsonLd;
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -73,21 +75,64 @@ const activeJsonLd = jsonLd || defaultJsonLd;
       <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <!-- Logo / Wordmark -->
         <a href="/" class="flex items-center gap-2 group">
-          <div class="flex h-8 w-8 items-center justify-center rounded-md bg-brand-primary text-on-primary group-hover:scale-105 transition-transform duration-200 font-bold text-lg select-none">
-            BY
-          </div>
+          <img src="/favicon.svg" alt="Build Yardage Logo" class="h-8 w-8 group-hover:scale-105 transition-transform duration-200 select-none" />
           <span class="text-xl font-bold tracking-tight text-ink">
             Build<span class="text-brand-accent">Yardage</span>
           </span>
         </a>
 
         <!-- Main Navigation Links -->
-        <nav class="hidden md:flex items-center gap-6">
-          <a href="/calculators/concrete-slab-calculator" class="text-sm font-medium text-body hover:text-ink transition-colors">Concrete Slab</a>
-          <a href="/calculators/concrete-column-calculator" class="text-sm font-medium text-body hover:text-ink transition-colors">Column / Post</a>
-          <a href="/calculators/gravel-driveway-calculator" class="text-sm font-medium text-body hover:text-ink transition-colors">Gravel</a>
-          <a href="/calculators/drywall-calculator" class="text-sm font-medium text-body hover:text-ink transition-colors">Drywall</a>
-          <a href="/calculators/framing-calculator" class="text-sm font-medium text-body hover:text-ink transition-colors">Framing</a>
+        <nav class="hidden md:flex items-center gap-6 h-full">
+          <a
+            href="/calculators/concrete-slab-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/concrete-slab-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Concrete Slab
+          </a>
+          <a
+            href="/calculators/concrete-column-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/concrete-column-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Column / Post
+          </a>
+          <a
+            href="/calculators/gravel-driveway-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/gravel-driveway-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Gravel
+          </a>
+          <a
+            href="/calculators/drywall-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/drywall-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Drywall
+          </a>
+          <a
+            href="/calculators/framing-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/framing-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Framing
+          </a>
         </nav>
 
         <!-- Secondary Actions & Theme Toggle -->
@@ -122,9 +167,7 @@ const activeJsonLd = jsonLd || defaultJsonLd;
           <!-- Brand Info -->
           <div class="space-y-4 md:col-span-2">
             <div class="flex items-center gap-2">
-              <div class="flex h-7 w-7 items-center justify-center rounded bg-white text-black font-bold text-sm">
-                BY
-              </div>
+              <img src="/favicon.svg" alt="Build Yardage Logo" class="h-7 w-7 select-none" />
               <span class="text-lg font-bold tracking-tight text-white">
                 Build<span class="text-brand-accent">Yardage</span>
               </span>

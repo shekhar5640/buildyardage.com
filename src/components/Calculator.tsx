@@ -1567,9 +1567,12 @@ export default function Calculator({
         {/* Header Section */}
         <div className="flex items-center justify-between border-b-2 border-indigo-600 pb-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-black flex items-center gap-2">
-              <span className="bg-indigo-600 text-white px-2 py-0.5 rounded text-lg font-bold">BY</span>
-              BUILD YARDAGE
+            <h1 className="text-2xl font-extrabold tracking-tight font-sans flex items-center gap-2 select-none">
+              <img src="/favicon.svg" alt="Build Yardage Logo" className="h-7 w-7" />
+              <span>
+                <span className="text-black">Build</span>
+                <span style={{ color: '#4f46e5' }}>yardage</span>
+              </span>
             </h1>
             <p className="text-xs text-zinc-600 mt-1 font-sans">High-Performance Aggregates & Material Estimator</p>
             <p className="text-xs text-zinc-500 font-mono mt-0.5">URL: www.buildyardage.com</p>
