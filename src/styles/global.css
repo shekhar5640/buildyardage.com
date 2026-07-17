@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Theme Colors */
+  --color-brand-primary: #111111;
+  --color-brand-primary-active: #242424;
+  --color-brand-primary-disabled: #e5e7eb;
+  --color-ink: #111111;
+  --color-body: #374151;
+  --color-muted: #6b7280;
+  --color-muted-soft: #898989;
+  --color-hairline: #e5e7eb;
+  --color-hairline-soft: #f3f4f6;
+  --color-canvas: #ffffff;
+  --color-surface-soft: #f8f9fa;
+  --color-surface-card: #f5f5f5;
+  --color-surface-strong: #e5e7eb;
+  --color-surface-dark: #101010;
+  --color-surface-dark-elevated: #1a1a1a;
+  --color-on-primary: #ffffff;
+  --color-on-dark: #ffffff;
+  --color-on-dark-soft: #a1a1aa;
+  
+  /* Accent Colors */
+  --color-brand-accent: #4f46e5; /* Deep Indigo bg-indigo-600 */
+  --color-brand-accent-hover: #4338ca;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-badge-orange: #fb923c;
+  --color-badge-pink: #ec4899;
+  --color-badge-violet: #8b5cf6;
+  --color-badge-emerald: #34d399;
+
+  /* Typography Fallbacks */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Smooth Custom Animations */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-scale-up: scale-up 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scale-up {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+}
+
+/* Custom Base Typography & Layouts */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* Force dark mode styling using data-theme or class */
+html[data-theme="dark"] {
+  --color-canvas: #09090b;
+  --color-body: #a1a1aa;
+  --color-ink: #f4f4f5;
+  --color-muted: #71717a;
+  --color-muted-soft: #52525b;
+  --color-hairline: #27272a;
+  --color-hairline-soft: #18181b;
+  --color-surface-soft: #18181b;
+  --color-surface-card: #18181b;
+  --color-surface-strong: #27272a;
+  --color-surface-dark: #09090b;
+  --color-surface-dark-elevated: #18181b;
+  --color-on-primary: #09090b;
+  --color-brand-primary: #f4f4f5;
+  --color-brand-primary-active: #e4e4e7;
+  --color-brand-primary-disabled: #27272a;
+}
+
+/* Range input slider styling resets */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--color-hairline);
+  height: 6px;
+  border-radius: 9999px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -5px; /* Centers the thumb */
+  background-color: var(--color-brand-accent);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: var(--color-brand-accent-hover);
+  transform: scale(1.1);
+}
+
+/* Print Stylesheet overrides */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: portrait;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+  
+  /* Hide standard page layout and screen items */
+  header,
+  footer,
+  .no-print,
+  #theme-toggle,
+  [role="ad"],
+  button,
+  .history-panel,
+  .calculator-inputs,
+  .shopping-list-print,
+  .print-full-width,
+  .print-card-border,
+  main > div > div:not(.print-only-checklist) {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Expose only the print checklist view */
+  .print-only-checklist {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

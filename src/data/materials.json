@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "concrete-slab-calculator",
+    "material": "Concrete",
+    "shape": "Slab",
+    "type": "rectangular",
+    "meta_title": "Concrete Slab Calculator | Estimate Yards & Bags",
+    "meta_description": "Calculate cubic yards, feet, and bag counts for a concrete slab. Enter custom dimensions and waste margins.",
+    "default_waste_percent": 10,
+    "default_thickness": 4,
+    "lsi_title": "How is Concrete Slab Volume Figured?",
+    "lsi_text": "Slab volume is calculated by multiplying length by width and then multiplying by depth. For commercial durability, structural slabs are typically poured to a depth of 4 inches over a compacted gravel sub-base."
+  },
+  {
+    "slug": "concrete-column-calculator",
+    "material": "Concrete",
+    "shape": "Column (Cylinder)",
+    "type": "cylindrical",
+    "meta_title": "Concrete Column Calculator | Post Hole Estimator",
+    "meta_description": "Estimate concrete volume for round columns, sonotubes, and fence post holes. Supports custom diameter and height.",
+    "default_waste_percent": 5,
+    "default_thickness": 36,
+    "lsi_title": "Calculating Concrete for Round Pillars",
+    "lsi_text": "Round concrete column calculation is based on cylinder volume (pi * r^2 * h). Sonotubes are typically poured with a 5% to 10% waste buffer to account for soil unevenness and spillage."
+  },
+  {
+    "slug": "gravel-driveway-calculator",
+    "material": "Gravel",
+    "shape": "Driveway (Rectangular)",
+    "type": "gravel-rect",
+    "meta_title": "Gravel Driveway Calculator | Estimate Tons & Yards",
+    "meta_description": "Estimate gravel tonnage and cubic yards needed for a driveway or patio base. Enter custom dimensions and density factors.",
+    "default_waste_percent": 10,
+    "default_thickness": 6,
+    "lsi_title": "Understanding Gravel Base Depth",
+    "lsi_text": "A standard residential driveway requires a compacted gravel base layer between 4 to 6 inches deep. Gravel calculations convert volume (cubic yards) to mass (tons) using average aggregate density values of 1.4 tons per cubic yard."
+  },
+  {
+    "slug": "drywall-calculator",
+    "material": "Drywall",
+    "shape": "Room Panels",
+    "type": "drywall",
+    "meta_title": "Drywall Sheet Calculator | Estimate Panels & Supplies",
+    "meta_description": "Calculate standard 4x8 or 4x12 drywall sheets, screws, tape, and joint compound needed for walls and ceilings.",
+    "default_waste_percent": 10,
+    "default_thickness": 0,
+    "lsi_title": "Drywall Panel Optimization & Estimation",
+    "lsi_text": "To minimize seams, contractors use the largest practical sheet sizes (typically 4x12 sheets for walls over 10 feet). Standard calculation rules allocate approximately 32 feet of tape and 35 screws per drywall sheet."
+  },
+  {
+    "slug": "framing-calculator",
+    "material": "Wood",
+    "shape": "Stud Wall",
+    "type": "framing",
+    "meta_title": "Framing Stud Calculator | Wall Framer Estimator",
+    "meta_description": "Calculate total studs, top plates, and bottom plates needed for a wood frame wall. Supports 16\" and 24\" spacing.",
+    "default_waste_percent": 10,
+    "default_thickness": 0,
+    "lsi_title": "Standard Stud Wall Spacing Conventions",
+    "lsi_text": "Residential walls are framed using studs spaced 16 inches or 24 inches on center. A standard framing estimation includes a bottom plate, a double top plate, and additional studs for corners, doors, and intersections."
+  }
+]
