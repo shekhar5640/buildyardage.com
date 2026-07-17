@@ -1591,8 +1591,10 @@ export default function Calculator({
               <h4 className="text-[10px] font-extrabold uppercase text-indigo-600 tracking-wider">Contractor Reference Manual</h4>
               <span className="text-[9px] text-zinc-400 font-mono">Doc ID: BY-REF-001</span>
             </div>
-            <h3 className="text-lg font-bold text-zinc-950 mt-1">{lsiTitle || `Material Estimation Guide`}</h3>
-            <p className="text-xs text-zinc-600 leading-relaxed font-sans mt-2">{lsiText || `Material volume is computed using physical dimensional inputs.`}</p>
+            <h3 className="text-lg font-bold text-zinc-950 mt-1">General Estimation & Best Practices Manual</h3>
+            <p className="text-xs text-zinc-600 leading-relaxed font-sans mt-2">
+              This manual provides standard calculations, material density guidelines, and field-tested waste margins to assist in jobsite material ordering. All calculations are mathematical approximations based on dimensional inputs and standard contractor allowances.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
