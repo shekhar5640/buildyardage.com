@@ -58,5 +58,17 @@
     "default_thickness": 0,
     "lsi_title": "Standard Stud Wall Spacing Conventions",
     "lsi_text": "Residential walls are framed using studs spaced 16 inches or 24 inches on center. A standard framing estimation includes a bottom plate, a double top plate, and additional studs for corners, doors, and intersections."
+  },
+  {
+    "slug": "rebar-calculator",
+    "material": "Rebar",
+    "shape": "Reinforcement Grid",
+    "type": "rebar",
+    "meta_title": "Rebar Calculator | Reinforcing Grid & Weight Estimator",
+    "meta_description": "Estimate rebar grid spacing, total linear footage, number of sticks/pieces, and total weight by bar size (#3 to #8). Free construction estimator.",
+    "default_waste_percent": 10,
+    "default_thickness": 3,
+    "lsi_title": "Concrete Rebar Layout Guidelines",
+    "lsi_text": "To reinforce concrete slabs, steel rebars are laid out in a grid pattern. Industry standard guidelines suggest keeping rebar at least 3 inches away from the outer edges to prevent environmental exposure and rust. Lap splices, where bars overlap by 12 to 18 inches, are critical to maintaining structural continuous tension."
   }
 ]

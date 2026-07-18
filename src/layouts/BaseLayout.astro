@@ -133,6 +133,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
           >
             Framing
           </a>
+          <a
+            href="/calculators/rebar-calculator"
+            class={`text-sm font-semibold transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
+              currentPath === '/calculators/rebar-calculator'
+                ? 'text-brand-accent border-brand-accent'
+                : 'text-body hover:text-ink border-transparent'
+            }`}
+          >
+            Rebar Grid
+          </a>
         </nav>
 
         <!-- Secondary Actions & Theme Toggle -->
@@ -195,6 +205,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
               </li>
               <li>
                 <a href="/calculators/framing-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Wall Framing</a>
+              </li>
+              <li>
+                <a href="/calculators/rebar-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Rebar Grid</a>
               </li>
             </ul>
           </div>

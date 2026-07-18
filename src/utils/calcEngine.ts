@@ -295,3 +295,118 @@ export function calculateFraming(
     totalPlatesLinearFt: parseFloat(totalPlatesLinearFt.toFixed(2)),
   };
 }
+
+export interface RebarResult {
+  gridLength: number;
+  gridWidth: number;
+  totalLength: number;
+  totalPieces: number;
+  estimatedWeightLbs: number;
+  estimatedWeightKgs: number;
+}
+
+// Unit weights for standard rebar sizes: weight per foot in lbs, weight per meter in kgs
+export const REBAR_SIZES: Record<string, { name: string, weightLbsPerFt: number, weightKgsPerM: number }> = {
+  '#3': { name: '#3 (3/8" or 9.5mm)', weightLbsPerFt: 0.376, weightKgsPerM: 0.560 },
+  '#4': { name: '#4 (1/2" or 12.7mm)', weightLbsPerFt: 0.668, weightKgsPerM: 0.994 },
+  '#5': { name: '#5 (5/8" or 15.9mm)', weightLbsPerFt: 1.043, weightKgsPerM: 1.552 },
+  '#6': { name: '#6 (3/4" or 19.1mm)', weightLbsPerFt: 1.502, weightKgsPerM: 2.235 },
+  '#7': { name: '#7 (7/8" or 22.2mm)', weightLbsPerFt: 2.044, weightKgsPerM: 3.042 },
+  '#8': { name: '#8 (1" or 25.4mm)', weightLbsPerFt: 2.670, weightKgsPerM: 3.973 }
+};
+
+/**
+ * Calculates rebar grid dimensions, total length, pieces, and weight
+ * @param length Slab length (ft or m)
+ * @param width Slab width (ft or m)
+ * @param edgeClearance Edge clearance (inches or cm)
+ * @param spacing Rebar grid spacing (inches or cm)
+ * @param stickLength Rebar stick length (ft or m, e.g. 20ft or 6m)
+ * @param overlap Overlap / lap splice length (inches or cm, e.g. 12in or 30cm)
+ * @param wastePercent Waste percentage buffer (e.g. 10)
+ * @param rebarSize Selected rebar size (e.g. '#4')
+ * @param isMetric True if inputs are in metric, false if imperial
+ */
+export function calculateRebar(
+  length: number,
+  width: number,
+  edgeClearance: number,
+  spacing: number,
+  stickLength: number,
+  overlap: number,
+  wastePercent: number,
+  rebarSize: string = '#4',
+  isMetric: boolean
+): RebarResult {
+  const divFactor = isMetric ? 100 : 12;
+  const cNative = edgeClearance / divFactor;
+  const sNative = spacing / divFactor;
+  const oNative = overlap / divFactor;
+
+  // 1. Grid Dimensions
+  const gridLength = Math.max(0, length - 2 * cNative);
+  const gridWidth = Math.max(0, width - 2 * cNative);
+
+  // 2. Number of bars in each direction
+  let lengthwiseBars = 0;
+  if (gridWidth > 0 && sNative > 0) {
+    lengthwiseBars = Math.ceil(gridWidth / sNative) + 1;
+  }
+
+  let widthwiseBars = 0;
+  if (gridLength > 0 && sNative > 0) {
+    widthwiseBars = Math.ceil(gridLength / sNative) + 1;
+  }
+
+  // 3. Overlaps calculation per bar run
+  // Lengthwise runs (running parallel to Slab Length)
+  let overlapsPerL = 0;
+  if (gridLength > stickLength && (stickLength - oNative) > 0) {
+    overlapsPerL = Math.ceil((gridLength - stickLength) / (stickLength - oNative));
+  }
+  const lengthPerLRun = gridLength + overlapsPerL * oNative;
+  const totalLengthwiseRebar = lengthwiseBars * lengthPerLRun;
+
+  // Widthwise runs (running parallel to Slab Width)
+  let overlapsPerW = 0;
+  if (gridWidth > stickLength && (stickLength - oNative) > 0) {
+    overlapsPerW = Math.ceil((gridWidth - stickLength) / (stickLength - oNative));
+  }
+  const lengthPerWRun = gridWidth + overlapsPerW * oNative;
+  const totalWidthwiseRebar = widthwiseBars * lengthPerWRun;
+
+  // 4. Totals
+  const totalLengthNoWaste = totalLengthwiseRebar + totalWidthwiseRebar;
+  const totalLength = totalLengthNoWaste * (1 + wastePercent / 100);
+
+  // Pieces needed
+  let totalPieces = 0;
+  if (stickLength > 0) {
+    totalPieces = Math.ceil(totalLength / stickLength);
+  }
+
+  // 5. Weight Estimation
+  const barWeightInfo = REBAR_SIZES[rebarSize] || REBAR_SIZES['#4'];
+  let estimatedWeightLbs = 0;
+  let estimatedWeightKgs = 0;
+
+  if (isMetric) {
+    // totalLength is in meters, so weight in kgs is length * weightKgsPerM
+    estimatedWeightKgs = totalLength * barWeightInfo.weightKgsPerM;
+    estimatedWeightLbs = estimatedWeightKgs * 2.20462;
+  } else {
+    // totalLength is in feet, so weight in lbs is length * weightLbsPerFt
+    estimatedWeightLbs = totalLength * barWeightInfo.weightLbsPerFt;
+    estimatedWeightKgs = estimatedWeightLbs / 2.20462;
+  }
+
+  return {
+    gridLength: parseFloat(gridLength.toFixed(2)),
+    gridWidth: parseFloat(gridWidth.toFixed(2)),
+    totalLength: parseFloat(totalLength.toFixed(2)),
+    totalPieces: Math.ceil(totalPieces),
+    estimatedWeightLbs: parseFloat(estimatedWeightLbs.toFixed(1)),
+    estimatedWeightKgs: parseFloat(estimatedWeightKgs.toFixed(1)),
+  };
+}
+

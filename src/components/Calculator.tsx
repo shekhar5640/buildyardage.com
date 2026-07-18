@@ -8,7 +8,15 @@ import {
   calculateConcreteColumn, 
   calculateGravel, 
   calculateDrywall, 
-  calculateFraming 
+  calculateFraming,
+  calculateRebar,
+  type ConcreteSlabResult,
+  type ConcreteColumnResult,
+  type GravelResult,
+  type DrywallResult,
+  type FramingResult,
+  type RebarResult,
+  REBAR_SIZES
 } from '../utils/calcEngine';
 
 interface CalculatorProps {
@@ -45,6 +53,8 @@ interface ShoppingItem {
   inputs?: Record<string, any>;
   outputs?: Record<string, any>;
   isMetric?: boolean;
+  unitPrice?: number;
+  estimatedCost?: number;
 }
 
 // Helper function to render a clean visual SVG diagram for print documents
@@ -129,6 +139,40 @@ function renderPrintSVG(item: ShoppingItem) {
     );
   }
 
+  if (type === 'rebar') {
+    const spacing = inputs.rebarSpacing || 12;
+    return (
+      <svg viewBox="0 0 300 180" className="w-full max-h-[140px]">
+        {/* 3D isometric slab */}
+        <polygon points="150,30 240,65 150,100 60,65" fill="#f1f5f9" stroke="#475569" strokeWidth="1.5" />
+        <polygon points="60,65 150,100 150,110 60,75" fill="#cbd5e1" stroke="#475569" strokeWidth="1.5" />
+        <polygon points="150,100 240,65 240,75 150,110" fill="#f8fafc" stroke="#475569" strokeWidth="1.5" />
+
+        {/* Rebar grid lines */}
+        {/* Lengthwise lines (constant u, varying v) */}
+        {[0.2, 0.4, 0.6, 0.8].map((u, i) => {
+          const x1 = 150 + u * -90 + 0.08 * 90;
+          const y1 = 30 + u * 35 + 0.08 * 35;
+          const x2 = 150 + u * -90 + 0.92 * 90;
+          const y2 = 30 + u * 35 + 0.92 * 35;
+          return <line key={`len-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" />;
+        })}
+        {/* Widthwise lines (varying u, constant v) */}
+        {[0.2, 0.4, 0.6, 0.8].map((v, i) => {
+          const x1 = 150 + 0.08 * -90 + v * 90;
+          const y1 = 30 + 0.08 * 35 + v * 35;
+          const x2 = 150 + 0.92 * -90 + v * 90;
+          const y2 = 30 + 0.92 * 35 + v * 35;
+          return <line key={`wid-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#4f46e5" strokeWidth="2" strokeLinecap="round" />;
+        })}
+
+        <text x="75" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">L: {length} {isMetric ? 'm' : 'ft'}</text>
+        <text x="210" y="105" fontSize="10" fill="#000000" className="font-mono font-bold">W: {width} {isMetric ? 'm' : 'ft'}</text>
+        <text x="150" y="125" textAnchor="middle" fontSize="9" fill="#4f46e5" className="font-mono font-bold">Grid Spacing: {spacing} {isMetric ? 'cm' : 'in'}</text>
+      </svg>
+    );
+  }
+
   return null;
 }
 
@@ -161,6 +205,14 @@ function renderPrintSpecs(item: ShoppingItem) {
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">80lb / 60lb / 40lb Bags</span>
           <span className="text-sm font-mono font-bold">{outputs.bags80lb} / {outputs.bags60lb} / {outputs.bags40lb} bags</span>
         </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
+        </div>
       </div>
     );
   }
@@ -183,6 +235,14 @@ function renderPrintSpecs(item: ShoppingItem) {
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">80lb / 60lb / 40lb Bags</span>
           <span className="text-sm font-mono font-bold">{outputs.bags80lb} / {outputs.bags60lb} / {outputs.bags40lb} bags</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
         </div>
       </div>
     );
@@ -207,6 +267,14 @@ function renderPrintSpecs(item: ShoppingItem) {
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Aggregate Density</span>
           <span className="text-sm font-mono font-bold">{gravelDensity} tons/yd³</span>
         </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
+        </div>
       </div>
     );
   }
@@ -229,6 +297,14 @@ function renderPrintSpecs(item: ShoppingItem) {
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Joint Screws</span>
           <span className="text-sm font-mono font-bold">~{outputs.screwsNeeded} pcs</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
         </div>
       </div>
     );
@@ -253,6 +329,52 @@ function renderPrintSpecs(item: ShoppingItem) {
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Corners / Blocks</span>
           <span className="text-sm font-mono font-bold">{corners} corners</span>
         </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'rebar') {
+    const spaceUnit = item.isMetric ? 'cm' : 'in';
+    const lenUnit = item.isMetric ? 'm' : 'ft';
+    const weightUnit = item.isMetric ? 'kg' : 'lbs';
+    const spacing = inputs.rebarSpacing || 12;
+    const rebarSize = inputs.rebarSize || '#4';
+    const stickLength = inputs.rebarStickLength || 20;
+    const estWeight = item.isMetric ? outputs.estimatedWeightKgs : outputs.estimatedWeightLbs;
+    return (
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Rebar Pieces</span>
+          <span className="text-sm font-mono font-bold">{outputs.totalPieces} pcs ({stickLength}{lenUnit} sticks)</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Total Length</span>
+          <span className="text-sm font-mono font-bold">{outputs.totalLength} {lenUnit}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Est. Weight / Size</span>
+          <span className="text-sm font-mono font-bold">{estWeight} {weightUnit} (Size: {rebarSize})</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Grid Dimensions</span>
+          <span className="text-sm font-mono font-bold">{outputs.gridLength} x {outputs.gridWidth} {lenUnit}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Unit Price</span>
+          <span className="text-sm font-mono font-bold">${item.unitPrice?.toFixed(2) || '0.00'}</span>
+        </div>
+        <div className="border-b border-zinc-100 pb-2">
+          <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Estimated Cost</span>
+          <span className="text-sm font-mono font-bold text-indigo-600">${item.estimatedCost?.toFixed(2) || '0.00'}</span>
+        </div>
       </div>
     );
   }
@@ -276,11 +398,13 @@ function fillLegacyItemData(item: ShoppingItem): ShoppingItem {
     else if (item.slug?.includes('gravel')) type = 'gravel-rect';
     else if (item.slug?.includes('drywall')) type = 'drywall';
     else if (item.slug?.includes('framing')) type = 'framing';
+    else if (item.slug?.includes('rebar')) type = 'rebar';
     else if (item.material?.toLowerCase().includes('concrete')) {
       type = item.title?.includes('Column') ? 'cylindrical' : 'rectangular';
     } else if (item.material?.toLowerCase().includes('gravel')) type = 'gravel-rect';
     else if (item.material?.toLowerCase().includes('drywall')) type = 'drywall';
     else if (item.material?.toLowerCase().includes('framing')) type = 'framing';
+    else if (item.material?.toLowerCase().includes('rebar')) type = 'rebar';
   }
 
   const title = item.title || "";
@@ -389,14 +513,69 @@ function fillLegacyItemData(item: ShoppingItem): ShoppingItem {
     outputs.totalPlatesLinearFt = totPlates * 16;
   }
 
+  // 5. Rebar
+  else if (type === 'rebar') {
+    const rebarMatch = title.match(/([\d\.]+)\s*(ft|m)\s*x\s*([\d\.]+)\s*(ft|m)\s*grid/i);
+    if (rebarMatch) {
+      inputs.length = parseFloat(rebarMatch[1]);
+      inputs.width = parseFloat(rebarMatch[3]);
+      isMetric = rebarMatch[2].toLowerCase() === 'm';
+    } else {
+      inputs.length = 20;
+      inputs.width = 20;
+    }
+    inputs.thickness = 3; // clearance (stored in thickness)
+    inputs.rebarSpacing = 12;
+    inputs.rebarStickLength = 20;
+    inputs.rebarOverlap = 12;
+    inputs.rebarSize = '#4';
+    inputs.waste = 10;
+
+    const pcsMatch = details.match(/(\d+)\s*pcs/i);
+    const lenMatch = details.match(/length:\s*([\d\.]+)\s*(ft|m)/i);
+
+    outputs.totalPieces = pcsMatch ? parseInt(pcsMatch[1], 10) : 21;
+    outputs.totalLength = lenMatch ? parseFloat(lenMatch[1]) : 420;
+    outputs.gridLength = Math.max(0, inputs.length - 0.5);
+    outputs.gridWidth = Math.max(0, inputs.width - 0.5);
+    outputs.estimatedWeightLbs = Math.round(outputs.totalLength * 0.668);
+    outputs.estimatedWeightKgs = Math.round(outputs.estimatedWeightLbs / 2.20462);
+  }
+
+  // Fill legacy pricing if missing
+  const unitPrice = item.unitPrice !== undefined ? item.unitPrice : (inputs.pricePerUnit !== undefined ? inputs.pricePerUnit : undefined);
+  let estimatedCost = item.estimatedCost;
+  if (estimatedCost === undefined && outputs && unitPrice !== undefined) {
+    if (type === 'rectangular' || type === 'cylindrical') {
+      const qty = isMetric ? (outputs.cubicMeters || 0) : (outputs.cubicYards || 0);
+      estimatedCost = parseFloat((qty * unitPrice).toFixed(2));
+    } else if (type === 'gravel-rect') {
+      estimatedCost = parseFloat(((outputs.tons || 0) * unitPrice).toFixed(2));
+    } else if (type === 'drywall') {
+      estimatedCost = parseFloat(((outputs.sheetsNeeded || 0) * unitPrice).toFixed(2));
+    } else if (type === 'framing') {
+      const qty = (outputs.studsCount || 0) + (outputs.topPlates16ft || 0) + (outputs.bottomPlates16ft || 0);
+      estimatedCost = parseFloat((qty * unitPrice).toFixed(2));
+    } else if (type === 'rebar') {
+      estimatedCost = parseFloat(((outputs.totalPieces || 0) * unitPrice).toFixed(2));
+    }
+  }
+
   return {
     ...item,
     type,
-    inputs,
+    inputs: {
+      ...inputs,
+      pricePerUnit: unitPrice
+    },
     outputs,
-    isMetric
+    isMetric,
+    unitPrice,
+    estimatedCost
   };
 }
+
+
 
 export default function Calculator({
   slug,
@@ -430,6 +609,16 @@ export default function Calculator({
 
   // Gravel specific state
   const [gravelDensity, setGravelDensity] = useState<number>(1.4);
+
+  // Rebar specific states
+  const [rebarSpacing, setRebarSpacing] = useState<number>(12);
+  const [rebarStickLength, setRebarStickLength] = useState<number>(20);
+  const [rebarOverlap, setRebarOverlap] = useState<number>(12);
+  const [rebarSize, setRebarSize] = useState<string>('#4');
+
+  // Pricing state
+  const [priceInput, setPriceInput] = useState<string>("");
+  const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);
 
   // Local Storage state: History & Shopping List
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -484,6 +673,11 @@ export default function Calculator({
         if (type === 'drywall' && drywallWidth > 0) {
           setDrywallWidth(parseFloat((drywallWidth * 0.3048).toFixed(2)));
         }
+        if (type === 'rebar') {
+          setRebarSpacing(parseFloat((rebarSpacing * 2.54).toFixed(1)));
+          setRebarOverlap(parseFloat((rebarOverlap * 2.54).toFixed(1)));
+          setRebarStickLength(parseFloat((rebarStickLength * 0.3048).toFixed(2)));
+        }
       } else {
         // Converting Metric to Imperial
         if (type !== 'cylindrical') {
@@ -501,6 +695,11 @@ export default function Calculator({
         if (type === 'drywall' && drywallWidth > 0) {
           setDrywallWidth(parseFloat((drywallWidth / 0.3048).toFixed(1)));
         }
+        if (type === 'rebar') {
+          setRebarSpacing(parseFloat((rebarSpacing / 2.54).toFixed(1)));
+          setRebarOverlap(parseFloat((rebarOverlap / 2.54).toFixed(1)));
+          setRebarStickLength(parseFloat((rebarStickLength / 0.3048).toFixed(1)));
+        }
       }
       return next;
     });
@@ -509,6 +708,7 @@ export default function Calculator({
   // Reset inputs to default on load or page swap
   useEffect(() => {
     setIsMetric(false);
+    setPriceInput("");
     if (type === 'rectangular') {
       setLength(12);
       setWidth(10);
@@ -538,29 +738,57 @@ export default function Calculator({
       setTopPlates(2);
       setBottomPlates(1);
       setWaste(10);
+    } else if (type === 'rebar') {
+      setLength(20);
+      setWidth(20);
+      setThickness(3); // edge clearance: 3 inches
+      setWaste(10);
+      setRebarSpacing(12);
+      setRebarStickLength(20);
+      setRebarOverlap(12);
+      setRebarSize('#4');
     }
   }, [type, defaultThickness, defaultWastePercent]);
 
   // Math Calculations Engine Hook
   const results = useMemo(() => {
     if (type === 'rectangular') {
-      return calculateConcreteSlab(length, width, thickness, waste, isMetric);
+      const res = calculateConcreteSlab(length, width, thickness, waste, isMetric);
+      const qty = isMetric ? res.cubicMeters : res.cubicYards;
+      return { ...res, estimatedCost: parseFloat((qty * pricePerUnit).toFixed(2)) };
     } else if (type === 'cylindrical') {
-      // diameter is stored in thickness, height is stored in length
-      return calculateConcreteColumn(thickness, length, waste, isMetric);
+      const res = calculateConcreteColumn(thickness, length, waste, isMetric);
+      const qty = isMetric ? res.cubicMeters : res.cubicYards;
+      return { ...res, estimatedCost: parseFloat((qty * pricePerUnit).toFixed(2)) };
     } else if (type === 'gravel-rect') {
-      return calculateGravel(length, width, thickness, waste, gravelDensity, isMetric);
+      const res = calculateGravel(length, width, thickness, waste, gravelDensity, isMetric);
+      return { ...res, estimatedCost: parseFloat((res.tons * pricePerUnit).toFixed(2)) };
     } else if (type === 'drywall') {
-      return calculateDrywall(length, drywallWidth, thickness, includeCeiling, sheetSize, waste, isMetric);
+      const res = calculateDrywall(length, drywallWidth, thickness, includeCeiling, sheetSize, waste, isMetric);
+      return { ...res, estimatedCost: parseFloat((res.sheetsNeeded * pricePerUnit).toFixed(2)) };
     } else if (type === 'framing') {
-      return calculateFraming(length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric);
+      const res = calculateFraming(length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric);
+      const qty = res.studsCount + res.topPlates16ft + res.bottomPlates16ft;
+      return { ...res, estimatedCost: parseFloat((qty * pricePerUnit).toFixed(2)) };
+    } else if (type === 'rebar') {
+      const res = calculateRebar(length, width, thickness, rebarSpacing, rebarStickLength, rebarOverlap, waste, rebarSize, isMetric);
+      return { ...res, estimatedCost: parseFloat((res.totalPieces * pricePerUnit).toFixed(2)) };
     }
     return null;
   }, [
     type, length, width, thickness, waste, isMetric, 
     drywallWidth, includeCeiling, sheetSize, 
-    studSpacing, corners, topPlates, bottomPlates, gravelDensity
+    studSpacing, corners, topPlates, bottomPlates, gravelDensity,
+    rebarSpacing, rebarStickLength, rebarOverlap, rebarSize,
+    pricePerUnit
   ]);
+
+  // Grand Total Cost for shopping list items
+  const grandTotalCost = useMemo(() => {
+    return shoppingList
+      .filter(item => item.checked && item.estimatedCost !== undefined)
+      .reduce((sum, item) => sum + (item.estimatedCost || 0), 0);
+  }, [shoppingList]);
 
   // Add Current Calculation to Shopping List
   const addToShoppingList = () => {
@@ -573,23 +801,33 @@ export default function Calculator({
     const tUnit = isMetric ? "cm" : "in";
 
     if (type === 'rectangular') {
+      const res = results as ConcreteSlabResult;
       itemTitle = `${material} ${shape} (${length}${lUnit} x ${width}${lUnit} x ${thickness}${tUnit})`;
-      itemDetails = `${results.cubicYards} cu yd (${results.bags80lb} bags of 80lb)`;
+      itemDetails = `${res.cubicYards} cu yd (${res.bags80lb} bags of 80lb)`;
     } else if (type === 'cylindrical') {
+      const res = results as ConcreteColumnResult;
       itemTitle = `${material} Column (Dia: ${thickness}${tUnit}, H: ${length}${tUnit})`;
-      itemDetails = `${results.cubicYards} cu yd (${results.bags80lb} bags of 80lb)`;
+      itemDetails = `${res.cubicYards} cu yd (${res.bags80lb} bags of 80lb)`;
     } else if (type === 'gravel-rect') {
+      const res = results as GravelResult;
       itemTitle = `Gravel Base (${length}${lUnit} x ${width}${lUnit} x ${thickness}${tUnit})`;
-      itemDetails = `${results.tons} tons (${results.cubicYards} cu yd)`;
+      itemDetails = `${res.tons} tons (${res.cubicYards} cu yd)`;
     } else if (type === 'drywall') {
+      const res = results as DrywallResult;
       const roomSize = drywallWidth > 0 
         ? `${length}x${drywallWidth}x${thickness}${lUnit}` 
         : `${length}x${thickness}${lUnit} Wall`;
       itemTitle = `Drywall Panels (${roomSize})`;
-      itemDetails = `${results.sheetsNeeded} sheets (${sheetSize}), tape: ${results.tapeFeet}ft, screws: ${results.screwsNeeded}`;
+      itemDetails = `${res.sheetsNeeded} sheets (${sheetSize}), tape: ${res.tapeFeet}ft, screws: ${res.screwsNeeded}`;
     } else if (type === 'framing') {
+      const res = results as FramingResult;
       itemTitle = `Framed Wall (${length}${lUnit} Long, ${studSpacing}" o.c.)`;
-      itemDetails = `${results.studsCount} Studs, ${results.bottomPlates16ft + results.topPlates16ft} Plates (16ft)`;
+      itemDetails = `${res.studsCount} Studs, ${res.bottomPlates16ft + res.topPlates16ft} Plates (16ft)`;
+    } else if (type === 'rebar') {
+      const weightUnit = isMetric ? "kg" : "lbs";
+      const estWeight = isMetric ? (results as RebarResult).estimatedWeightKgs : (results as RebarResult).estimatedWeightLbs;
+      itemTitle = `Rebar Grid (${length}${lUnit} x ${width}${lUnit}, Clearance: ${thickness}${tUnit})`;
+      itemDetails = `${(results as RebarResult).totalPieces} Sticks (${rebarSize}), Length: ${(results as RebarResult).totalLength}${lUnit}, Weight: ${estWeight} ${weightUnit}`;
     }
 
     const newItem: ShoppingItem = {
@@ -604,10 +842,14 @@ export default function Calculator({
       inputs: {
         length, width, thickness, waste, 
         drywallWidth, includeCeiling, sheetSize,
-        studSpacing, corners, topPlates, bottomPlates, gravelDensity
+        studSpacing, corners, topPlates, bottomPlates, gravelDensity,
+        rebarSpacing, rebarStickLength, rebarOverlap, rebarSize,
+        pricePerUnit
       },
       outputs: results,
-      isMetric
+      isMetric,
+      unitPrice: pricePerUnit,
+      estimatedCost: (results as any).estimatedCost
     };
 
     saveShoppingList([...shoppingList, newItem]);
@@ -621,7 +863,9 @@ export default function Calculator({
       inputs: {
         length, width, thickness, waste, 
         drywallWidth, includeCeiling, sheetSize,
-        studSpacing, corners, topPlates, bottomPlates, gravelDensity
+        studSpacing, corners, topPlates, bottomPlates, gravelDensity,
+        rebarSpacing, rebarStickLength, rebarOverlap, rebarSize,
+        pricePerUnit
       },
       outputs: results,
       isMetric,
@@ -632,7 +876,7 @@ export default function Calculator({
     saveHistory(trimmedHistory);
   };
 
-  // Remove individual checklist item
+  // Remove checklist item
   const removeShoppingItem = (id: string) => {
     saveShoppingList(shoppingList.filter(item => item.id !== id));
   };
@@ -665,6 +909,11 @@ export default function Calculator({
     if (inp.topPlates !== undefined) setTopPlates(inp.topPlates);
     if (inp.bottomPlates !== undefined) setBottomPlates(inp.bottomPlates);
     if (inp.gravelDensity !== undefined) setGravelDensity(inp.gravelDensity);
+    if (inp.rebarSpacing !== undefined) setRebarSpacing(inp.rebarSpacing);
+    if (inp.rebarStickLength !== undefined) setRebarStickLength(inp.rebarStickLength);
+    if (inp.rebarOverlap !== undefined) setRebarOverlap(inp.rebarOverlap);
+    if (inp.rebarSize !== undefined) setRebarSize(inp.rebarSize);
+    if (inp.pricePerUnit !== undefined) setPriceInput(inp.pricePerUnit.toString());
   };
 
   // Trigger browser printing
@@ -697,6 +946,12 @@ export default function Calculator({
       const maxL = isMetric ? 15 : 50;
       const lPerc = Math.min(95, Math.max(30, (length / maxL) * 100));
       return { length: lPerc };
+    } else if (type === 'rebar') {
+      const maxL = isMetric ? 15 : 50;
+      const maxW = isMetric ? 15 : 50;
+      const lPerc = Math.min(95, Math.max(30, (length / maxL) * 100));
+      const wPerc = Math.min(95, Math.max(30, (width / maxW) * 100));
+      return { length: lPerc, width: wPerc };
     }
     return {};
   }, [type, length, width, thickness, isMetric]);
@@ -1048,6 +1303,168 @@ export default function Calculator({
                 </>
               )}
 
+              {/* Rebar Grid Inputs */}
+              {type === 'rebar' && (
+                <>
+                  {/* Slab Length */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <label className="font-medium text-ink">Slab Length ({isMetric ? 'meters' : 'feet'})</label>
+                      <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="1" 
+                      max={isMetric ? 30 : 100} 
+                      step="0.5"
+                      value={length}
+                      onChange={(e) => setLength(parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                    <input 
+                      type="number"
+                      value={length}
+                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                    />
+                  </div>
+
+                  {/* Slab Width */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <label className="font-medium text-ink">Slab Width ({isMetric ? 'meters' : 'feet'})</label>
+                      <span className="font-mono font-semibold text-brand-accent">{width} {isMetric ? 'm' : 'ft'}</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="1" 
+                      max={isMetric ? 30 : 100} 
+                      step="0.5"
+                      value={width}
+                      onChange={(e) => setWidth(parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                    <input 
+                      type="number"
+                      value={width}
+                      onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
+                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                    />
+                  </div>
+
+                  {/* Edge Clearance */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Edge Clearance</label>
+                    <select 
+                      value={thickness} 
+                      onChange={(e) => setThickness(parseFloat(e.target.value))}
+                      className="w-full text-sm border border-hairline rounded bg-canvas text-ink px-2.5 py-1.5 focus:outline-none focus:border-brand-accent"
+                    >
+                      {isMetric ? (
+                        <>
+                          <option value={5}>5 cm</option>
+                          <option value={7.5}>7.5 cm (Standard)</option>
+                          <option value={10}>10 cm</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value={2}>2 inches</option>
+                          <option value={3}>3 inches (Standard)</option>
+                          <option value={4}>4 inches</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+
+                  {/* Rebar Spacing */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <label className="font-medium text-ink">Grid Spacing ({isMetric ? 'cm' : 'inches'})</label>
+                      <span className="font-mono font-semibold text-brand-accent">{rebarSpacing} {isMetric ? 'cm' : 'in'}</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="4" 
+                      max={isMetric ? 100 : 48} 
+                      step="1"
+                      value={rebarSpacing}
+                      onChange={(e) => setRebarSpacing(parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                    <input 
+                      type="number"
+                      value={rebarSpacing}
+                      onChange={(e) => setRebarSpacing(parseFloat(e.target.value) || 0)}
+                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                    />
+                  </div>
+
+                  {/* Rebar Stick Length */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Rebar Stick Length</label>
+                    <select 
+                      value={rebarStickLength} 
+                      onChange={(e) => setRebarStickLength(parseFloat(e.target.value))}
+                      className="w-full text-sm border border-hairline rounded bg-canvas text-ink px-2.5 py-1.5 focus:outline-none focus:border-brand-accent"
+                    >
+                      {isMetric ? (
+                        <>
+                          <option value={3}>3 meters</option>
+                          <option value={6}>6 meters (Standard)</option>
+                          <option value={9}>9 meters</option>
+                          <option value={12}>12 meters</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value={10}>10 feet</option>
+                          <option value={20}>20 feet (Standard)</option>
+                          <option value={30}>30 feet</option>
+                          <option value={40}>40 feet</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+
+                  {/* Lap Splice (Overlap) */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Lap Splice Overlap</label>
+                    <select 
+                      value={rebarOverlap} 
+                      onChange={(e) => setRebarOverlap(parseFloat(e.target.value))}
+                      className="w-full text-sm border border-hairline rounded bg-canvas text-ink px-2.5 py-1.5 focus:outline-none focus:border-brand-accent"
+                    >
+                      {isMetric ? (
+                        <>
+                          <option value={30}>30 cm (Standard)</option>
+                          <option value={45}>45 cm</option>
+                          <option value={60}>60 cm</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value={12}>12 inches (Standard)</option>
+                          <option value={18}>18 inches</option>
+                          <option value={24}>24 inches</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+
+                  {/* Rebar Size Dropdown */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-ink">Rebar Size (Weight calculation)</label>
+                    <select 
+                      value={rebarSize} 
+                      onChange={(e) => setRebarSize(e.target.value)}
+                      className="w-full text-sm border border-hairline rounded bg-canvas text-ink px-2.5 py-1.5 focus:outline-none focus:border-brand-accent"
+                    >
+                      {Object.keys(REBAR_SIZES).map((key) => (
+                        <option key={key} value={key}>{REBAR_SIZES[key].name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              )}
+
               {/* Custom Gravel Density for Tonnage Calculations */}
               {type === 'gravel-rect' && (
                 <div className="space-y-2">
@@ -1069,6 +1486,8 @@ export default function Calculator({
                   </span>
                 </div>
               )}
+
+
 
               {/* Waste Factor Slider (Applies to all) */}
               <div className="space-y-2 border-t border-hairline pt-4 mt-4">
@@ -1260,6 +1679,76 @@ export default function Calculator({
                 </text>
               </svg>
             )}
+
+            {type === 'rebar' && (
+              <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
+                {/* 3D isometric slab */}
+                <polygon 
+                  points="150,30 240,65 150,100 60,65" 
+                  fill="var(--color-hairline)" 
+                  stroke="var(--color-muted)" 
+                  strokeWidth="1.5" 
+                />
+                <polygon 
+                  points="60,65 150,100 150,110 60,75" 
+                  fill="var(--color-surface-strong)" 
+                  stroke="var(--color-muted)" 
+                  strokeWidth="1.5" 
+                />
+                <polygon 
+                  points="150,100 240,65 240,75 150,110" 
+                  fill="var(--color-hairline-soft)" 
+                  stroke="var(--color-muted)" 
+                  strokeWidth="1.5" 
+                />
+
+                {/* Rebar grid lines */}
+                {/* Lengthwise lines (constant u, varying v) */}
+                {[0.2, 0.4, 0.6, 0.8].map((u, i) => {
+                  const x1 = 150 + u * -90 + 0.08 * 90;
+                  const y1 = 30 + u * 35 + 0.08 * 35;
+                  const x2 = 150 + u * -90 + 0.92 * 90;
+                  const y2 = 30 + u * 35 + 0.92 * 35;
+                  return (
+                    <line 
+                      key={`len-${i}`} 
+                      x1={x1} 
+                      y1={y1} 
+                      x2={x2} 
+                      y2={y2} 
+                      stroke="var(--color-brand-accent)" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                    />
+                  );
+                })}
+                {/* Widthwise lines (varying u, constant v) */}
+                {[0.2, 0.4, 0.6, 0.8].map((v, i) => {
+                  const x1 = 150 + 0.08 * -90 + v * 90;
+                  const y1 = 30 + 0.08 * 35 + v * 35;
+                  const x2 = 150 + 0.92 * -90 + v * 90;
+                  const y2 = 30 + 0.92 * 35 + v * 35;
+                  return (
+                    <line 
+                      key={`wid-${i}`} 
+                      x1={x1} 
+                      y1={y1} 
+                      x2={x2} 
+                      y2={y2} 
+                      stroke="var(--color-brand-accent)" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                    />
+                  );
+                })}
+
+                <text x="75" y="105" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">L: {length} {isMetric ? 'm' : 'ft'}</text>
+                <text x="210" y="105" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">W: {width} {isMetric ? 'm' : 'ft'}</text>
+                <text x="150" y="145" textAnchor="middle" fontSize="10" fill="var(--color-brand-accent)" className="font-bold">
+                  {results ? `${(results as RebarResult).totalPieces} Sticks (${rebarSize})` : ""}
+                </text>
+              </svg>
+            )}
           </div>
 
           {/* Core Calculation Outputs Card */}
@@ -1398,7 +1887,7 @@ export default function Calculator({
 
                     {/* Linear wall distance */}
                     <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-                      <span class="text-sm text-muted">Total Wall Length</span>
+                      <span className="text-sm text-muted">Total Wall Length</span>
                       <span className="text-md font-mono font-bold text-ink">
                         {length} <span className="text-xs font-normal text-muted">{isMetric ? 'meters' : 'ft'}</span>
                       </span>
@@ -1422,6 +1911,91 @@ export default function Calculator({
                       </span>
                     </div>
                   </>
+                )}
+
+                {/* Outputs based on Rebar Grid */}
+                {type === 'rebar' && results && (
+                  <>
+                    {/* Pieces Count - Primary Highlight */}
+                    <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
+                      <span className="text-sm text-body font-medium">Rebar Sticks Needed</span>
+                      <span className="text-2xl font-mono font-extrabold text-brand-accent">
+                        {(results as RebarResult).totalPieces} <span className="text-sm font-medium">pcs</span>
+                      </span>
+                    </div>
+
+                    {/* Total Length */}
+                    <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
+                      <span className="text-sm text-muted">Total Rebar Length</span>
+                      <span className="text-md font-mono font-bold text-ink">
+                        {(results as RebarResult).totalLength} <span className="text-xs font-normal text-muted">{isMetric ? 'm' : 'ft'}</span>
+                      </span>
+                    </div>
+
+                    {/* Estimated Weight */}
+                    <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
+                      <span className="text-sm text-muted">Estimated Weight</span>
+                      <span className="text-md font-mono font-bold text-ink">
+                        {isMetric ? (results as RebarResult).estimatedWeightKgs : (results as RebarResult).estimatedWeightLbs} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
+                      </span>
+                    </div>
+
+                    {/* Grid Dimensions */}
+                    <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
+                      <span className="text-sm text-muted">Grid Dimensions</span>
+                      <span className="text-md font-mono font-bold text-ink">
+                        {(results as RebarResult).gridLength} x {(results as RebarResult).gridWidth} <span className="text-xs font-normal text-muted">{isMetric ? 'm' : 'ft'}</span>
+                      </span>
+                    </div>
+                  </>
+                )}
+
+                {/* Pricing Input & Cost Estimation - Highlighted for all calculators */}
+                {results && (
+                  <div className="border-t border-hairline pt-4 mt-6 space-y-4">
+                    {/* Unit Price input row */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+                      <label className="text-sm font-semibold text-ink">
+                        Unit Price ($ per {
+                          type === 'rectangular' || type === 'cylindrical' 
+                            ? (isMetric ? 'm³' : 'yd³') 
+                            : type === 'gravel-rect' 
+                            ? 'ton' 
+                            : type === 'drywall' 
+                            ? 'sheet' 
+                            : type === 'framing' 
+                            ? 'lumber piece' 
+                            : type === 'rebar' 
+                            ? 'stick' 
+                            : 'unit'
+                        })
+                      </label>
+                      <div className="relative rounded-md shadow-sm w-full sm:w-36">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <span className="text-muted-soft text-xs">$</span>
+                        </div>
+                        <input 
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          placeholder="0.00"
+                          value={priceInput}
+                          onChange={(e) => setPriceInput(e.target.value)}
+                          className="w-full text-sm font-mono border border-hairline rounded pl-7 pr-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent text-left sm:text-right"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Estimated Cost row (calculated only if a price is entered) */}
+                    {pricePerUnit > 0 && (results as any).estimatedCost !== undefined && (
+                      <div className="flex justify-between items-baseline pt-2">
+                        <span className="text-sm text-ink font-bold">Estimated Material Cost</span>
+                        <span className="text-2xl font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
+                          ${(results as any).estimatedCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
@@ -1499,6 +2073,11 @@ export default function Calculator({
                           <p className="text-[10px] text-muted font-mono mt-0.5 print-text-black">
                             {item.details}
                           </p>
+                          {item.estimatedCost !== undefined && (
+                            <p className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold mt-1 print-text-black">
+                              Cost: ${item.estimatedCost.toFixed(2)}
+                            </p>
+                          )}
                         </div>
                       </div>
 
@@ -1513,6 +2092,16 @@ export default function Calculator({
                     </li>
                   ))}
                 </ul>
+
+                {/* Grand Total Cost Summary */}
+                {grandTotalCost > 0 && (
+                  <div className="border-t border-hairline pt-3 mt-3 flex justify-between items-baseline">
+                    <span className="text-xs font-bold text-ink uppercase tracking-wider">Project Budget</span>
+                    <span className="text-sm font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
+                      ${grandTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                )}
 
                 {/* Print & PDF Action */}
                 <button
@@ -1713,7 +2302,15 @@ export default function Calculator({
                           <h4 className="text-[10px] font-bold uppercase text-zinc-400 tracking-wider">Estimated Specifications</h4>
                           {renderPrintSpecs(item)}
                           <span className="text-[9px] text-zinc-400 font-sans block leading-relaxed mt-1">
-                            * Output includes waste factor (+{item.inputs.waste || 10}%). Inputs: {item.type === 'cylindrical' ? `Dia: ${item.inputs.thickness}${item.isMetric ? 'cm' : 'in'}, H: ${item.inputs.length}${item.isMetric ? 'cm' : 'in'}` : `${item.inputs.length}x${item.type === 'drywall' ? item.inputs.drywallWidth : item.inputs.width}x${item.inputs.thickness} ${item.isMetric ? 'm/cm' : 'ft/in'}`}.
+                            * Output includes waste factor (+{item.inputs.waste || 10}%). Inputs: {
+                              item.type === 'cylindrical' 
+                                ? `Dia: ${item.inputs.thickness}${item.isMetric ? 'cm' : 'in'}, H: ${item.inputs.length}${item.isMetric ? 'cm' : 'in'}` 
+                                : item.type === 'framing'
+                                ? `L: ${item.inputs.length}${item.isMetric ? 'm' : 'ft'}, Spacing: ${item.inputs.studSpacing || 16}" o.c.`
+                                : item.type === 'rebar'
+                                ? `Grid: ${item.inputs.length}x${item.inputs.width}${item.isMetric ? 'm' : 'ft'}, Clearance: ${item.inputs.thickness}${item.isMetric ? 'cm' : 'in'}, Spacing: ${item.inputs.rebarSpacing}${item.isMetric ? 'cm' : 'in'}`
+                                : `${item.inputs.length}x${item.type === 'drywall' ? item.inputs.drywallWidth : item.inputs.width}x${item.inputs.thickness} ${item.isMetric ? 'm/cm' : 'ft/in'}`
+                            }.
                           </span>
                         </div>
                       </div>
@@ -1726,6 +2323,22 @@ export default function Calculator({
                   </div>
                 );
               })}
+
+              {/* Printable Grand Budget Summary */}
+              {grandTotalCost > 0 && (
+                <div className="border border-zinc-300 rounded-lg p-5 bg-zinc-50 flex items-center justify-between page-break-inside-avoid shadow-inner">
+                  <div>
+                    <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wide">Jobsite Project Budget Summary</h3>
+                    <p className="text-[10px] text-zinc-500 mt-0.5">Calculated total of all checked estimates</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[10px] font-bold text-zinc-400 block uppercase">Project Budget</span>
+                    <span className="text-xl font-mono font-extrabold text-indigo-700">
+                      ${grandTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
