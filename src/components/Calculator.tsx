@@ -959,7 +959,7 @@ export default function Calculator({
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Upper Grid Layout */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 print-full-width no-print">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 print-full-width no-print">
         
         {/* COLUMN 1: Inputs Panel (4 cols) */}
         <section className="lg:col-span-4 bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between shadow-sm calculator-inputs">
@@ -989,21 +989,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Length ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Width */}
@@ -1012,21 +1014,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Width ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{width} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={width}
-                      onChange={(e) => setWidth(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={width}
-                      onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={width}
+                        onChange={(e) => setWidth(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={width}
+                        onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Thickness / Depth */}
@@ -1035,21 +1039,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Thickness ({isMetric ? 'cm' : 'inches'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'cm' : 'in'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max={isMetric ? 100 : 36} 
-                      step="0.5"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max={isMetric ? 100 : 36} 
+                        step="0.5"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
                 </>
               )}
@@ -1063,21 +1069,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Diameter ({isMetric ? 'cm' : 'inches'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'cm' : 'in'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="4" 
-                      max={isMetric ? 150 : 60} 
-                      step="1"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="4" 
+                        max={isMetric ? 150 : 60} 
+                        step="1"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Height / Depth */}
@@ -1086,21 +1094,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Height / Depth ({isMetric ? 'cm' : 'inches'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'cm' : 'in'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="6" 
-                      max={isMetric ? 600 : 240} 
-                      step="1"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="6" 
+                        max={isMetric ? 600 : 240} 
+                        step="1"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
                 </>
               )}
@@ -1114,45 +1124,51 @@ export default function Calculator({
                       <label className="font-medium text-ink">Room Length ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="4" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="4" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Width of room (set to 0 for single wall) */}
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <label className="font-medium text-ink">Room Width ({isMetric ? 'meters' : 'feet'})</label>
-                      <span className="font-mono font-secondary text-xs text-muted">(Enter 0 for single wall)</span>
-                      <span className="font-mono font-semibold text-brand-accent">{drywallWidth} {isMetric ? 'm' : 'ft'}</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-mono font-secondary text-[10px] text-muted">(0 = single wall)</span>
+                        <span className="font-mono font-semibold text-brand-accent">{drywallWidth} {isMetric ? 'm' : 'ft'}</span>
+                      </div>
                     </div>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={drywallWidth}
-                      onChange={(e) => setDrywallWidth(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={drywallWidth}
-                      onChange={(e) => setDrywallWidth(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={drywallWidth}
+                        onChange={(e) => setDrywallWidth(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={drywallWidth}
+                        onChange={(e) => setDrywallWidth(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Wall Height */}
@@ -1161,21 +1177,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Wall Height ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="4" 
-                      max={isMetric ? 6 : 20} 
-                      step="0.5"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={thickness}
-                      onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="4" 
+                        max={isMetric ? 6 : 20} 
+                        step="0.5"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={thickness}
+                        onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Ceiling Checkbox */}
@@ -1221,21 +1239,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Wall Length ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="2" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="2" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Spacing Selector */}
@@ -1312,21 +1332,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Slab Length ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={length}
-                      onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={length}
+                        onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Slab Width */}
@@ -1335,21 +1357,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Slab Width ({isMetric ? 'meters' : 'feet'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{width} {isMetric ? 'm' : 'ft'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max={isMetric ? 30 : 100} 
-                      step="0.5"
-                      value={width}
-                      onChange={(e) => setWidth(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={width}
-                      onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max={isMetric ? 30 : 100} 
+                        step="0.5"
+                        value={width}
+                        onChange={(e) => setWidth(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={width}
+                        onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Edge Clearance */}
@@ -1382,21 +1406,23 @@ export default function Calculator({
                       <label className="font-medium text-ink">Grid Spacing ({isMetric ? 'cm' : 'inches'})</label>
                       <span className="font-mono font-semibold text-brand-accent">{rebarSpacing} {isMetric ? 'cm' : 'in'}</span>
                     </div>
-                    <input 
-                      type="range" 
-                      min="4" 
-                      max={isMetric ? 100 : 48} 
-                      step="1"
-                      value={rebarSpacing}
-                      onChange={(e) => setRebarSpacing(parseFloat(e.target.value))}
-                      className="w-full"
-                    />
-                    <input 
-                      type="number"
-                      value={rebarSpacing}
-                      onChange={(e) => setRebarSpacing(parseFloat(e.target.value) || 0)}
-                      className="w-full text-sm font-mono border border-hairline rounded px-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-                    />
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="range" 
+                        min="4" 
+                        max={isMetric ? 100 : 48} 
+                        step="1"
+                        value={rebarSpacing}
+                        onChange={(e) => setRebarSpacing(parseFloat(e.target.value))}
+                        className="flex-grow accent-indigo-600 dark:accent-indigo-400"
+                      />
+                      <input 
+                        type="number"
+                        value={rebarSpacing}
+                        onChange={(e) => setRebarSpacing(parseFloat(e.target.value) || 0)}
+                        className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+                      />
+                    </div>
                   </div>
 
                   {/* Rebar Stick Length */}
@@ -2253,7 +2279,7 @@ export default function Calculator({
           {/* Bottom Info Bar */}
           <div className="mt-6 pt-4 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-[11px] text-zinc-500 gap-4">
             <p className="leading-normal">
-              <strong>How to Use results:</strong> Volume and pieces results are compiled live into the **Jobsite Shopping List** sidebar. Click the add button to track aggregates. Verify all values before ordering material.
+              <strong>Checklist Guide:</strong> Aggregates, pricing, and project budgets are calculated live from jobsite dimensions. Please verify all volume and structural tolerances with your supplier before ordering.
             </p>
             <div className="p-2.5 bg-white border border-zinc-200 rounded font-mono text-zinc-600 flex gap-4 shrink-0">
               <span>Unit System: {isMetric ? 'Metric' : 'Imperial'}</span>
