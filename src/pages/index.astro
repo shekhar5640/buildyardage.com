@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 ---
 
 <BaseLayout
@@ -50,7 +50,17 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/concrete-slab-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-50 dark:bg-indigo-950/50 text-brand-accent mb-4">
-            <Ruler size={20} />
+            <!-- Concrete Slab SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3L21 7L12 11L3 7Z" />
+              <path d="M3 7V15L12 19V11" />
+              <path d="M21 7V15L12 19" />
+              <circle cx="12" cy="7" r="0.5" fill="currentColor" />
+              <circle cx="8" cy="6" r="0.5" fill="currentColor" />
+              <circle cx="16" cy="6" r="0.5" fill="currentColor" />
+              <circle cx="10" cy="8" r="0.5" fill="currentColor" />
+              <circle cx="14" cy="8" r="0.5" fill="currentColor" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             Concrete Slab Calculator
@@ -69,7 +79,17 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/concrete-column-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-50 dark:bg-indigo-950/50 text-brand-accent mb-4">
-            <Ruler size={20} />
+            <!-- Concrete Column SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="6" rx="7" ry="2.5" />
+              <path d="M5 18C5 19.38 8.13 20.5 12 20.5C15.87 20.5 19 19.38 19 18" />
+              <path d="M5 6V18" />
+              <path d="M19 6V18" />
+              <circle cx="12" cy="10" r="0.5" fill="currentColor" />
+              <circle cx="9" cy="14" r="0.5" fill="currentColor" />
+              <circle cx="15" cy="12" r="0.5" fill="currentColor" />
+              <circle cx="11" cy="17" r="0.5" fill="currentColor" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             Concrete Column Calculator
@@ -88,7 +108,18 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/gravel-driveway-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 mb-4">
-            <Layers size={20} />
+            <!-- Gravel Mound SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 20C4.5 15 8 9 12 9C16 9 19.5 15 21 20" />
+              <path d="M2 20H22" />
+              <path d="M7 17L8.5 15.5L10 17" />
+              <path d="M11 15L12.5 13.5L14 15" />
+              <path d="M15 17L16.5 15.5L18 17" />
+              <path d="M9 19H15" />
+              <circle cx="12" cy="16.5" r="0.75" fill="currentColor" />
+              <circle cx="8" cy="18" r="0.75" fill="currentColor" />
+              <circle cx="16" cy="18" r="0.75" fill="currentColor" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             Gravel Driveway Calculator
@@ -107,7 +138,14 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/drywall-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-amber-50 dark:bg-amber-950/50 text-amber-600 mb-4">
-            <Layers size={20} />
+            <!-- Drywall Sheet SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 4L20 4L16 15L4 15Z" />
+              <path d="M4 15V16.5L16 16.5V15" />
+              <path d="M5 8L17 8L13 19L1 19Z" fill="currentColor" fill-opacity="0.1" />
+              <path d="M5 8L17 8L13 19L1 19Z" />
+              <path d="M1 19V20.5L13 20.5V19" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             Drywall Sheet Calculator
@@ -126,10 +164,20 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/framing-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-purple-50 dark:bg-purple-950/50 text-purple-600 mb-4">
-            <Hammer size={20} />
+            <!-- Wood Framing Stud SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 5H22" />
+              <path d="M2 7H22" />
+              <path d="M2 19H22" />
+              <path d="M5 7V19" />
+              <path d="M10 7V19" />
+              <path d="M15 7V19" />
+              <path d="M20 7V19" />
+              <path d="M5 19L15 7" stroke-dasharray="2 2" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
-            Wall Framing Stud Calculator
+            Wood Stud Wall Framing Calculator
           </h3>
           <p class="text-xs text-muted mt-2 leading-relaxed">
             Calculate total framing studs, single or double top plates, and bottom plates (16ft pieces) based on 16" or 24" spacing configurations.
@@ -145,7 +193,23 @@ import { Ruler, Hammer, Layers, ShieldCheck, ChevronRight, HelpCircle, Grid } fr
       <a href="/calculators/rebar-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded bg-blue-50 dark:bg-blue-950/50 text-blue-600 mb-4">
-            <Grid size={20} />
+            <!-- Rebar Grid SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Grid lines -->
+              <path d="M2 7H22" />
+              <path d="M2 12H22" />
+              <path d="M2 17H22" />
+              <path d="M7 2V22" />
+              <path d="M12 2V22" />
+              <path d="M17 2V22" />
+              <!-- Rib texture detail -->
+              <path d="M6 4H8" /><path d="M6 9H8" /><path d="M6 14H8" /><path d="M6 19H8" />
+              <path d="M11 4H13" /><path d="M11 9H13" /><path d="M11 14H13" /><path d="M11 19H13" />
+              <path d="M16 4H18" /><path d="M16 9H18" /><path d="M16 14H18" /><path d="M16 19H18" />
+              <path d="M4 6V8" /><path d="M9 6V8" /><path d="M14 6V8" /><path d="M19 6V8" />
+              <path d="M4 11V13" /><path d="M9 11V13" /><path d="M14 11V13" /><path d="M19 11V13" />
+              <path d="M4 16V18" /><path d="M9 16V18" /><path d="M14 16V18" /><path d="M19 16V18" />
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             Rebar Grid Calculator

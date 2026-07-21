@@ -1,18 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Calculator from '../../components/Calculator';
+import ConcreteColumnCalculator from '../../components/ConcreteColumnCalculator';
 import materials from '../../data/materials.json';
 
-export async function getStaticPaths() {
-  return materials.map((item) => ({
-    params: { slug: item.slug },
-    props: { item },
-  }));
-}
+const item = materials.find(m => m.slug === 'concrete-column-calculator')!;
 
-const { item } = Astro.props;
-
-// Generate dynamic JSON-LD SoftwareApplication structured data for rich snippets on Google
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -42,7 +34,7 @@ const jsonLd = {
           <span>100% Free Contractor Tool</span>
         </div>
         <h1 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          {item.material} <span class="text-brand-accent">{item.shape}</span> Calculator
+          Concrete <span class="text-brand-accent">Column</span> Calculator
         </h1>
         <p class="mt-3 text-md text-muted leading-relaxed">
           Get highly precise calculations for your next construction or DIY project. Enter your jobsite measurements below for instant yards, tonnage, plates, or bag estimates.
@@ -65,24 +57,14 @@ const jsonLd = {
 
   <!-- Interactive Calculator Component -->
   <div class="bg-canvas/50 transition-colors duration-200">
-    <Calculator 
-      client:load 
-      slug={item.slug}
-      material={item.material}
-      shape={item.shape}
-      type={item.type}
-      defaultWastePercent={item.default_waste_percent}
-      defaultThickness={item.default_thickness}
-      lsiTitle={item.lsi_title}
-      lsiText={item.lsi_text}
-    />
+    <ConcreteColumnCalculator client:load />
   </div>
 
-  <!-- Content & Ad Section below calculator -->
+  <!-- Content Section below calculator -->
   <section class="no-print print:hidden mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- LSI Editorial Content (8 cols to prevent search-engine thin content penalties) -->
+      <!-- LSI Editorial Content -->
       <article class="lg:col-span-8 space-y-6">
         <div class="bg-canvas border border-hairline rounded-lg p-6 sm:p-8">
           <h2 class="text-xl font-bold tracking-tight text-ink mb-4">
@@ -105,6 +87,7 @@ const jsonLd = {
           </div>
         </div>
       </article>
+
       <aside class="lg:col-span-4 flex flex-col gap-6">
         <div class="bg-surface-card border border-hairline rounded-lg p-5">
           <h4 class="text-xs font-bold uppercase text-muted tracking-wider">Related Estimators</h4>
@@ -117,7 +100,7 @@ const jsonLd = {
                     href={`/calculators/${m.slug}`} 
                     class="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1.5"
                   >
-                    <span>{m.material} {m.shape} Calculator</span>
+                    <span>{m.material} {m.shape === 'Column (Cylinder)' ? 'Column' : m.shape} Calculator</span>
                     <span>&rarr;</span>
                   </a>
                 </li>
