@@ -1,0 +1,158 @@
+---
+import { calculatorGuides, type ToolGuide } from '../data/calculatorGuides';
+import materials from '../data/materials.json';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const guide: ToolGuide | undefined = calculatorGuides[slug];
+const otherMaterials = materials.filter((m) => m.slug !== slug);
+---
+
+{guide && (
+  <section class="no-print print:hidden mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200 content-visibility-auto">
+    <div class="space-y-12">
+      
+      <!-- Section 1: What Does This Calculator Do? -->
+      <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8 shadow-xs">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-md bg-brand-accent/10 text-brand-accent font-bold text-sm">
+            ?
+          </div>
+          <h2 class="text-2xl font-extrabold tracking-tight text-ink">
+            {guide.whatItDoes.title}
+          </h2>
+        </div>
+        <p class="text-sm text-body leading-relaxed w-full">
+          {guide.whatItDoes.description}
+        </p>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+          {guide.whatItDoes.highlights.map((item) => (
+            <div class="flex items-start gap-2.5 p-3 rounded-lg bg-surface-card border border-hairline text-xs font-medium text-ink">
+              <span class="text-brand-accent font-bold mt-0.5">✓</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Section 2: How to Use This Calculator (Step-by-Step) -->
+      <div>
+        <div class="mb-6">
+          <h2 class="text-2xl font-extrabold tracking-tight text-ink">
+            How to Use This Calculator
+          </h2>
+          <p class="text-xs text-muted mt-1">
+            Follow these 4 simple steps to compute accurate material specs for your jobsite.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">STEP 1</span>
+              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step1.title.replace(/^\d+\.\s*/, '')}</h3>
+              <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step1.desc}</p>
+            </div>
+          </div>
+
+          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">STEP 2</span>
+              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step2.title.replace(/^\d+\.\s*/, '')}</h3>
+              <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step2.desc}</p>
+            </div>
+          </div>
+
+          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">STEP 3</span>
+              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step3.title.replace(/^\d+\.\s*/, '')}</h3>
+              <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step3.desc}</p>
+            </div>
+          </div>
+
+          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">STEP 4</span>
+              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step4.title.replace(/^\d+\.\s*/, '')}</h3>
+              <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step4.desc}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 & 4 Grid: Why Use Build Yardage & Technical Guide -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Left: Why Use Build Yardage Calculator? -->
+        <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
+          <h2 class="text-2xl font-extrabold tracking-tight text-ink">
+            Why Use Build Yardage Calculators?
+          </h2>
+          <div class="space-y-3 flex-grow flex flex-col justify-between">
+            {guide.whyBuildYardage.reasons.map((r) => (
+              <div class="bg-canvas border border-hairline rounded-lg p-4 flex-1 flex flex-col justify-center">
+                <h3 class="text-sm font-bold text-ink mb-1 flex items-center gap-2">
+                  <span class="text-brand-accent font-bold">★</span>
+                  <span>{r.title}</span>
+                </h3>
+                <p class="text-xs text-muted leading-relaxed">{r.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Technical Formulas & Field Best Practices -->
+        <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-4">
+          <h2 class="text-2xl font-extrabold tracking-tight text-ink">
+            Field Formula & Best Practices
+          </h2>
+          
+          <div class="space-y-3 flex-grow flex flex-col justify-between">
+            <!-- Formula Box -->
+            <div class="bg-surface-card border border-hairline rounded-lg p-4">
+              <h3 class="text-xs font-bold uppercase text-muted tracking-wider mb-2">
+                {guide.technicalGuide.formulaTitle}
+              </h3>
+              <div class="bg-canvas border border-hairline rounded p-3 text-xs font-mono font-semibold text-brand-accent break-words">
+                {guide.technicalGuide.formulaText}
+              </div>
+            </div>
+
+            <!-- Pro Tips -->
+            {guide.technicalGuide.tips.map((tip) => (
+              <div class="bg-canvas border border-hairline rounded-lg p-4 flex-1 flex flex-col justify-center">
+                <h4 class="text-xs font-bold text-ink uppercase tracking-wider mb-1 text-brand-accent">
+                  PRO TIP: {tip.title}
+                </h4>
+                <p class="text-xs text-muted leading-relaxed">{tip.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Related Estimators Quick Links -->
+      <div class="bg-surface-card border border-hairline rounded-xl p-6">
+        <h3 class="text-xs font-bold uppercase text-muted tracking-wider mb-4">Explore Other Jobsite Calculators</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {otherMaterials.map((m) => (
+            <a
+              href={`/calculators/${m.slug}`}
+              class="p-3 bg-canvas border border-hairline hover:border-brand-accent rounded-lg text-xs font-semibold text-ink hover:text-brand-accent transition-all flex flex-col justify-between gap-1 group"
+            >
+              <span>{m.material} {m.shape}</span>
+              <span class="text-[10px] text-brand-accent group-hover:translate-x-0.5 transition-transform">Calculate &rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
+

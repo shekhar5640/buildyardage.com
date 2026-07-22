@@ -8,6 +8,7 @@ export interface ConcreteSlabResult {
   bags60lb: number;
   bags40lb: number;
   rawVolumeNoWaste: number; // in cu ft
+  estimatedCost?: number;
 }
 
 export interface ConcreteColumnResult {
@@ -18,6 +19,7 @@ export interface ConcreteColumnResult {
   bags60lb: number;
   bags40lb: number;
   rawVolumeNoWaste: number; // in cu ft
+  estimatedCost?: number;
 }
 
 export interface GravelResult {
@@ -26,6 +28,7 @@ export interface GravelResult {
   cubicMeters: number;
   tons: number;
   rawVolumeNoWaste: number; // in cu ft
+  estimatedCost?: number;
 }
 
 export interface DrywallResult {
@@ -35,6 +38,7 @@ export interface DrywallResult {
   tapeFeet: number;
   screwsNeeded: number;
   compoundLbs: number;
+  estimatedCost?: number;
 }
 
 export interface FramingResult {
@@ -42,6 +46,8 @@ export interface FramingResult {
   bottomPlates16ft: number;
   topPlates16ft: number;
   totalPlatesLinearFt: number;
+  platesTotalLength?: number;
+  estimatedCost?: number;
 }
 
 /**
@@ -250,12 +256,12 @@ export function calculateDrywall(
  */
 export function calculateFraming(
   length: number,
-  studSpacing: 16 | 24,
+  studSpacing: number,
   cornersCount: number = 2,
   topPlatesCount: number = 2,
   bottomPlatesCount: number = 1,
-  wastePercent: number,
-  isMetric: boolean
+  wastePercent: number = 10,
+  isMetric: boolean = false
 ): FramingResult {
   let lFt = length;
 
@@ -288,11 +294,14 @@ export function calculateFraming(
   const bottomPlates16ft = Math.ceil(bottomPlatesLinear / 16);
   const topPlates16ft = Math.ceil(topPlatesLinear / 16);
 
+  const roundedPlatesLinearFt = parseFloat(totalPlatesLinearFt.toFixed(2));
+
   return {
     studsCount,
     bottomPlates16ft,
     topPlates16ft,
-    totalPlatesLinearFt: parseFloat(totalPlatesLinearFt.toFixed(2)),
+    totalPlatesLinearFt: roundedPlatesLinearFt,
+    platesTotalLength: roundedPlatesLinearFt,
   };
 }
 
@@ -303,6 +312,7 @@ export interface RebarResult {
   totalPieces: number;
   estimatedWeightLbs: number;
   estimatedWeightKgs: number;
+  estimatedCost?: number;
 }
 
 // Unit weights for standard rebar sizes: weight per foot in lbs, weight per meter in kgs

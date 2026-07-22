@@ -2,10 +2,20 @@ import React, { useState, useMemo } from 'react';
 import { calculateGravel, type GravelResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function GravelCalculator() {
-  const [length, setLength] = useState<number>(20);
-  const [width, setWidth] = useState<number>(10);
-  const [thickness, setThickness] = useState<number>(4);
+interface GravelProps {
+  initialLength?: number;
+  initialWidth?: number;
+  initialDepth?: number;
+}
+
+export default function GravelCalculator({
+  initialLength = 20,
+  initialWidth = 10,
+  initialDepth = 4
+}: GravelProps) {
+  const [length, setLength] = useState<number>(initialLength);
+  const [width, setWidth] = useState<number>(initialWidth);
+  const [thickness, setThickness] = useState<number>(initialDepth);
   const [waste, setWaste] = useState<number>(10);
   const [gravelDensity, setGravelDensity] = useState<number>(1.4);
   const [isMetric, setIsMetric] = useState<boolean>(false);
@@ -31,7 +41,7 @@ export default function GravelCalculator() {
     if (inputs.gravelDensity !== undefined) setGravelDensity(inputs.gravelDensity);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const tUnit = isMetric ? "cm" : "in";
     const itemTitle = `Gravel Base (${length}${lUnit} x ${width}${lUnit} x ${thickness}${tUnit})`;
@@ -53,25 +63,7 @@ export default function GravelCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'gravel-driveway-calculator',
-      material: 'Gravel',
-      shape: 'Base',
-      inputs: { length, width, thickness, waste, gravelDensity, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    window.location.reload();
+    return newItem;
   };
 
   return (

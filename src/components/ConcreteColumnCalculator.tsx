@@ -2,9 +2,17 @@ import React, { useState, useMemo } from 'react';
 import { calculateConcreteColumn, type ConcreteColumnResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function ConcreteColumnCalculator() {
-  const [length, setLength] = useState<number>(8); // height
-  const [thickness, setThickness] = useState<number>(12); // diameter
+interface ConcreteColumnProps {
+  initialDiameter?: number;
+  initialDepth?: number;
+}
+
+export default function ConcreteColumnCalculator({
+  initialDiameter = 12,
+  initialDepth = 8
+}: ConcreteColumnProps) {
+  const [length, setLength] = useState<number>(initialDepth); // depth/height
+  const [thickness, setThickness] = useState<number>(initialDiameter); // diameter
   const [waste, setWaste] = useState<number>(10);
   const [isMetric, setIsMetric] = useState<boolean>(false);
   const [priceInput, setPriceInput] = useState<string>("");
@@ -28,7 +36,7 @@ export default function ConcreteColumnCalculator() {
     if (inputs.thickness !== undefined) setThickness(inputs.thickness);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const tUnit = isMetric ? "cm" : "in";
     const itemTitle = `Concrete Column (Dia: ${thickness}${tUnit}, H: ${length}${lUnit})`;
@@ -50,25 +58,7 @@ export default function ConcreteColumnCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'concrete-column-calculator',
-      material: 'Concrete',
-      shape: 'Column',
-      inputs: { length, thickness, waste, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    window.location.reload();
+    return newItem;
   };
 
   return (
@@ -87,14 +77,61 @@ export default function ConcreteColumnCalculator() {
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
-      renderVisualizer={() => (
-        <svg viewBox="0 0 200 200" className="w-full max-h-[180px]">
-          <ellipse cx="100" cy="40" rx={Math.max(20, thickness * 1.2)} ry={Math.max(8, thickness * 0.4)} fill="var(--color-hairline)" stroke="var(--color-muted)" strokeWidth="1.5" />
-          <path d={`M${100 - (thickness * 1.2)},40 L${100 - (thickness * 1.2)},${40 + (length * 10)} A${thickness * 1.2},${thickness * 0.4} 0 0,0 ${100 + (thickness * 1.2)},${40 + (length * 10)} L${100 + (thickness * 1.2)},40 Z`} fill="var(--color-surface-strong)" fillOpacity="0.8" stroke="var(--color-muted)" strokeWidth="1.5" />
-          <text x="100" y="25" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">D: {thickness} {isMetric ? 'cm' : 'in'}</text>
-          <text x={115 + (thickness * 1.2)} y={40 + (length * 5)} fontSize="10" fill="var(--color-brand-accent)" className="font-mono font-bold">H: {length} {isMetric ? 'm' : 'ft'}</text>
-        </svg>
-      )}
+      renderVisualizer={() => {
+        const minD = isMetric ? 10 : 4;
+        const maxD = isMetric ? 120 : 48;
+        const normalizedD = Math.max(0, Math.min(1, (thickness - minD) / (maxD - minD)));
+        const radiusX = 18 + normalizedD * (48 - 18);
+        const radiusY = Math.max(6, radiusX * 0.28);
+
+        const minH = isMetric ? 0.5 : 1;
+        const maxH = isMetric ? 10 : 30;
+        const normalizedH = Math.max(0, Math.min(1, (length - minH) / (maxH - minH)));
+        const columnHeight = 35 + normalizedH * (85 - 35);
+
+        // Vertical centering in 180px viewBox
+        const topY = Math.round((180 - columnHeight) / 2);
+        const bottomY = topY + columnHeight;
+
+        // Horizontal centering around cx=100 so cylinder + right text is centered in 240px viewBox
+        const cx = 100;
+        const leftX = cx - radiusX;
+        const rightX = cx + radiusX;
+
+        return (
+          <svg viewBox="0 0 240 180" className="w-full max-h-[180px]">
+            {/* Top Cap Ellipse */}
+            <ellipse 
+              cx={cx} 
+              cy={topY} 
+              rx={radiusX} 
+              ry={radiusY} 
+              fill="var(--color-hairline)" 
+              stroke="var(--color-muted)" 
+              strokeWidth="1.5" 
+            />
+            
+            {/* Column Main Cylinder Body */}
+            <path 
+              d={`M ${leftX} ${topY} L ${leftX} ${bottomY} A ${radiusX} ${radiusY} 0 0 0 ${rightX} ${bottomY} L ${rightX} ${topY} Z`} 
+              fill="var(--color-surface-strong)" 
+              fillOpacity="0.85" 
+              stroke="var(--color-muted)" 
+              strokeWidth="1.5" 
+            />
+
+            {/* Top Dimension Label: Diameter */}
+            <text x={cx} y={Math.max(16, topY - radiusY - 6)} textAnchor="middle" fontSize="11" fill="var(--color-ink)" className="font-mono font-bold">
+              Dia: {thickness} {isMetric ? 'cm' : 'in'}
+            </text>
+
+            {/* Height Label on right side */}
+            <text x={rightX + 10} y={topY + columnHeight / 2 + 4} textAnchor="start" fontSize="10" fill="var(--color-brand-accent)" className="font-mono font-bold">
+              H: {length} {isMetric ? 'm' : 'ft'}
+            </text>
+          </svg>
+        );
+      }}
       renderOutputs={() => (
         <>
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">

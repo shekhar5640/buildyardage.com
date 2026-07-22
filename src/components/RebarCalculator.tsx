@@ -2,14 +2,26 @@ import React, { useState, useMemo } from 'react';
 import { calculateRebar, REBAR_SIZES, type RebarResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function RebarCalculator() {
-  const [length, setLength] = useState<number>(30); // slab length
-  const [width, setWidth] = useState<number>(20); // slab width
+interface RebarProps {
+  initialLength?: number;
+  initialWidth?: number;
+  initialSpacing?: number;
+  initialRebarSize?: string;
+}
+
+export default function RebarCalculator({
+  initialLength = 30,
+  initialWidth = 20,
+  initialSpacing = 12,
+  initialRebarSize = '#4'
+}: RebarProps) {
+  const [length, setLength] = useState<number>(initialLength); // slab length
+  const [width, setWidth] = useState<number>(initialWidth); // slab width
   const [thickness, setThickness] = useState<number>(3); // edge clearance
-  const [rebarSpacing, setRebarSpacing] = useState<number>(12); // grid spacing
+  const [rebarSpacing, setRebarSpacing] = useState<number>(initialSpacing); // grid spacing
   const [rebarStickLength, setRebarStickLength] = useState<number>(20); // stock length
   const [rebarOverlap, setRebarOverlap] = useState<number>(18); // lap splice
-  const [rebarSize, setRebarSize] = useState<string>('#4');
+  const [rebarSize, setRebarSize] = useState<string>(initialRebarSize);
   const [waste, setWaste] = useState<number>(10);
   const [isMetric, setIsMetric] = useState<boolean>(false);
   const [priceInput, setPriceInput] = useState<string>("");
@@ -37,7 +49,7 @@ export default function RebarCalculator() {
     if (inputs.rebarSize !== undefined) setRebarSize(inputs.rebarSize);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const tUnit = isMetric ? "cm" : "in";
     const weightUnit = isMetric ? "kg" : "lbs";
@@ -61,25 +73,7 @@ export default function RebarCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'rebar-calculator',
-      material: 'Steel',
-      shape: 'Rebar',
-      inputs: { length, width, thickness, rebarSpacing, rebarStickLength, rebarOverlap, rebarSize, waste, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    window.location.reload();
+    return newItem;
   };
 
   return (
@@ -200,7 +194,34 @@ export default function RebarCalculator() {
         </div>
       </div>
 
-      {/* Grid parameter dropdowns (Rebar size, stick length, overlap, spacing, clearance) */}
+      {/* Grid Spacing Range Slider */}
+      <div className="space-y-2">
+        <div className="flex justify-between text-sm">
+          <label className="font-medium text-ink">Grid Spacing ({isMetric ? 'cm' : 'inches'})</label>
+          <span className="font-mono font-semibold text-brand-accent">{rebarSpacing} {isMetric ? 'cm' : 'in'} O.C.</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <input 
+            type="range" 
+            min={isMetric ? 10 : 3} 
+            max={isMetric ? 100 : 36} 
+            step="1"
+            value={rebarSpacing}
+            onChange={(e) => setRebarSpacing(parseInt(e.target.value) || 0)}
+            className="flex-grow accent-indigo-600 dark:accent-indigo-400 cursor-pointer"
+          />
+          <input 
+            type="number"
+            min={isMetric ? 5 : 1}
+            max={isMetric ? 150 : 60}
+            value={rebarSpacing}
+            onChange={(e) => setRebarSpacing(parseInt(e.target.value) || 0)}
+            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+          />
+        </div>
+      </div>
+
+      {/* Grid parameter dropdowns (Rebar size, stick length) */}
       <div className="grid grid-cols-2 gap-4">
         {/* Rebar Size Dropdown */}
         <div className="space-y-1.5">
@@ -241,40 +262,14 @@ export default function RebarCalculator() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        {/* Grid Spacing Select */}
-        <div className="space-y-1.5">
-          <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Grid Spacing</label>
-          <select 
-            value={rebarSpacing}
-            onChange={(e) => setRebarSpacing(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          >
-            {isMetric ? (
-              <>
-                <option value="15">15 cm</option>
-                <option value="20">20 cm</option>
-                <option value="30">30 cm (Standard)</option>
-                <option value="40">40 cm</option>
-              </>
-            ) : (
-              <>
-                <option value="6">6 inches</option>
-                <option value="12">12 inches (Standard)</option>
-                <option value="18">18 inches</option>
-                <option value="24">24 inches</option>
-              </>
-            )}
-          </select>
-        </div>
-
+      <div className="grid grid-cols-2 gap-4">
         {/* Lap Splice Overlap Select */}
         <div className="space-y-1.5">
-          <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Lap Splice</label>
+          <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Lap Splice</label>
           <select 
             value={rebarOverlap}
             onChange={(e) => setRebarOverlap(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            className="w-full text-xs border border-hairline rounded p-2.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
           >
             {isMetric ? (
               <>
@@ -294,11 +289,11 @@ export default function RebarCalculator() {
 
         {/* Edge Clearance Select */}
         <div className="space-y-1.5">
-          <label className="text-[10px] font-bold text-muted uppercase tracking-wider">Clearance</label>
+          <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Edge Clearance</label>
           <select 
             value={thickness}
             onChange={(e) => setThickness(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            className="w-full text-xs border border-hairline rounded p-2.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
           >
             {isMetric ? (
               <>

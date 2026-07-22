@@ -2,9 +2,17 @@ import React, { useState, useMemo } from 'react';
 import { calculateFraming, type FramingResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function FramingCalculator() {
-  const [length, setLength] = useState<number>(50); // wall length
-  const [studSpacing, setStudSpacing] = useState<number>(16);
+interface FramingProps {
+  initialWallLength?: number;
+  initialStudSpacing?: number;
+}
+
+export default function FramingCalculator({
+  initialWallLength = 50,
+  initialStudSpacing = 16
+}: FramingProps) {
+  const [length, setLength] = useState<number>(initialWallLength); // wall length
+  const [studSpacing, setStudSpacing] = useState<number>(initialStudSpacing);
   const [corners, setCorners] = useState<number>(4);
   const [topPlates, setTopPlates] = useState<number>(2);
   const [bottomPlates, setBottomPlates] = useState<number>(1);
@@ -34,7 +42,7 @@ export default function FramingCalculator() {
     if (inputs.bottomPlates !== undefined) setBottomPlates(inputs.bottomPlates);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const itemTitle = `Framed Wall (${length}${lUnit} Long, ${studSpacing}" o.c.)`;
     const itemDetails = `${results.studsCount} Studs, ${results.bottomPlates16ft + results.topPlates16ft} Plates (16ft)`;
@@ -55,25 +63,7 @@ export default function FramingCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'framing-calculator',
-      material: 'Framing',
-      shape: 'Wall',
-      inputs: { length, studSpacing, corners, topPlates, bottomPlates, waste, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    window.location.reload();
+    return newItem;
   };
 
   return (
@@ -92,18 +82,42 @@ export default function FramingCalculator() {
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
-      renderVisualizer={() => (
-        <svg viewBox="0 0 300 120" className="w-full max-h-[180px]">
-          <rect x="20" y="15" width="260" height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-          <rect x="20" y="20" width="260" height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-          <rect x="20" y="95" width="260" height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-          {Array.from({ length: Math.min(15, Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5))) }).map((_, idx, arr) => {
-            const xPos = 20 + (idx * (260 / (arr.length - 1 || 1)));
-            return <rect key={idx} x={xPos} y="24" width="4" height="71" fill="var(--color-surface-strong)" stroke="var(--color-muted)" strokeWidth="0.5" />;
-          })}
-          <text x="150" y="112" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">Wall Length: {length} {isMetric ? 'm' : 'ft'}</text>
-        </svg>
-      )}
+      renderVisualizer={() => {
+        const calculatedBars = Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5));
+        const numStuds = Math.max(5, Math.min(18, calculatedBars));
+        const plateLeft = 20;
+        const plateWidth = 260;
+        const studWidth = 4;
+        const usableWidth = plateWidth - studWidth; // 256
+
+        return (
+          <svg viewBox="0 0 300 120" className="w-full max-h-[180px]">
+            {/* Double Top Plate */}
+            <rect x={plateLeft} y="15" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
+            <rect x={plateLeft} y="20" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
+            {/* Bottom Plate */}
+            <rect x={plateLeft} y="95" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
+            
+            {/* Vertical Studs (Minimum 5 bars, last stud perfectly aligned flush at right edge) */}
+            {Array.from({ length: numStuds }).map((_, idx) => {
+              const xPos = plateLeft + (idx * (usableWidth / (numStuds - 1)));
+              return (
+                <rect 
+                  key={idx} 
+                  x={xPos} 
+                  y="24" 
+                  width={studWidth} 
+                  height="71" 
+                  fill="var(--color-surface-strong)" 
+                  stroke="var(--color-muted)" 
+                  strokeWidth="0.5" 
+                />
+              );
+            })}
+            <text x="150" y="112" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">Wall Length: {length} {isMetric ? 'm' : 'ft'}</text>
+          </svg>
+        );
+      }}
       renderOutputs={() => (
         <>
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
@@ -161,17 +175,19 @@ export default function FramingCalculator() {
         </div>
       </div>
 
-      {/* Stud Spacing Dropdown */}
+      {/* Stud Spacing Buttons */}
       <div className="space-y-2">
         <label className="text-sm font-medium text-ink block">Stud Spacing (On Center)</label>
         <div className="flex gap-4">
           <button 
+            type="button"
             onClick={() => setStudSpacing(16)}
             className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${studSpacing === 16 ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
           >
             16 in (Standard O.C.)
           </button>
           <button 
+            type="button"
             onClick={() => setStudSpacing(24)}
             className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${studSpacing === 24 ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
           >
@@ -180,23 +196,35 @@ export default function FramingCalculator() {
         </div>
       </div>
 
-      {/* Grid parameter dropdowns (Corners, Top Plates, Bottom Plates) */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Corners</label>
-          <select 
+      {/* Corners & Intersections Range Slider */}
+      <div className="space-y-2">
+        <div className="flex justify-between text-sm">
+          <label className="font-medium text-ink">Corners & Intersections</label>
+          <span className="font-mono font-semibold text-brand-accent">{corners} corners</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <input 
+            type="range" 
+            min="0" 
+            max="20" 
+            step="1"
             value={corners}
             onChange={(e) => setCorners(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          >
-            <option value="2">2 corners</option>
-            <option value="3">3 corners</option>
-            <option value="4">4 corners</option>
-            <option value="5">5 corners</option>
-            <option value="6">6 corners</option>
-          </select>
+            className="flex-grow accent-indigo-600 dark:accent-indigo-400 cursor-pointer"
+          />
+          <input 
+            type="number"
+            min="0"
+            max="50"
+            value={corners}
+            onChange={(e) => setCorners(parseInt(e.target.value) || 0)}
+            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+          />
         </div>
+      </div>
 
+      {/* Grid parameter dropdowns (Top Plates, Bottom Plates) */}
+      <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Top Plates</label>
           <select 

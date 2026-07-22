@@ -2,10 +2,20 @@ import React, { useState, useMemo } from 'react';
 import { calculateConcreteSlab, type ConcreteSlabResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function ConcreteSlabCalculator() {
-  const [length, setLength] = useState<number>(12);
-  const [width, setWidth] = useState<number>(10);
-  const [thickness, setThickness] = useState<number>(4);
+interface ConcreteSlabProps {
+  initialLength?: number;
+  initialWidth?: number;
+  initialThickness?: number;
+}
+
+export default function ConcreteSlabCalculator({
+  initialLength = 12,
+  initialWidth = 10,
+  initialThickness = 4
+}: ConcreteSlabProps) {
+  const [length, setLength] = useState<number>(initialLength);
+  const [width, setWidth] = useState<number>(initialWidth);
+  const [thickness, setThickness] = useState<number>(initialThickness);
   const [waste, setWaste] = useState<number>(10);
   const [isMetric, setIsMetric] = useState<boolean>(false);
   const [priceInput, setPriceInput] = useState<string>("");
@@ -30,7 +40,7 @@ export default function ConcreteSlabCalculator() {
     if (inputs.thickness !== undefined) setThickness(inputs.thickness);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const tUnit = isMetric ? "cm" : "in";
     const itemTitle = `Concrete Slab (${length}${lUnit} x ${width}${lUnit} x ${thickness}${tUnit})`;
@@ -52,28 +62,7 @@ export default function ConcreteSlabCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    // Dispatch event to update shell state
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    // Update history cache
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'concrete-slab-calculator',
-      material: 'Concrete',
-      shape: 'Slab',
-      inputs: { length, width, thickness, waste, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    // Reload list on shell via window reload or storage dispatch event
-    window.location.reload();
+    return newItem;
   };
 
   return (

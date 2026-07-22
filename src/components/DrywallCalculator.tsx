@@ -3,10 +3,20 @@ import { CheckSquare, Square } from 'lucide-react';
 import { calculateDrywall, type DrywallResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 
-export default function DrywallCalculator() {
-  const [length, setLength] = useState<number>(12); // room length
-  const [drywallWidth, setDrywallWidth] = useState<number>(10); // room width
-  const [thickness, setThickness] = useState<number>(8); // wall height
+interface DrywallProps {
+  initialLength?: number;
+  initialWidth?: number;
+  initialHeight?: number;
+}
+
+export default function DrywallCalculator({
+  initialLength = 12,
+  initialWidth = 10,
+  initialHeight = 8
+}: DrywallProps) {
+  const [length, setLength] = useState<number>(initialLength); // room length
+  const [drywallWidth, setDrywallWidth] = useState<number>(initialWidth); // room width
+  const [thickness, setThickness] = useState<number>(initialHeight); // wall height
   const [waste, setWaste] = useState<number>(10);
   const [includeCeiling, setIncludeCeiling] = useState<boolean>(false);
   const [sheetSize, setSheetSize] = useState<string>('4x8');
@@ -34,7 +44,7 @@ export default function DrywallCalculator() {
     if (inputs.sheetSize !== undefined) setSheetSize(inputs.sheetSize);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const roomSize = drywallWidth > 0 
       ? `${length}x${drywallWidth}x${thickness}${lUnit}` 
@@ -58,25 +68,7 @@ export default function DrywallCalculator() {
       estimatedCost: results.estimatedCost
     };
 
-    const stored = localStorage.getItem('buildyardage_shopping');
-    const list = stored ? JSON.parse(stored) : [];
-    localStorage.setItem('buildyardage_shopping', JSON.stringify([...list, newItem]));
-
-    const storedHistory = localStorage.getItem('buildyardage_history');
-    const historyList = storedHistory ? JSON.parse(storedHistory) : [];
-    const newHistory = {
-      id: Date.now().toString(),
-      slug: 'drywall-calculator',
-      material: 'Drywall',
-      shape: 'Room',
-      inputs: { length, drywallWidth, thickness, waste, includeCeiling, sheetSize, pricePerUnit },
-      outputs: results,
-      isMetric,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('buildyardage_history', JSON.stringify([newHistory, ...historyList.slice(0, 9)]));
-
-    window.location.reload();
+    return newItem;
   };
 
   return (
@@ -217,12 +209,14 @@ export default function DrywallCalculator() {
         <label className="text-sm font-medium text-ink block">Drywall Panel Size</label>
         <div className="flex gap-4">
           <button 
+            type="button"
             onClick={() => setSheetSize('4x8')}
             className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${sheetSize === '4x8' ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
           >
             4ft x 8ft Panel
           </button>
           <button 
+            type="button"
             onClick={() => setSheetSize('4x12')}
             className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${sheetSize === '4x12' ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
           >
@@ -234,6 +228,7 @@ export default function DrywallCalculator() {
       {/* Ceiling toggle checkbox */}
       <div className="flex items-center gap-2 mt-4">
         <button 
+          type="button"
           onClick={() => setIncludeCeiling(!includeCeiling)}
           className="text-muted hover:text-brand-accent cursor-pointer"
         >

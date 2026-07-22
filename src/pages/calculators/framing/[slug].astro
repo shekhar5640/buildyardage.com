@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FramingCalculator from '../../../components/FramingCalculator';
+import ToolGuideSection from '../../../components/ToolGuideSection.astro';
+import { getFramingPseoPages, type PseoPageData } from '../../../data/pseo/pseoMatrix';
+
+export async function getStaticPaths() {
+  const pages = getFramingPseoPages();
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { pageData: page }
+  }));
+}
+
+interface Props {
+  pageData: PseoPageData;
+}
+
+const { pageData } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": pageData.metaTitle,
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": pageData.faqs.map(f => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout title={pageData.metaTitle} description={pageData.metaDescription} jsonLd={jsonLd}>
+  <div class="bg-canvas border-b border-hairline py-10 transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex text-xs text-muted mb-4 gap-2">
+        <a href="/" class="hover:text-ink">Home</a>
+        <span>/</span>
+        <a href="/calculators/framing-calculator" class="hover:text-ink">Wood Stud Wall Framing Calculator</a>
+        <span>/</span>
+        <span class="text-brand-accent font-semibold">{pageData.slug}</span>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight mb-3 max-w-4xl">
+        {pageData.h1Title}
+      </h1>
+      <p class="text-sm text-body leading-relaxed max-w-3xl mb-8">
+        Pre-calculated lumber stick list for a {pageData.inputs.wallLength}ft wood stud wall framed at {pageData.inputs.studSpacing}" on-center (O.C.) with double top plates and corner tie-ins.
+      </p>
+
+      <FramingCalculator 
+        initialWallLength={pageData.inputs.wallLength} 
+        initialStudSpacing={pageData.inputs.studSpacing} 
+        client:load 
+      />
+
+      <div class="mt-8 bg-brand-accent/10 border border-brand-accent/30 rounded-xl p-6 shadow-xs max-w-7xl">
+        <div class="flex items-start gap-3">
+          <span class="text-brand-accent font-bold text-xl">💡</span>
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-brand-accent mb-1">Quick Answer Summary</h2>
+            <p class="text-base text-ink font-semibold leading-relaxed">
+              {pageData.quickAnswer}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-12">
+    <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8">
+      <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-2">
+        {pageData.latexMath.title}
+      </h2>
+      <div class="bg-surface-card border border-hairline rounded-lg p-4 font-mono text-sm text-brand-accent mb-4 overflow-x-auto">
+        <code>{pageData.latexMath.formula}</code>
+      </div>
+      <p class="text-xs text-body leading-relaxed">{pageData.latexMath.explanation}</p>
+    </div>
+
+    <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8">
+      <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-2">
+        Wall Framing Lumber Cheat Sheet
+      </h2>
+      <div class="overflow-x-auto mt-4">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-hairline text-muted uppercase font-semibold">
+              {pageData.comparativeTable.headers.map(h => <th class="py-3 px-4">{h}</th>)}
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            {pageData.comparativeTable.rows.map(r => (
+              <tr class="hover:bg-surface-soft transition-colors">
+                <td class="py-3 px-4 font-bold text-ink">
+                  {r.url ? <a href={r.url} class="hover:text-brand-accent underline decoration-dotted">{r.label}</a> : r.label}
+                </td>
+                <td class="py-3 px-4 text-body font-mono">{r.volumeOrQty}</td>
+                <td class="py-3 px-4 text-body font-mono">{r.bagsOrSticks}</td>
+                <td class="py-3 px-4 text-brand-accent font-mono font-semibold">{r.estCostRange}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {pageData.jobsiteTips.map(tip => (
+        <div class="bg-canvas border border-hairline rounded-lg p-5">
+          <h3 class="text-sm font-bold text-ink mb-1.5 flex items-center gap-2">
+            <span class="text-brand-accent">★</span>
+            <span>{tip.title}</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">{tip.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="bg-surface-card border border-hairline rounded-xl p-6 sm:p-8">
+      <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {pageData.faqs.map(faq => (
+          <div class="bg-canvas border border-hairline rounded-lg p-5">
+            <h3 class="text-sm font-bold text-ink mb-2">{faq.question}</h3>
+            <p class="text-xs text-muted leading-relaxed">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ToolGuideSection slug="framing-calculator" />
+</BaseLayout>

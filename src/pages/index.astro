@@ -11,10 +11,10 @@ import { ChevronRight } from 'lucide-react';
   <section class="bg-canvas border-b border-hairline transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 text-center">
       <h1 class="text-4xl font-extrabold tracking-tight text-ink sm:text-5xl md:text-6xl max-w-4xl mx-auto leading-[1.1] selection:bg-brand-accent">
-        The clean, fast way to calculate <span class="text-brand-accent">jobsite yardage</span>
+        Build Faster, <span class="text-brand-accent">Calculate Without the Clutter</span>
       </h1>
       <p class="mt-6 text-lg text-muted max-w-2xl mx-auto leading-relaxed">
-        Stop using bloated, ad-cluttered legacy websites. Estimate concrete slab volume, sonotube columns, gravel tonnage, wall framing, and drywall panels instantly.
+        The ultra-fast material calculator for the jobsite. Get instant, exact quantities for concrete, columns, aggregate, rebar, framing, and drywall.
       </p>
       
       <!-- CTA Button -->
@@ -49,17 +49,12 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 1: Concrete Slab -->
       <a href="/calculators/concrete-slab-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-50 dark:bg-indigo-950/50 text-brand-accent mb-4">
-            <!-- Concrete Slab SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3L21 7L12 11L3 7Z" />
-              <path d="M3 7V15L12 19V11" />
-              <path d="M21 7V15L12 19" />
-              <circle cx="12" cy="7" r="0.5" fill="currentColor" />
-              <circle cx="8" cy="6" r="0.5" fill="currentColor" />
-              <circle cx="16" cy="6" r="0.5" fill="currentColor" />
-              <circle cx="10" cy="8" r="0.5" fill="currentColor" />
-              <circle cx="14" cy="8" r="0.5" fill="currentColor" />
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 mb-4 transition-colors">
+            <!-- Simple Thin Cube for Slab SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4L21 8.5L12 13L3 8.5Z" />
+              <path d="M3 8.5V14.5L12 19V13" />
+              <path d="M21 8.5V14.5L12 19" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -78,17 +73,13 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 2: Concrete Column -->
       <a href="/calculators/concrete-column-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-50 dark:bg-indigo-950/50 text-brand-accent mb-4">
-            <!-- Concrete Column SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 mb-4 transition-colors">
+            <!-- Cylindrical Icon for Column SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="6" rx="7" ry="2.5" />
-              <path d="M5 18C5 19.38 8.13 20.5 12 20.5C15.87 20.5 19 19.38 19 18" />
               <path d="M5 6V18" />
               <path d="M19 6V18" />
-              <circle cx="12" cy="10" r="0.5" fill="currentColor" />
-              <circle cx="9" cy="14" r="0.5" fill="currentColor" />
-              <circle cx="15" cy="12" r="0.5" fill="currentColor" />
-              <circle cx="11" cy="17" r="0.5" fill="currentColor" />
+              <path d="M5 18C5 19.38 8.13 20.5 12 20.5C15.87 20.5 19 19.38 19 18" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -107,18 +98,12 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 3: Gravel Base -->
       <a href="/calculators/gravel-driveway-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 mb-4">
-            <!-- Gravel Mound SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 20C4.5 15 8 9 12 9C16 9 19.5 15 21 20" />
-              <path d="M2 20H22" />
-              <path d="M7 17L8.5 15.5L10 17" />
-              <path d="M11 15L12.5 13.5L14 15" />
-              <path d="M15 17L16.5 15.5L18 17" />
-              <path d="M9 19H15" />
-              <circle cx="12" cy="16.5" r="0.75" fill="currentColor" />
-              <circle cx="8" cy="18" r="0.75" fill="currentColor" />
-              <circle cx="16" cy="18" r="0.75" fill="currentColor" />
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-4 transition-colors">
+            <!-- Simple Curved Pathway Icon for Driveway SVG Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 21C7 15 8 10 10 3" />
+              <path d="M20 21C17 15 16 10 14 3" />
+              <path d="M12 21C12 17 12 13 12 9" stroke-dasharray="2 3" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -137,14 +122,16 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 4: Drywall Panels -->
       <a href="/calculators/drywall-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-amber-50 dark:bg-amber-950/50 text-amber-600 mb-4">
-            <!-- Drywall Sheet SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M8 4L20 4L16 15L4 15Z" />
-              <path d="M4 15V16.5L16 16.5V15" />
-              <path d="M5 8L17 8L13 19L1 19Z" fill="currentColor" fill-opacity="0.1" />
-              <path d="M5 8L17 8L13 19L1 19Z" />
-              <path d="M1 19V20.5L13 20.5V19" />
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 mb-4 transition-colors">
+            <!-- Drywall Sheet Stack & Screw Marks Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 3H19C19.55 3 20 3.45 20 4V16C20 16.55 19.55 17 19 17H7C6.45 17 6 16.55 6 16V4C6 3.45 6.45 3 7 3Z" opacity="0.4" />
+              <rect x="4" y="7" width="13" height="14" rx="1" />
+              <circle cx="6.5" cy="9.5" r="0.5" fill="currentColor" />
+              <circle cx="14.5" cy="9.5" r="0.5" fill="currentColor" />
+              <circle cx="6.5" cy="18.5" r="0.5" fill="currentColor" />
+              <circle cx="14.5" cy="18.5" r="0.5" fill="currentColor" />
+              <line x1="10.5" y1="7" x2="10.5" y2="21" stroke-dasharray="2 2" opacity="0.7" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -163,17 +150,16 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 5: Wall Framing -->
       <a href="/calculators/framing-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-purple-50 dark:bg-purple-950/50 text-purple-600 mb-4">
-            <!-- Wood Framing Stud SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 5H22" />
-              <path d="M2 7H22" />
-              <path d="M2 19H22" />
-              <path d="M5 7V19" />
-              <path d="M10 7V19" />
-              <path d="M15 7V19" />
-              <path d="M20 7V19" />
-              <path d="M5 19L15 7" stroke-dasharray="2 2" />
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-400 mb-4 transition-colors">
+            <!-- Architectural Wall Framing Studs & Let-in Brace Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 4H21" />
+              <path d="M3 6.5H21" />
+              <path d="M3 19.5H21" />
+              <path d="M5 6.5V19.5" />
+              <path d="M12 6.5V19.5" />
+              <path d="M19 6.5V19.5" />
+              <path d="M5 19.5L19 6.5" stroke-dasharray="3 2" opacity="0.7" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -192,23 +178,17 @@ import { ChevronRight } from 'lucide-react';
       <!-- CARD 6: Rebar Grid -->
       <a href="/calculators/rebar-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
-          <div class="flex h-10 w-10 items-center justify-center rounded bg-blue-50 dark:bg-blue-950/50 text-blue-600 mb-4">
-            <!-- Rebar Grid SVG Icon -->
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Grid lines -->
-              <path d="M2 7H22" />
-              <path d="M2 12H22" />
-              <path d="M2 17H22" />
-              <path d="M7 2V22" />
-              <path d="M12 2V22" />
-              <path d="M17 2V22" />
-              <!-- Rib texture detail -->
-              <path d="M6 4H8" /><path d="M6 9H8" /><path d="M6 14H8" /><path d="M6 19H8" />
-              <path d="M11 4H13" /><path d="M11 9H13" /><path d="M11 14H13" /><path d="M11 19H13" />
-              <path d="M16 4H18" /><path d="M16 9H18" /><path d="M16 14H18" /><path d="M16 19H18" />
-              <path d="M4 6V8" /><path d="M9 6V8" /><path d="M14 6V8" /><path d="M19 6V8" />
-              <path d="M4 11V13" /><path d="M9 11V13" /><path d="M14 11V13" /><path d="M19 11V13" />
-              <path d="M4 16V18" /><path d="M9 16V18" /><path d="M14 16V18" /><path d="M19 16V18" />
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 mb-4 transition-colors">
+            <!-- Steel Rebar Grid & Tie Nodes Icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8H21" />
+              <path d="M3 16H21" />
+              <path d="M8 3V21" />
+              <path d="M16 3V21" />
+              <circle cx="8" cy="8" r="1.5" fill="currentColor" />
+              <circle cx="16" cy="8" r="1.5" fill="currentColor" />
+              <circle cx="8" cy="16" r="1.5" fill="currentColor" />
+              <circle cx="16" cy="16" r="1.5" fill="currentColor" />
             </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
@@ -227,11 +207,95 @@ import { ChevronRight } from 'lucide-react';
     </div>
   </section>
 
+  <!-- Authoritative 600-Word SEO Section for Search Indexation -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200 content-visibility-auto">
+    <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-12 space-y-8">
+      <div>
+        <h2 class="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+          Jobsite Material Estimating: Precision Volume, Tonnage & Framing Calculations
+        </h2>
+        <p class="mt-3 text-sm text-body leading-relaxed max-w-4xl">
+          Accurate material estimating is the backbone of every profitable construction project, commercial pour, and home renovation. Ordering too little material results in costly jobsite delays, cold joints in concrete, and unexpected delivery fees. Ordering too much wastes valuable capital and clutters your jobsite. Build Yardage provides contractors, trade professionals, and DIY builders with instant, ad-free, high-precision construction calculators designed strictly around industry building codes and ASTM standards.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-hairline pt-8">
+        
+        <!-- Pillar 1: Concrete Volumetric Math -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">1.</span>
+            <span>Volumetric Concrete & Pre-Mix Bag Math</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Concrete calculations rely on three-dimensional volumetric math. To compute required volume for rectangular slabs, driveways, or garage floors, multiply length (ft) by width (ft) by thickness (converted from inches to feet by dividing by 12). Divide total net cubic feet by 27 to obtain cubic yards. For smaller pours, convert cubic yards to pre-mixed concrete bags: one 80lb bag yields 0.60 cu ft, a 60lb bag yields 0.45 cu ft, and a 40lb bag yields 0.30 cu ft. Always apply a 10% waste buffer to cover sub-grade soil settling and form deflection.
+          </p>
+        </div>
+
+        <!-- Pillar 2: Cylinder & Sonotube Math -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">2.</span>
+            <span>Sonotube Column & Cylinder Footing Geometry</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Cylindrical footings, Sonotube cardboard forms, and round fence post holes follow strict geometric cylinder volume principles (Volume = π × r² × h). Radius is half the hole diameter (in feet), while height represents depth below grade. When pouring structural pier footings or deck posts, building code requires extending footings at least 6 inches below your regional frost line to prevent winter heave. Factoring in auger hole bottom expansion, a 10% waste allowance guarantees you never run short mid-pour.
+          </p>
+        </div>
+
+        <!-- Pillar 3: Aggregate Density & Tonnage -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">3.</span>
+            <span>Aggregate Weight Conversions & Gravel Base Tonnage</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Quarries sell aggregate materials (pea gravel, #57 crushed stone, crusher run, and granite) by weight in short US tons rather than cubic yards. Volume-to-weight conversions require multiplying cubic yards by material density constants. Standard crushed stone weighs approximately 1.40 tons per cubic yard (2,800 lbs/yd³). Compaction roller equipment reduces loose aggregate thickness by 10% to 15%. Laying heavy geotextile sub-base fabric beneath your driveway prevents stone loss into soft sub-grade soil.
+          </p>
+        </div>
+
+        <!-- Pillar 4: Drywall Systems -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">4.</span>
+            <span>Drywall Panel System & Finishing Supplies</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Estimating drywall requires measuring total wall and ceiling square footage. Standard 4x8 ft sheets cover 32 sq ft, while 4x12 ft panels cover 48 sq ft. Hanging sheets horizontally across studs bridges framing irregularities and reduces taped seam length by 25%. A complete drywall estimate must account for auxiliary finishing materials: approx 32 feet of paper tape per sheet, 38 drywall screws per panel, and 0.05 lbs of joint compound mud per square foot of board surface.
+          </p>
+        </div>
+
+        <!-- Pillar 5: Wood Stud Framing -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">5.</span>
+            <span>Wood Stud Wall Framing & Lumber Stick Matching</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Framing wall lumber estimates distinguish between vertical studs, bottom sole plates, and double top plates. Divide wall length (inches) by stud spacing (16" or 24" O.C.) and add 1 for the end stud, plus 3 extra studs per corner or T-intersection. Plates require continuous 2x4 or 2x6 dimensional lumber. Translating linear footage into commercial 16ft lumber sticks minimizes lumberyard scrap waste and keeps jobsite framing budgets tight.
+          </p>
+        </div>
+
+        <!-- Pillar 6: Steel Rebar Grids -->
+        <div class="space-y-3">
+          <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+            <span class="text-brand-accent font-bold">6.</span>
+            <span>Steel Rebar Grid Reinforcement & 40d Lap Splices</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Concrete tensile strength is reinforced using steel rebar grids (#3 3/8", #4 1/2", or #5 5/8" bars). Grid calculation requires dividing slab dimensions by grid spacing centers (12" or 18" grid centers). When joining 20ft stock rebar sticks, structural building codes enforce a 40d lap splice overlap (40 times bar diameter). Rebar chairs elevated in the upper 1/3 of the slab ensure proper concrete encasement and corrosion resistance.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- Pre-footer CTA Band -->
   <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 transition-colors duration-200">
     <div class="bg-surface-card border border-hairline rounded-lg p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-4">
       <h2 class="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-        Estimate, compiles, and print
+        Estimate, compile, and print
       </h2>
       <p class="text-sm text-muted max-w-xl leading-relaxed">
         Our integrated jobsite shopping list compiles estimates as you calculate across pages. Print out the full shopping list checklist or export to PDF to take to your local hardware store.

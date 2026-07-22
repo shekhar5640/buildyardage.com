@@ -100,12 +100,32 @@ function renderPrintSVG(item: ShoppingItem) {
   }
 
   if (type === 'cylindrical') {
+    const minD = isMetric ? 10 : 4;
+    const maxD = isMetric ? 120 : 48;
+    const normalizedD = Math.max(0, Math.min(1, (thickness - minD) / (maxD - minD)));
+    const radiusX = 18 + normalizedD * (48 - 18);
+    const radiusY = Math.max(6, radiusX * 0.28);
+
+    const minH = isMetric ? 0.5 : 1;
+    const maxH = isMetric ? 10 : 30;
+    const normalizedH = Math.max(0, Math.min(1, (length - minH) / (maxH - minH)));
+    const columnHeight = 35 + normalizedH * (85 - 35);
+
+    // Vertical centering in 180px viewBox
+    const topY = Math.round((180 - columnHeight) / 2);
+    const bottomY = topY + columnHeight;
+
+    // Horizontal centering around cx=100 so cylinder + right text is centered in 240px viewBox
+    const cx = 100;
+    const leftX = cx - radiusX;
+    const rightX = cx + radiusX;
+
     return (
-      <svg viewBox="0 0 200 200" className="w-full max-h-[140px]">
-        <ellipse cx="100" cy="40" rx={Math.max(20, thickness * 1.5)} ry={Math.max(8, thickness * 0.5)} fill="#e2e8f0" stroke="#475569" strokeWidth="1.5" />
-        <path d={`M${100 - (thickness * 1.5)},40 L${100 - (thickness * 1.5)},${40 + (length * 0.8)} A${thickness * 1.5},${thickness * 0.5} 0 0,0 ${100 + (thickness * 1.5)},${40 + (length * 0.8)} L${100 + (thickness * 1.5)},40 Z`} fill="#cbd5e1" fillOpacity="0.8" stroke="#475569" strokeWidth="1.5" />
-        <text x="100" y="25" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold">D: {thickness} {isMetric ? 'cm' : 'in'}</text>
-        <text x={120 + (thickness * 1.5)} y={40 + (length * 0.4)} fontSize="10" fill="#4f46e5" className="font-mono font-bold">H: {length} {isMetric ? 'cm' : 'in'}</text>
+      <svg viewBox="0 0 240 180" className="w-full max-h-[140px]">
+        <ellipse cx={cx} cy={topY} rx={radiusX} ry={radiusY} fill="#e2e8f0" stroke="#475569" strokeWidth="1.5" />
+        <path d={`M ${leftX} ${topY} L ${leftX} ${bottomY} A ${radiusX} ${radiusY} 0 0 0 ${rightX} ${bottomY} L ${rightX} ${topY} Z`} fill="#cbd5e1" fillOpacity="0.8" stroke="#475569" strokeWidth="1.5" />
+        <text x={cx} y={Math.max(16, topY - radiusY - 6)} textAnchor="middle" fontSize="11" fill="#000000" className="font-mono font-bold">Dia: {thickness} {isMetric ? 'cm' : 'in'}</text>
+        <text x={rightX + 10} y={topY + columnHeight / 2 + 4} textAnchor="start" fontSize="10" fill="#4f46e5" className="font-mono font-bold">H: {length} {isMetric ? 'm' : 'ft'}</text>
       </svg>
     );
   }
@@ -144,14 +164,21 @@ function renderPrintSVG(item: ShoppingItem) {
   }
 
   if (type === 'framing') {
+    const calculatedBars = Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5));
+    const numStuds = Math.max(5, Math.min(18, calculatedBars));
+    const plateLeft = 20;
+    const plateWidth = 260;
+    const studWidth = 4;
+    const usableWidth = plateWidth - studWidth; // 256
+
     return (
       <svg viewBox="0 0 300 120" className="w-full max-h-[140px]">
-        <rect x="20" y="15" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
-        <rect x="20" y="20" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
-        <rect x="20" y="95" width="260" height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
-        {Array.from({ length: Math.min(15, Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5))) }).map((_, idx, arr) => {
-          const xPos = 20 + (idx * (260 / (arr.length - 1 || 1)));
-          return <rect key={idx} x={xPos} y="24" width="4" height="71" fill="#bbb" stroke="#475569" strokeWidth="0.5" />;
+        <rect x={plateLeft} y="15" width={plateWidth} height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        <rect x={plateLeft} y="20" width={plateWidth} height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        <rect x={plateLeft} y="95" width={plateWidth} height="4" fill="#ddd" stroke="#475569" strokeWidth="0.5" />
+        {Array.from({ length: numStuds }).map((_, idx) => {
+          const xPos = plateLeft + (idx * (usableWidth / (numStuds - 1)));
+          return <rect key={idx} x={xPos} y="24" width={studWidth} height="71" fill="#bbb" stroke="#475569" strokeWidth="0.5" />;
         })}
         <text x="150" y="112" textAnchor="middle" fontSize="10" fill="#000000" className="font-mono font-bold">Wall Length: {length} {isMetric ? 'm' : 'ft'}</text>
       </svg>
@@ -354,7 +381,7 @@ interface CalculatorShellProps {
   pricePerUnit: number;
   
   results: any;
-  onAdd: () => void;
+  onAdd: () => ShoppingItem | void;
   onRestore: (inputs: Record<string, any>, isMetric: boolean) => void;
   
   children: React.ReactNode; // Inputs
@@ -392,7 +419,10 @@ export default function CalculatorShell({
   useEffect(() => {
     try {
       const storedHistory = localStorage.getItem('buildyardage_history');
-      if (storedHistory) setHistory(JSON.parse(storedHistory));
+      if (storedHistory) {
+        const parsed = JSON.parse(storedHistory);
+        setHistory(Array.isArray(parsed) ? parsed.slice(0, 3) : []);
+      }
 
       const storedList = localStorage.getItem('buildyardage_shopping');
       if (storedList) setShoppingList(JSON.parse(storedList));
@@ -417,6 +447,34 @@ export default function CalculatorShell({
       localStorage.setItem('buildyardage_shopping', JSON.stringify(newList));
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  const saveHistory = (newHistList: HistoryItem[]) => {
+    const trimmed = newHistList.slice(0, 3);
+    setHistory(trimmed);
+    try {
+      localStorage.setItem('buildyardage_history', JSON.stringify(trimmed));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleAddItem = (newItem?: ShoppingItem) => {
+    const itemToAdd = newItem || onAdd();
+    if (itemToAdd) {
+      saveShoppingList([itemToAdd, ...shoppingList]);
+      const newHist: HistoryItem = {
+        id: Date.now().toString(),
+        slug,
+        material,
+        shape,
+        inputs: itemToAdd.inputs || {},
+        outputs: itemToAdd.outputs || {},
+        isMetric,
+        timestamp: Date.now()
+      };
+      saveHistory([newHist, ...history.slice(0, 2)]);
     }
   };
 
@@ -448,11 +506,16 @@ export default function CalculatorShell({
   };
 
   const restoreCalculation = (item: HistoryItem) => {
-    setIsMetric(item.isMetric);
-    if (item.inputs.waste !== undefined) setWaste(item.inputs.waste);
-    if (item.inputs.pricePerUnit !== undefined) setPriceInput(item.inputs.pricePerUnit.toString());
-    else setPriceInput("");
-    onRestore(item.inputs, item.isMetric);
+    const confirmRestore = window.confirm(
+      `Restore dimensions for ${item.material} ${item.shape}?\n\nThis will overwrite your current calculator inputs with the saved dimensions.`
+    );
+    if (confirmRestore) {
+      setIsMetric(item.isMetric);
+      if (item.inputs.waste !== undefined) setWaste(item.inputs.waste);
+      if (item.inputs.pricePerUnit !== undefined) setPriceInput(item.inputs.pricePerUnit.toString());
+      else setPriceInput("");
+      onRestore(item.inputs, item.isMetric);
+    }
   };
 
   const handlePrint = () => {
@@ -509,7 +572,8 @@ export default function CalculatorShell({
           </div>
 
           <button
-            onClick={onAdd}
+            type="button"
+            onClick={() => handleAddItem()}
             className="w-full mt-8 flex items-center justify-center gap-2 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-md shadow-sm active:scale-95 transition-all cursor-pointer"
           >
             <Plus size={18} />
