@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AlertTriangle, Home, RefreshCw, Mail } from 'lucide-react';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "500 Server Error - Build Yardage",
+  "url": "https://buildyardage.com/500",
+  "description": "An unexpected error occurred on BuildYardage.com."
+};
+---
+
+<BaseLayout
+  title="500 - Server Error | BuildYardage"
+  description="An unexpected error occurred while processing your request on BuildYardage.com."
+  jsonLd={jsonLd}
+>
+  <section class="min-h-[70vh] flex items-center justify-center py-16 sm:py-24 bg-canvas transition-colors duration-200">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      
+      <!-- Icon & Code Badge -->
+      <div class="inline-flex flex-col items-center justify-center space-y-4">
+        <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 shadow-sm">
+          <AlertTriangle size={44} />
+        </div>
+        <span class="inline-block px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-widest rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+          500 ERROR • TEMPORARY JOBSITE HALT
+        </span>
+      </div>
+
+      <!-- Main Headline & Subtitle -->
+      <div class="space-y-3">
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-ink">
+          Unexpected Calculation <span class="text-brand-accent">Fault</span>
+        </h1>
+        <p class="text-base sm:text-lg text-body max-w-xl mx-auto leading-relaxed">
+          Our servers encountered a temporary issue processing your calculation parameters. Please try refreshing your browser window.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <button
+          onclick="window.location.reload()"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary hover:bg-brand-primary-active text-on-primary font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all cursor-pointer"
+        >
+          <RefreshCw size={18} />
+          <span>Refresh Page</span>
+        </button>
+        
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-surface-card hover:bg-surface-soft border border-hairline text-ink font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all"
+        >
+          <Home size={18} />
+          <span>Return Home</span>
+        </a>
+      </div>
+
+      <!-- Support Notice -->
+      <div class="pt-8 border-t border-hairline">
+        <p class="text-xs text-muted">
+          If this issue persists, please report it to our engineering team at 
+          <a href="mailto:contact@buildyardage.com" class="text-brand-accent font-semibold hover:underline inline-flex items-center gap-1 ml-1">
+            <Mail size={12} />
+            <span>contact@buildyardage.com</span>
+          </a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

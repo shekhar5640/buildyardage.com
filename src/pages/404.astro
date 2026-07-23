@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { HardHat, Home, Calculator, ArrowLeft } from 'lucide-react';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "404 Page Not Found - Build Yardage",
+  "url": "https://buildyardage.com/404",
+  "description": "The requested calculation page could not be found on BuildYardage.com."
+};
+---
+
+<BaseLayout
+  title="404 - Page Not Found | BuildYardage"
+  description="The requested calculation page could not be found on BuildYardage.com."
+  jsonLd={jsonLd}
+>
+  <section class="min-h-[70vh] flex items-center justify-center py-16 sm:py-24 bg-canvas transition-colors duration-200">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      
+      <!-- Icon & Code Badge -->
+      <div class="inline-flex flex-col items-center justify-center space-y-4">
+        <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-brand-accent/10 text-brand-accent border border-brand-accent/20 shadow-sm">
+          <HardHat size={44} />
+        </div>
+        <span class="inline-block px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-widest rounded-full bg-brand-accent/15 text-brand-accent border border-brand-accent/30">
+          404 ERROR • PAGE OUT OF BOUNDS
+        </span>
+      </div>
+
+      <!-- Main Headline & Subtitle -->
+      <div class="space-y-3">
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-ink">
+          Looks Like This Route Was <span class="text-brand-accent">Excavated</span>
+        </h1>
+        <p class="text-base sm:text-lg text-body max-w-xl mx-auto leading-relaxed">
+          The page or calculator URL you requested doesn't exist, may have been moved, or contains a typo.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary hover:bg-brand-primary-active text-on-primary font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all"
+        >
+          <Home size={18} />
+          <span>Return to Home</span>
+        </a>
+        <button
+          onclick="history.back()"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-surface-card hover:bg-surface-soft border border-hairline text-ink font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all cursor-pointer"
+        >
+          <ArrowLeft size={18} />
+          <span>Go Back</span>
+        </button>
+      </div>
+
+      <!-- Popular Calculators Quick Grid -->
+      <div class="pt-10 border-t border-hairline max-w-3xl mx-auto">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-muted mb-6">
+          Or Jump Directly to Our Core Material Estimators
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+          <a
+            href="/calculators/concrete-slab-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Concrete Slab</h3>
+              <p class="text-[11px] text-muted">Cubic yards & pre-mix bags</p>
+            </div>
+          </a>
+
+          <a
+            href="/calculators/concrete-column-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Sonotube Column</h3>
+              <p class="text-[11px] text-muted">Round footings & cylinder volume</p>
+            </div>
+          </a>
+
+          <a
+            href="/calculators/gravel-driveway-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Gravel Base</h3>
+              <p class="text-[11px] text-muted">Aggregate tonnage & density</p>
+            </div>
+          </a>
+
+          <a
+            href="/calculators/drywall-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Drywall Panels</h3>
+              <p class="text-[11px] text-muted">Sheet counts, tape & compound</p>
+            </div>
+          </a>
+
+          <a
+            href="/calculators/framing-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Wall Framing</h3>
+              <p class="text-[11px] text-muted">Studs, plates & 16ft lumber sticks</p>
+            </div>
+          </a>
+
+          <a
+            href="/calculators/rebar-calculator"
+            class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
+          >
+            <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <Calculator size={18} />
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-ink group-hover:text-brand-accent transition-colors">Rebar Grid</h3>
+              <p class="text-[11px] text-muted">Grid sticks, weight & 40d splices</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
