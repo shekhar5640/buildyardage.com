@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ConcreteSlabCalculator from '../../../components/ConcreteSlabCalculator';
+import ToolGuideSection from '../../../components/ToolGuideSection.astro';
+import { SUPPORTED_LOCALES, getTranslations, LOCALES, type SupportedLocale } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": `${t.nav.concreteSlab} - Build Yardage`,
+  "url": `https://buildyardage.com/${activeLang}/calculators/concrete-slab-calculator`,
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All"
+};
+---
+
+<BaseLayout
+  title={`${t.nav.concreteSlab} | Build Yardage`}
+  description="High-precision concrete slab calculator for driveways, patios, and slabs."
+  jsonLd={jsonLd}
+  lang={activeLang}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <ConcreteSlabCalculator client:load initialIsMetric={LOCALES[activeLang].isMetricDefault} />
+    <ToolGuideSection slug="concrete-slab-calculator" />
+  </div>
+</BaseLayout>

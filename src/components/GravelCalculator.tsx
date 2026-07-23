@@ -6,19 +6,21 @@ interface GravelProps {
   initialLength?: number;
   initialWidth?: number;
   initialDepth?: number;
+  initialIsMetric?: boolean;
 }
 
 export default function GravelCalculator({
   initialLength = 20,
   initialWidth = 10,
-  initialDepth = 4
+  initialDepth = 4,
+  initialIsMetric = false
 }: GravelProps) {
   const [length, setLength] = useState<number>(initialLength);
   const [width, setWidth] = useState<number>(initialWidth);
   const [thickness, setThickness] = useState<number>(initialDepth);
   const [waste, setWaste] = useState<number>(10);
   const [gravelDensity, setGravelDensity] = useState<number>(1.4);
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);

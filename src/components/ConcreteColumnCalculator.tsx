@@ -5,16 +5,18 @@ import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 interface ConcreteColumnProps {
   initialDiameter?: number;
   initialDepth?: number;
+  initialIsMetric?: boolean;
 }
 
 export default function ConcreteColumnCalculator({
   initialDiameter = 12,
-  initialDepth = 8
+  initialDepth = 8,
+  initialIsMetric = false
 }: ConcreteColumnProps) {
   const [length, setLength] = useState<number>(initialDepth); // depth/height
   const [thickness, setThickness] = useState<number>(initialDiameter); // diameter
   const [waste, setWaste] = useState<number>(10);
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);

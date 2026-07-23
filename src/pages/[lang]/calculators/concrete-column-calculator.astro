@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ConcreteColumnCalculator from '../../../components/ConcreteColumnCalculator';
+import ToolGuideSection from '../../../components/ToolGuideSection.astro';
+import { SUPPORTED_LOCALES, getTranslations, LOCALES, type SupportedLocale } from '../../../i18n/utils';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": `${t.nav.concreteColumn} - Build Yardage`,
+  "url": `https://buildyardage.com/${activeLang}/calculators/concrete-column-calculator`,
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All"
+};
+---
+
+<BaseLayout
+  title={`${t.nav.concreteColumn} | Build Yardage`}
+  description="High-precision Sonotube column and cylinder concrete volume calculator."
+  jsonLd={jsonLd}
+  lang={activeLang}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <ConcreteColumnCalculator client:load initialIsMetric={LOCALES[activeLang].isMetricDefault} />
+    <ToolGuideSection slug="concrete-column-calculator" />
+  </div>
+</BaseLayout>

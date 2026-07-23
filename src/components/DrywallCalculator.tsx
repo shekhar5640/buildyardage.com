@@ -7,12 +7,14 @@ interface DrywallProps {
   initialLength?: number;
   initialWidth?: number;
   initialHeight?: number;
+  initialIsMetric?: boolean;
 }
 
 export default function DrywallCalculator({
   initialLength = 12,
   initialWidth = 10,
-  initialHeight = 8
+  initialHeight = 8,
+  initialIsMetric = false
 }: DrywallProps) {
   const [length, setLength] = useState<number>(initialLength); // room length
   const [drywallWidth, setDrywallWidth] = useState<number>(initialWidth); // room width
@@ -20,7 +22,7 @@ export default function DrywallCalculator({
   const [waste, setWaste] = useState<number>(10);
   const [includeCeiling, setIncludeCeiling] = useState<boolean>(false);
   const [sheetSize, setSheetSize] = useState<string>('4x8');
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);

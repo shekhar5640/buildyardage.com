@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SUPPORTED_LOCALES, getTranslations, LOCALES, type SupportedLocale } from '../../i18n/utils';
+import { ShieldCheck, HardHat, Calculator, Zap } from 'lucide-react';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Build Yardage",
+    "url": `https://buildyardage.com/${activeLang}/`,
+    "description": "Build Yardage provides high-precision construction material calculators built around ACI, ASTM, and IRC building code standards."
+  }
+};
+---
+
+<BaseLayout
+  title={`${t.common.about} | BuildYardage`}
+  description="Build Yardage was created to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use."
+  jsonLd={jsonLd}
+  lang={activeLang}
+>
+  <!-- Header Banner -->
+  <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex text-xs text-muted mb-4 gap-2">
+        <a href="/" class="hover:text-ink">{t.common.home}</a>
+        <span>/</span>
+        <span class="text-brand-accent font-semibold">{t.common.about}</span>
+      </nav>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-4xl">
+        Built for the Jobsite. <span class="text-brand-accent">Engineered for Precision.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-body max-w-3xl leading-relaxed">
+        Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use.
+      </p>
+    </div>
+  </section>
+
+  <!-- Core Mission & Value Pillars -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-canvas border border-hairline rounded-xl p-8 space-y-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+          <HardHat size={24} />
+        </div>
+        <h2 class="text-xl font-bold text-ink">The Problem We Solve</h2>
+        <p class="text-sm text-body leading-relaxed space-y-3">
+          <span>Material miscalculations are among the most expensive mistakes on a jobsite. Ordering too little concrete causes cold joints, structural weakness, and emergency mixer truck callout fees. Ordering too much aggregate, framing lumber, or drywall wastes valuable capital and clutters tight staging areas.</span>
+        </p>
+      </div>
+
+      <div class="bg-canvas border border-hairline rounded-xl p-8 space-y-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+          <Zap size={24} />
+        </div>
+        <h2 class="text-xl font-bold text-ink">Built for Jobsite Speed & Performance</h2>
+        <p class="text-sm text-body leading-relaxed space-y-3">
+          <span>When you are standing on a jobsite with a phone in hand and poor reception, you need results immediately—without waiting for laggy pages, intrusive popups, or heavy layouts that freeze your screen.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -5,11 +5,13 @@ import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
 interface FramingProps {
   initialWallLength?: number;
   initialStudSpacing?: number;
+  initialIsMetric?: boolean;
 }
 
 export default function FramingCalculator({
   initialWallLength = 50,
-  initialStudSpacing = 16
+  initialStudSpacing = 16,
+  initialIsMetric = false
 }: FramingProps) {
   const [length, setLength] = useState<number>(initialWallLength); // wall length
   const [studSpacing, setStudSpacing] = useState<number>(initialStudSpacing);
@@ -17,7 +19,7 @@ export default function FramingCalculator({
   const [topPlates, setTopPlates] = useState<number>(2);
   const [bottomPlates, setBottomPlates] = useState<number>(1);
   const [waste, setWaste] = useState<number>(10);
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);

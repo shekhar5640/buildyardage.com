@@ -1,13 +1,26 @@
 ---
 import '../styles/global.css';
+import {
+  getLocaleFromUrl,
+  getTranslations,
+  getHreflangLinks,
+  getLocalizedPath,
+  type SupportedLocale
+} from '../i18n/utils';
+import { LanguageSelector } from '../components/LanguageSelector';
 
 interface Props {
   title: string;
   description: string;
   jsonLd?: Record<string, any>;
+  lang?: SupportedLocale;
 }
 
-const { title, description, jsonLd } = Astro.props;
+const { title, description, jsonLd, lang: propLang } = Astro.props;
+
+const activeLocale = propLang || getLocaleFromUrl(Astro.url.pathname);
+const t = getTranslations(activeLocale);
+const hreflangLinks = getHreflangLinks(Astro.url.pathname);
 
 // Default structured data for the site if none provided
 const defaultJsonLd = {
@@ -24,7 +37,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang={activeLocale} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,6 +52,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <meta name="apple-mobile-web-app-title" content="BuildYard" />
     <link rel="manifest" href="/site.webmanifest" />
     
+    <!-- Google SEO hreflang Alternate Tags -->
+    {hreflangLinks.map((link) => (
+      <link rel={link.rel} hreflang={link.hreflang} href={link.href} />
+    ))}
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -52,6 +70,37 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     
     <!-- Inject JSON-LD Schema -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(activeJsonLd)} />
+
+    <!-- Client-side Browser Language Detection & First-Time Redirect Script -->
+    <script is:inline>
+      (function() {
+        try {
+          var path = window.location.pathname;
+          // Only trigger detection on root or index page
+          if (path === '/' || path === '/index.html') {
+            var isBot = /bot|googlebot|bingbot|slurp|duckduckbot|baiduspider|yandex/i.test(navigator.userAgent);
+            if (!isBot) {
+              var storedLocale = localStorage.getItem('user_locale');
+              var supported = ['en', 'es', 'fr', 'de', 'pt', 'it', 'ja', 'zh'];
+              var targetLocale = null;
+
+              if (storedLocale && supported.indexOf(storedLocale) !== -1) {
+                targetLocale = storedLocale;
+              } else if (navigator.language) {
+                var browserLang = navigator.language.split('-')[0].toLowerCase();
+                if (supported.indexOf(browserLang) !== -1) {
+                  targetLocale = browserLang;
+                }
+              }
+
+              if (targetLocale && targetLocale !== 'en') {
+                window.location.href = '/' + targetLocale + '/';
+              }
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Theme Initializer Script to prevent flashing -->
     <script is:inline>
@@ -75,7 +124,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
       <div class="mx-auto flex lg:grid lg:grid-cols-[auto_1fr_auto] xl:grid-cols-[1fr_auto_1fr] h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 gap-4">
         <!-- Logo / Wordmark (Left Aligned) -->
         <div class="flex items-center justify-start shrink-0">
-          <a href="/" class="flex items-center gap-2 group">
+          <a href={getLocalizedPath('/', activeLocale)} class="flex items-center gap-2 group">
             <img src="/favicon.svg" alt="Build Yardage Logo" class="h-8 w-8 group-hover:scale-105 transition-transform duration-200 select-none" />
             <span class="text-xl font-bold tracking-tight text-ink">
               Build<span class="text-brand-accent">Yardage</span>
@@ -86,19 +135,19 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         <!-- Main Navigation Links (Center Aligned on Laptops & Desktops) -->
         <nav class="hidden lg:flex items-center justify-center gap-3 xl:gap-6 h-full px-2">
           <a
-            href="/calculators/concrete-slab-calculator"
+            href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/concrete-slab-calculator'
+              currentPath.endsWith('/concrete-slab-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Concrete Slab
+            {t.nav.concreteSlab.replace(' Calculator', '').replace('Calculadora de ', '').replace('Calculateur de ', '')}
           </a>
           <a
-            href="/calculators/concrete-column-calculator"
+            href={getLocalizedPath('/calculators/concrete-column-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/concrete-column-calculator'
+              currentPath.endsWith('/concrete-column-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
@@ -106,9 +155,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             Column / Post
           </a>
           <a
-            href="/calculators/gravel-driveway-calculator"
+            href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/gravel-driveway-calculator'
+              currentPath.endsWith('/gravel-driveway-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
@@ -116,9 +165,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             Gravel
           </a>
           <a
-            href="/calculators/drywall-calculator"
+            href={getLocalizedPath('/calculators/drywall-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/drywall-calculator'
+              currentPath.endsWith('/drywall-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
@@ -126,9 +175,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             Drywall
           </a>
           <a
-            href="/calculators/framing-calculator"
+            href={getLocalizedPath('/calculators/framing-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/framing-calculator'
+              currentPath.endsWith('/framing-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
@@ -136,9 +185,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             Framing
           </a>
           <a
-            href="/calculators/rebar-calculator"
+            href={getLocalizedPath('/calculators/rebar-calculator', activeLocale)}
             class={`text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-150 border-b-2 py-5 -mb-px flex items-center ${
-              currentPath === '/calculators/rebar-calculator'
+              currentPath.endsWith('/rebar-calculator')
                 ? 'text-brand-accent border-brand-accent'
                 : 'text-body hover:text-ink border-transparent'
             }`}
@@ -147,8 +196,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
           </a>
         </nav>
 
-        <!-- Secondary Actions & Theme Toggle (Right Aligned) -->
+        <!-- Secondary Actions, Language Switcher & Theme Toggle (Right Aligned) -->
         <div class="flex items-center justify-end gap-2.5 shrink-0">
+          <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="header" />
+
           <button
             id="theme-toggle"
             aria-label="Toggle Theme"
@@ -184,69 +235,73 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
       <!-- Mobile & Tablet Navigation Drawer -->
       <div 
         id="mobile-menu" 
-        class="hidden lg:hidden border-t border-hairline bg-canvas/95 backdrop-blur-md px-4 py-4 space-y-1.5 transition-all duration-200"
+        class="hidden lg:hidden border-t border-hairline bg-canvas/95 backdrop-blur-md px-4 py-4 space-y-3 transition-all duration-200"
       >
         <div class="text-[10px] font-bold text-muted uppercase tracking-wider px-3 pb-1">Material Calculators</div>
         <a
-          href="/calculators/concrete-slab-calculator"
+          href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/concrete-slab-calculator'
+            currentPath.endsWith('/concrete-slab-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Concrete Slab Calculator
+          {t.nav.concreteSlab}
         </a>
         <a
-          href="/calculators/concrete-column-calculator"
+          href={getLocalizedPath('/calculators/concrete-column-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/concrete-column-calculator'
+            currentPath.endsWith('/concrete-column-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Concrete Column / Post Hole Calculator
+          {t.nav.concreteColumn}
         </a>
         <a
-          href="/calculators/gravel-driveway-calculator"
+          href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/gravel-driveway-calculator'
+            currentPath.endsWith('/gravel-driveway-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Gravel Driveway & Base Calculator
+          {t.nav.gravel}
         </a>
         <a
-          href="/calculators/drywall-calculator"
+          href={getLocalizedPath('/calculators/drywall-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/drywall-calculator'
+            currentPath.endsWith('/drywall-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Drywall Sheet & Panel Calculator
+          {t.nav.drywall}
         </a>
         <a
-          href="/calculators/framing-calculator"
+          href={getLocalizedPath('/calculators/framing-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/framing-calculator'
+            currentPath.endsWith('/framing-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Wood Stud Wall Framing Calculator
+          {t.nav.framing}
         </a>
         <a
-          href="/calculators/rebar-calculator"
+          href={getLocalizedPath('/calculators/rebar-calculator', activeLocale)}
           class={`block px-3.5 py-3 rounded-lg text-sm font-semibold transition-colors ${
-            currentPath === '/calculators/rebar-calculator'
+            currentPath.endsWith('/rebar-calculator')
               ? 'bg-brand-accent/10 text-brand-accent'
               : 'text-ink hover:bg-surface-soft'
           }`}
         >
-          Rebar Grid Reinforcement Calculator
+          {t.nav.rebar}
         </a>
+
+        <div class="px-3 pt-2">
+          <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="mobile" />
+        </div>
       </div>
     </header>
 
@@ -277,52 +332,56 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
               </a>
             </div>
             <p class="text-xs text-zinc-500 font-mono pt-1">
-              &copy; {new Date().getFullYear()} buildyardage.com. All rights reserved.
+              &copy; {new Date().getFullYear()} buildyardage.com. {t.common.copyright}
             </p>
           </div>
 
           <!-- Calculators Quick Links -->
           <div>
-            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">Calculators</h3>
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">{t.common.calculators}</h3>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="/calculators/concrete-slab-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Concrete Slab</a>
+                <a href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.concreteSlab}</a>
               </li>
               <li>
-                <a href="/calculators/concrete-column-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Concrete Column</a>
+                <a href={getLocalizedPath('/calculators/concrete-column-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.concreteColumn}</a>
               </li>
               <li>
-                <a href="/calculators/gravel-driveway-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Gravel Base</a>
+                <a href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.gravel}</a>
               </li>
               <li>
-                <a href="/calculators/drywall-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Drywall Panels</a>
+                <a href={getLocalizedPath('/calculators/drywall-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.drywall}</a>
               </li>
               <li>
-                <a href="/calculators/framing-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Wall Framing</a>
+                <a href={getLocalizedPath('/calculators/framing-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.framing}</a>
               </li>
               <li>
-                <a href="/calculators/rebar-calculator" class="text-sm text-zinc-400 hover:text-white transition-colors">Rebar Grid</a>
+                <a href={getLocalizedPath('/calculators/rebar-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.rebar}</a>
               </li>
             </ul>
           </div>
 
           <!-- Legal & Compliance -->
-          <div>
+          <div class="space-y-4">
             <h3 class="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
-            <ul class="mt-4 space-y-2">
+            <ul class="space-y-2">
               <li>
-                <a href="/about" class="text-sm text-zinc-400 hover:text-white transition-colors">About Us</a>
+                <a href={getLocalizedPath('/about', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.about}</a>
               </li>
               <li>
-                <a href="/privacy-policy" class="text-sm text-zinc-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href={getLocalizedPath('/privacy-policy', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.privacy}</a>
               </li>
               <li>
-                <a href="/terms-and-conditions" class="text-sm text-zinc-400 hover:text-white transition-colors">Terms & Conditions</a>
+                <a href={getLocalizedPath('/terms-and-conditions', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.terms}</a>
               </li>
               <li>
-                <a href="/contact" class="text-sm text-zinc-400 hover:text-white transition-colors">Contact Support</a>
+                <a href={getLocalizedPath('/contact', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.contact}</a>
               </li>
             </ul>
+
+            <div class="pt-2">
+              <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="footer" />
+            </div>
           </div>
         </div>
 
@@ -330,7 +389,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         <div class="mt-12 border-t border-zinc-800 pt-8">
           <p class="text-xs text-zinc-500 leading-relaxed w-full">
             <strong class="text-zinc-400 block mb-1">Disclaimer:</strong>
-            Our calculations are approximations. Consult a professional contractor before ordering materials. We are not liable for any discrepancies, excess ordering, or project issues resulting from the use of these tools.
+            {t.common.disclaimer}
           </p>
         </div>
       </div>

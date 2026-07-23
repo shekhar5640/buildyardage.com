@@ -3,6 +3,7 @@ import path from 'node:path';
 import { getAllPseoPages } from '../src/data/pseo/pseoMatrix';
 
 const BASE_URL = 'https://buildyardage.com';
+const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'ja', 'zh'];
 
 function generateSitemap() {
   const pages = getAllPseoPages();
@@ -23,33 +24,43 @@ function generateSitemap() {
   ];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 
-  // Add static routes
+  let totalUrlCount = 0;
+
+  // Add static routes with hreflang
   for (const route of staticRoutes) {
-    xml += `  <url>\n`;
-    xml += `    <loc>${BASE_URL}${route}</loc>\n`;
-    xml += `    <lastmod>${dateStr}</lastmod>\n`;
-    xml += `    <changefreq>weekly</changefreq>\n`;
-    xml += `    <priority>1.0</priority>\n`;
-    xml += `  </url>\n`;
+    for (const locale of LOCALES) {
+      const locUrl = locale === 'en' ? `${BASE_URL}${route}` : `${BASE_URL}/${locale}${route === '/' ? '/' : route}`;
+      xml += `  <url>\n`;
+      xml += `    <loc>${locUrl}</loc>\n`;
+      xml += `    <lastmod>${dateStr}</lastmod>\n`;
+      xml += `    <changefreq>weekly</changefreq>\n`;
+      xml += `    <priority>${route === '/' ? '1.0' : '0.9'}</priority>\n`;
+      xml += `  </url>\n`;
+      totalUrlCount++;
+    }
   }
 
-  // Add pSEO matrix routes
+  // Add pSEO matrix routes with hreflang
   for (const page of pages) {
-    xml += `  <url>\n`;
-    xml += `    <loc>${BASE_URL}${page.urlPath}</loc>\n`;
-    xml += `    <lastmod>${dateStr}</lastmod>\n`;
-    xml += `    <changefreq>monthly</changefreq>\n`;
-    xml += `    <priority>0.8</priority>\n`;
-    xml += `  </url>\n`;
+    for (const locale of LOCALES) {
+      const locUrl = locale === 'en' ? `${BASE_URL}${page.urlPath}` : `${BASE_URL}/${locale}${page.urlPath}`;
+      xml += `  <url>\n`;
+      xml += `    <loc>${locUrl}</loc>\n`;
+      xml += `    <lastmod>${dateStr}</lastmod>\n`;
+      xml += `    <changefreq>monthly</changefreq>\n`;
+      xml += `    <priority>0.8</priority>\n`;
+      xml += `  </url>\n`;
+      totalUrlCount++;
+    }
   }
 
   xml += `</urlset>`;
 
   const targetPath = path.join(process.cwd(), 'public', 'sitemap-calculators.xml');
   fs.writeFileSync(targetPath, xml, 'utf8');
-  console.log(`[pSEO Sitemap] Successfully generated sitemap with ${pages.length + staticRoutes.length} URLs at ${targetPath}`);
+  console.log(`[i18n & pSEO Sitemap] Successfully generated sitemap with ${totalUrlCount} localized URLs at ${targetPath}`);
 }
 
 generateSitemap();

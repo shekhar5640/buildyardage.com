@@ -6,18 +6,20 @@ interface ConcreteSlabProps {
   initialLength?: number;
   initialWidth?: number;
   initialThickness?: number;
+  initialIsMetric?: boolean;
 }
 
 export default function ConcreteSlabCalculator({
   initialLength = 12,
   initialWidth = 10,
-  initialThickness = 4
+  initialThickness = 4,
+  initialIsMetric = false
 }: ConcreteSlabProps) {
   const [length, setLength] = useState<number>(initialLength);
   const [width, setWidth] = useState<number>(initialWidth);
   const [thickness, setThickness] = useState<number>(initialThickness);
   const [waste, setWaste] = useState<number>(10);
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import DrywallCalculator from '../../../../components/DrywallCalculator';
+import ToolGuideSection from '../../../../components/ToolGuideSection.astro';
+import { getDrywallPseoPages, type PseoPageData } from '../../../../data/pseo/pseoMatrix';
+import { SUPPORTED_LOCALES, LOCALES, type SupportedLocale } from '../../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((l) => l !== 'en');
+  const pages = getDrywallPseoPages();
+  const paths = [];
+
+  for (const lang of NON_DEFAULT_LOCALES) {
+    for (const page of pages) {
+      paths.push({
+        params: { lang, slug: page.slug },
+        props: { pageData: page }
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  pageData: PseoPageData;
+}
+
+const { lang } = Astro.params;
+const { pageData } = Astro.props;
+const activeLang = (lang || 'es') as SupportedLocale;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": pageData.metaTitle,
+      "operatingSystem": "All",
+      "applicationCategory": "BusinessApplication"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": pageData.faqs.map(f => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title={pageData.metaTitle}
+  description={pageData.metaDescription}
+  jsonLd={jsonLd}
+  lang={activeLang}
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
+    <nav class="flex text-xs text-muted gap-2">
+      <a href="/" class="hover:text-ink">Home</a>
+      <span>/</span>
+      <a href="/calculators/drywall-calculator" class="hover:text-ink">Drywall Sheet</a>
+      <span>/</span>
+      <span class="text-brand-accent font-semibold">{pageData.h1Title}</span>
+    </nav>
+
+    <DrywallCalculator
+      client:load
+      initialLength={pageData.inputs.length}
+      initialWidth={pageData.inputs.width}
+      initialHeight={pageData.inputs.height}
+      initialIsMetric={LOCALES[activeLang].isMetricDefault}
+    />
+
+    <ToolGuideSection slug="drywall-calculator" />
+  </div>
+</BaseLayout>

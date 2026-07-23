@@ -7,13 +7,15 @@ interface RebarProps {
   initialWidth?: number;
   initialSpacing?: number;
   initialRebarSize?: string;
+  initialIsMetric?: boolean;
 }
 
 export default function RebarCalculator({
   initialLength = 30,
   initialWidth = 20,
   initialSpacing = 12,
-  initialRebarSize = '#4'
+  initialRebarSize = '#4',
+  initialIsMetric = false
 }: RebarProps) {
   const [length, setLength] = useState<number>(initialLength); // slab length
   const [width, setWidth] = useState<number>(initialWidth); // slab width
@@ -23,7 +25,7 @@ export default function RebarCalculator({
   const [rebarOverlap, setRebarOverlap] = useState<number>(18); // lap splice
   const [rebarSize, setRebarSize] = useState<string>(initialRebarSize);
   const [waste, setWaste] = useState<number>(10);
-  const [isMetric, setIsMetric] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);
