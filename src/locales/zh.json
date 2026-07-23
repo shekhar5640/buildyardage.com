@@ -14,6 +14,14 @@
     "language": "语言",
     "selectLanguage": "选择语言"
   },
+  "headerNav": {
+    "concreteSlab": "平板",
+    "concreteColumn": "圆柱",
+    "gravel": "碎石",
+    "drywall": "石膏板",
+    "framing": "框架",
+    "rebar": "钢筋"
+  },
   "nav": {
     "concreteSlab": "混凝土平板用量计算器",
     "concreteColumn": "圆柱/桩基混凝土计算器",
@@ -21,6 +29,96 @@
     "drywall": "石膏板用量计算器",
     "framing": "木结构墙体龙骨计算器",
     "rebar": "钢筋网片/钢筋用量计算器"
+  },
+  "footer": {
+    "description": "Build Yardage 为工程承包商和施工人员提供高精度、超快速的建材用量计算器。秒级计算混凝土、碎石、石膏板和木龙骨用量。",
+    "contactLabel": "联系邮箱:",
+    "calculatorsTitle": "计算器分类",
+    "companyTitle": "公司与服务",
+    "disclaimerTitle": "免责声明:",
+    "disclaimerText": "本站所有计算均为理论估算。下订单前请与材料供应商或施工方确认实际规格。"
+  },
+  "about": {
+    "title": "立足工地，精于计算",
+    "subtitle": "Build Yardage 旨在用极速、精准的移动端计算工具取代臃肿繁琐的传统估算软件。",
+    "problemTitle": "我们解决的问题",
+    "problemDesc": "材料估算错误是施工中成本最高的失误之一。混凝土订少了会导致施工冷缝和二次送货费；订多了则浪费资金并堆满工地。",
+    "standardsTitle": "符合 ACI、ASTM 和 IRC 规范",
+    "standardsDesc": "基于标准几何算法与建筑规范，提供经工程验证的建材计算。",
+    "speedTitle": "为移动端与工地现场提速",
+    "speedDesc": "即使在信号微弱的工地现场，也能秒级打开并获取结果，无弹窗广告干扰。"
+  },
+  "contact": {
+    "title": "联系我们的工程团队",
+    "subtitle": "如果您有改进建议、定制计算器需求或工程合作，请随时与我们联系。",
+    "directEmail": "官方支持邮箱",
+    "responseTime": "回复时间",
+    "responseDesc": "工作日 24 小时内回复",
+    "sendMessage": "发送留言",
+    "nameLabel": "您的姓名",
+    "namePlaceholder": "例如：张伟",
+    "emailLabel": "电子邮箱",
+    "emailPlaceholder": "zhangwei@example.cn",
+    "subjectLabel": "主题",
+    "subjectPlaceholder": "例如：关于混凝土计算器的反馈",
+    "messageLabel": "留言内容",
+    "messagePlaceholder": "请描述您在施工现场遇到的问题或需求...",
+    "sendButton": "发送留言",
+    "feature1Title": "精准规范算法",
+    "feature1Desc": "基于 ACI、ASTM 及 IRC 标准。",
+    "feature2Title": "极速无广告",
+    "feature2Desc": "秒级加载，无弹窗干扰。",
+    "feature3Title": "工程级预算",
+    "feature3Desc": "一键生成建材采购清单。",
+    "feature4Title": "支持定制",
+    "feature4Desc": "针对特殊规格量身定制。"
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "lastUpdated": "更新日期：2026 年 1 月",
+    "intro": "Build Yardage 非常重视您的隐私。",
+    "noTrackingTitle": "1. 不收集个人身份信息",
+    "noTrackingDesc": "无需注册或登录。我们不会收集或出售任何个人身份数据。",
+    "localStateTitle": "2. 本地浏览器计算与存储",
+    "localStateDesc": "所有计算均在您的浏览器本地完成，计算历史和单位偏好仅保存在本地存储中。",
+    "cookiesTitle": "3. 技术 Cookie",
+    "cookiesDesc": "我们仅使用维持语言选择所需的最小化技术 Cookie。"
+  },
+  "terms": {
+    "title": "服务条款",
+    "lastUpdated": "更新日期：2026 年 1 月",
+    "intro": "访问 buildyardage.com 即表示您同意本服务条款。",
+    "disclaimerTitle": "1. 计算免责声明",
+    "disclaimerDesc": "计算结果仅供参考，实际用量可能因压实度或开挖深度有所差异。",
+    "liabilityTitle": "2. 责任限制",
+    "liabilityDesc": "本站不对由于材料采购过多或过少导致的损失承担责任。",
+    "ipTitle": "3. 知识产权",
+    "ipDesc": "本站代码、设计及算法均属 Build Yardage 所有。"
+  },
+  "calculatorShell": {
+    "inputsHeader": "输入尺寸规格",
+    "resultsHeader": "估算材料用量",
+    "unitSystem": "单位制切换",
+    "imperial": "英制",
+    "metric": "公制",
+    "wasteMargin": "损耗预留率",
+    "pricePerUnit": "材料单价 (选填)",
+    "estimatedCost": "预估总费用",
+    "addToTakeoff": "添加至材料采购清单",
+    "inTakeoff": "已添加至清单",
+    "takeoffTitle": "材料采购汇总清单",
+    "noTakeoffItems": "暂未添加计算项。点击“添加至清单”保存计算结果。",
+    "itemsSaved": "已保存项",
+    "totalProjectCost": "项目预估总造价",
+    "clearTakeoff": "清空清单",
+    "printTakeoff": "打印 / 保存PDF",
+    "copyTakeoff": "复制清单",
+    "exportCsv": "导出为 CSV",
+    "copyResults": "复制计算结果",
+    "copied": "已复制到剪贴板！",
+    "reset": "重置输入",
+    "history": "最近计算历史",
+    "clearHistory": "清除历史"
   },
   "calculator": {
     "unitSystem": "单位制",
@@ -60,11 +158,32 @@
     "copied": "已复制到剪贴板！",
     "copyResults": "复制计算结果"
   },
+  "guides": {
+    "whatItDoes": "此计算器的主要功能",
+    "formulaMath": "施工现场公式与计算方法",
+    "estimatingTips": "工程预算技巧与损耗预留",
+    "faqsTitle": "常见问题解答",
+    "exploreOther": "浏览其他计算器"
+  },
   "landing": {
     "heroTitle": "建筑与工程施工高精度材料用量计算器",
     "heroSubtitle": "严格基于 ACI、ASTM 和 IRC 规范算法，快速准确计算体积、吨数及骨架用量。",
     "exploreCalculators": "浏览计算器",
     "seoTitle": "专业建筑工程估算：工地高精度材料体积与用量计算",
-    "faqTitle": "常见问题解答"
+    "faqTitle": "常见问题解答",
+    "faqs": [
+      {
+        "question": "一立方米混凝土需要多少袋 36kg 的袋装水泥/预拌混凝土？",
+        "answer": "一立方米（1m³）混凝土大约需要 55 至 60 袋 36kg 的预拌干混混凝土。"
+      },
+      {
+        "question": "一立方米碎石/砂砾等于多少吨？",
+        "answer": "根据标准松散密度（约 1.5 - 1.6 吨/立方米），一立方米碎石约为 1.5 到 1.6 吨。"
+      },
+      {
+        "question": "施工中应该预留多少损耗率？",
+        "answer": "工程经验做法是预留 10% 的损耗率，用于抵消地基不平整及切割损耗。"
+      }
+    ]
   }
 }

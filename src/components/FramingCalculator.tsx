@@ -1,18 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { calculateFraming, type FramingResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
+import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 interface FramingProps {
   initialWallLength?: number;
   initialStudSpacing?: number;
   initialIsMetric?: boolean;
+  locale?: string;
 }
 
 export default function FramingCalculator({
   initialWallLength = 50,
   initialStudSpacing = 16,
-  initialIsMetric = false
+  initialIsMetric = false,
+  locale
 }: FramingProps) {
+  const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
+  const t = getTranslations(activeLocale);
+
   const [length, setLength] = useState<number>(initialWallLength); // wall length
   const [studSpacing, setStudSpacing] = useState<number>(initialStudSpacing);
   const [corners, setCorners] = useState<number>(4);
@@ -27,8 +33,8 @@ export default function FramingCalculator({
   const results = useMemo(() => {
     const res = calculateFraming(length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric);
     if (pricePerUnit > 0) {
-      const qty = res.studsCount + res.topPlates16ft + res.bottomPlates16ft;
-      res.estimatedCost = parseFloat((qty * pricePerUnit).toFixed(2));
+      const totalPieces = res.studsCount + res.topPlates16ft + res.bottomPlates16ft;
+      res.estimatedCost = parseFloat((totalPieces * pricePerUnit).toFixed(2));
     } else {
       res.estimatedCost = undefined;
     }
@@ -40,20 +46,18 @@ export default function FramingCalculator({
     if (inputs.length !== undefined) setLength(inputs.length);
     if (inputs.studSpacing !== undefined) setStudSpacing(inputs.studSpacing);
     if (inputs.corners !== undefined) setCorners(inputs.corners);
-    if (inputs.topPlates !== undefined) setTopPlates(inputs.topPlates);
-    if (inputs.bottomPlates !== undefined) setBottomPlates(inputs.bottomPlates);
   };
 
   const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
-    const itemTitle = `Framed Wall (${length}${lUnit} Long, ${studSpacing}" o.c.)`;
-    const itemDetails = `${results.studsCount} Studs, ${results.bottomPlates16ft + results.topPlates16ft} Plates (16ft)`;
+    const itemTitle = `${t.nav.framing} (${length}${lUnit} Wall @ ${studSpacing}" OC)`;
+    const itemDetails = `${results.studsCount} studs + ${results.topPlates16ft + results.bottomPlates16ft} plates (16ft)`;
 
     const newItem: ShoppingItem = {
       id: Date.now().toString(),
       slug: 'framing-calculator',
       title: itemTitle,
-      material: 'Framing',
+      material: 'Lumber',
       shape: 'Wall',
       type: 'framing',
       details: itemDetails,
@@ -71,9 +75,10 @@ export default function FramingCalculator({
   return (
     <CalculatorShell
       type="framing"
-      material="Framing"
+      material="Lumber"
       shape="Wall"
       slug="framing-calculator"
+      locale={activeLocale}
       isMetric={isMetric}
       setIsMetric={setIsMetric}
       waste={waste}
@@ -84,86 +89,57 @@ export default function FramingCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
-      renderVisualizer={() => {
-        const calculatedBars = Math.ceil(length * (studSpacing === 16 ? 0.75 : 0.5));
-        const numStuds = Math.max(5, Math.min(18, calculatedBars));
-        const plateLeft = 20;
-        const plateWidth = 260;
-        const studWidth = 4;
-        const usableWidth = plateWidth - studWidth; // 256
-
-        return (
-          <svg viewBox="0 0 300 120" className="w-full max-h-[180px]">
-            {/* Double Top Plate */}
-            <rect x={plateLeft} y="15" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-            <rect x={plateLeft} y="20" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-            {/* Bottom Plate */}
-            <rect x={plateLeft} y="95" width={plateWidth} height="4" fill="var(--color-muted-soft)" stroke="var(--color-muted)" strokeWidth="0.5" />
-            
-            {/* Vertical Studs (Minimum 5 bars, last stud perfectly aligned flush at right edge) */}
-            {Array.from({ length: numStuds }).map((_, idx) => {
-              const xPos = plateLeft + (idx * (usableWidth / (numStuds - 1)));
-              return (
-                <rect 
-                  key={idx} 
-                  x={xPos} 
-                  y="24" 
-                  width={studWidth} 
-                  height="71" 
-                  fill="var(--color-surface-strong)" 
-                  stroke="var(--color-muted)" 
-                  strokeWidth="0.5" 
-                />
-              );
-            })}
-            <text x="150" y="112" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">Wall Length: {length} {isMetric ? 'm' : 'ft'}</text>
-          </svg>
-        );
-      }}
+      renderVisualizer={() => (
+        <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
+          <rect x="30" y="30" width="240" height="120" fill="none" stroke="var(--color-ink)" strokeWidth="3" />
+          <line x1="30" y1="42" x2="270" y2="42" stroke="var(--color-ink)" strokeWidth="2" />
+          <line x1="30" y1="138" x2="270" y2="138" stroke="var(--color-ink)" strokeWidth="2" />
+          <line x1="80" y1="42" x2="80" y2="138" stroke="var(--color-brand-accent)" strokeWidth="2" />
+          <line x1="130" y1="42" x2="130" y2="138" stroke="var(--color-brand-accent)" strokeWidth="2" />
+          <line x1="180" y1="42" x2="180" y2="138" stroke="var(--color-brand-accent)" strokeWidth="2" />
+          <line x1="230" y1="42" x2="230" y2="138" stroke="var(--color-brand-accent)" strokeWidth="2" />
+          <text x="150" y="20" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">
+            {length} {isMetric ? 'm' : 'ft'} Wall Length
+          </text>
+        </svg>
+      )}
       renderOutputs={() => (
         <>
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-body font-medium">Vertical Studs Count</span>
-            <span className="text-2xl font-mono font-extrabold text-ink">
-              {results.studsCount} <span className="text-sm font-medium">studs</span>
+            <span className="text-sm text-body font-medium">{t.calculator.studsNeeded}</span>
+            <span className="text-2xl font-mono font-extrabold text-brand-accent">
+              {results.studsCount} <span className="text-sm font-medium text-ink">pcs</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Top Plates (16ft length)</span>
+            <span className="text-sm text-muted">{t.calculator.topPlates} (16ft)</span>
             <span className="text-md font-mono font-bold text-ink">
               {results.topPlates16ft} <span className="text-xs font-normal text-muted">pcs</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Bottom Plates (16ft length)</span>
+            <span className="text-sm text-muted">{t.calculator.solePlates} (16ft)</span>
             <span className="text-md font-mono font-bold text-ink">
               {results.bottomPlates16ft} <span className="text-xs font-normal text-muted">pcs</span>
-            </span>
-          </div>
-
-          <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Total Plates Length</span>
-            <span className="text-md font-mono font-bold text-ink">
-              {results.platesTotalLength} <span className="text-xs font-normal text-muted">{isMetric ? 'm' : 'ft'}</span>
             </span>
           </div>
         </>
       )}
     >
-      {/* Length */}
+      {/* Wall Length */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">Wall Length ({isMetric ? 'meters' : 'feet'})</label>
+          <label className="font-medium text-ink">{t.calculator.length} ({isMetric ? 'm' : 'ft'})</label>
           <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
         </div>
         <div className="flex items-center gap-3">
           <input 
             type="range" 
             min="1" 
-            max={isMetric ? 30 : 100} 
-            step="0.5"
+            max={isMetric ? 60 : 200} 
+            step="1"
             value={length}
             onChange={(e) => setLength(parseFloat(e.target.value))}
             className="flex-grow accent-indigo-600 dark:accent-indigo-400"
@@ -177,80 +153,18 @@ export default function FramingCalculator({
         </div>
       </div>
 
-      {/* Stud Spacing Buttons */}
+      {/* Stud Spacing */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-ink block">Stud Spacing (On Center)</label>
-        <div className="flex gap-4">
-          <button 
-            type="button"
-            onClick={() => setStudSpacing(16)}
-            className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${studSpacing === 16 ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
-          >
-            16 in (Standard O.C.)
-          </button>
-          <button 
-            type="button"
-            onClick={() => setStudSpacing(24)}
-            className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${studSpacing === 24 ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
-          >
-            24 in (Wide O.C.)
-          </button>
-        </div>
-      </div>
-
-      {/* Corners & Intersections Range Slider */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">Corners & Intersections</label>
-          <span className="font-mono font-semibold text-brand-accent">{corners} corners</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="0" 
-            max="20" 
-            step="1"
-            value={corners}
-            onChange={(e) => setCorners(parseInt(e.target.value) || 0)}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400 cursor-pointer"
-          />
-          <input 
-            type="number"
-            min="0"
-            max="50"
-            value={corners}
-            onChange={(e) => setCorners(parseInt(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
-
-      {/* Grid parameter dropdowns (Top Plates, Bottom Plates) */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Top Plates</label>
-          <select 
-            value={topPlates}
-            onChange={(e) => setTopPlates(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          >
-            <option value="1">1 plate</option>
-            <option value="2">2 plates (Standard)</option>
-            <option value="3">3 plates</option>
-          </select>
-        </div>
-
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-bold text-muted uppercase tracking-wider">Bottom Plates</label>
-          <select 
-            value={bottomPlates}
-            onChange={(e) => setBottomPlates(parseInt(e.target.value) || 0)}
-            className="w-full text-xs border border-hairline rounded p-2 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          >
-            <option value="1">1 plate (Standard)</option>
-            <option value="2">2 plates</option>
-          </select>
-        </div>
+        <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.spacing}</label>
+        <select
+          value={studSpacing}
+          onChange={(e) => setStudSpacing(parseInt(e.target.value))}
+          className="w-full px-3 py-2 bg-surface-card border border-hairline rounded text-sm text-ink font-medium focus:outline-none focus:border-brand-accent"
+        >
+          <option value={16}>16 inches On-Center (Standard Code)</option>
+          <option value={24}>24 inches On-Center (Advanced Framing)</option>
+          <option value={12}>12 inches On-Center (Heavy Duty Load)</option>
+        </select>
       </div>
     </CalculatorShell>
   );

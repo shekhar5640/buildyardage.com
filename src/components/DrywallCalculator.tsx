@@ -2,20 +2,26 @@ import React, { useState, useMemo } from 'react';
 import { CheckSquare, Square } from 'lucide-react';
 import { calculateDrywall, type DrywallResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
+import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 interface DrywallProps {
   initialLength?: number;
   initialWidth?: number;
   initialHeight?: number;
   initialIsMetric?: boolean;
+  locale?: string;
 }
 
 export default function DrywallCalculator({
   initialLength = 12,
   initialWidth = 10,
   initialHeight = 8,
-  initialIsMetric = false
+  initialIsMetric = false,
+  locale
 }: DrywallProps) {
+  const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
+  const t = getTranslations(activeLocale);
+
   const [length, setLength] = useState<number>(initialLength); // room length
   const [drywallWidth, setDrywallWidth] = useState<number>(initialWidth); // room width
   const [thickness, setThickness] = useState<number>(initialHeight); // wall height
@@ -48,11 +54,8 @@ export default function DrywallCalculator({
 
   const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
-    const roomSize = drywallWidth > 0 
-      ? `${length}x${drywallWidth}x${thickness}${lUnit}` 
-      : `${length}x${thickness}${lUnit} Wall`;
-    const itemTitle = `Drywall Panels (${roomSize})`;
-    const itemDetails = `${results.sheetsNeeded} sheets (${sheetSize}), tape: ${results.tapeFeet}ft, screws: ${results.screwsNeeded}`;
+    const itemTitle = `${t.nav.drywall} (${length}${lUnit} x ${drywallWidth}${lUnit} x ${thickness}${lUnit})`;
+    const itemDetails = `${results.sheetsNeeded} sheets (${sheetSize}) + ${results.tapeFeet}ft tape`;
 
     const newItem: ShoppingItem = {
       id: Date.now().toString(),
@@ -63,7 +66,7 @@ export default function DrywallCalculator({
       type: 'drywall',
       details: itemDetails,
       checked: true,
-      inputs: { length, drywallWidth, thickness, waste, includeCeiling, sheetSize, pricePerUnit },
+      inputs: { length, drywallWidth, thickness, includeCeiling, sheetSize, waste, pricePerUnit },
       outputs: results,
       isMetric,
       unitPrice: pricePerUnit > 0 ? pricePerUnit : undefined,
@@ -79,6 +82,7 @@ export default function DrywallCalculator({
       material="Drywall"
       shape="Room"
       slug="drywall-calculator"
+      locale={activeLocale}
       isMetric={isMetric}
       setIsMetric={setIsMetric}
       waste={waste}
@@ -90,42 +94,46 @@ export default function DrywallCalculator({
       onAdd={handleAdd}
       onRestore={handleRestore}
       renderVisualizer={() => (
-        <svg viewBox="0 0 240 140" className="w-full max-h-[180px]">
-          <rect x="30" y="20" width="180" height="90" fill="var(--color-hairline)" stroke="var(--color-muted)" strokeWidth="1.5" />
-          <line x1="75" y1="20" x2="75" y2="110" stroke="var(--color-muted-soft)" strokeDasharray="3" />
-          <line x1="120" y1="20" x2="120" y2="110" stroke="var(--color-muted-soft)" strokeDasharray="3" />
-          <line x1="165" y1="20" x2="165" y2="110" stroke="var(--color-muted-soft)" strokeDasharray="3" />
-          <text x="120" y="125" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold">W: {length} {isMetric ? 'm' : 'ft'}</text>
-          <text x="15" y="70" textAnchor="middle" fontSize="10" fill="var(--color-ink)" className="font-mono font-bold" transform="rotate(-90,15,70)">H: {thickness} {isMetric ? 'm' : 'ft'}</text>
+        <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
+          <rect x="50" y="40" width="200" height="100" fill="var(--color-surface-soft)" stroke="var(--color-muted)" strokeWidth="1.5" />
+          {includeCeiling && (
+            <polygon points="50,40 150,15 250,40" fill="var(--color-brand-accent)" fillOpacity="0.1" stroke="var(--color-brand-accent)" strokeWidth="1.5" strokeDasharray="3 3" />
+          )}
+          <text x="150" y="95" textAnchor="middle" fontSize="11" fill="var(--color-ink)" className="font-mono font-bold">
+            {length} {isMetric ? 'm' : 'ft'} x {drywallWidth} {isMetric ? 'm' : 'ft'}
+          </text>
+          <text x="150" y="115" textAnchor="middle" fontSize="9" fill="var(--color-muted)" className="font-mono">
+            {t.calculator.height}: {thickness} {isMetric ? 'm' : 'ft'}
+          </text>
         </svg>
       )}
       renderOutputs={() => (
         <>
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-body font-medium">Panels Required ({sheetSize} sheets)</span>
-            <span className="text-2xl font-mono font-extrabold text-ink">
-              {results.sheetsNeeded} <span className="text-sm font-medium">sheets</span>
+            <span className="text-sm text-body font-medium">{t.calculator.drywallSheets}</span>
+            <span className="text-2xl font-mono font-extrabold text-brand-accent">
+              {results.sheetsNeeded} <span className="text-sm font-medium text-ink">({sheetSize})</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Joint Tape Required</span>
+            <span className="text-sm text-muted">{t.calculator.jointTape}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.tapeFeet} <span className="text-xs font-normal text-muted">ft</span>
+              {results.tapeFeet} <span className="text-xs font-normal text-muted">{isMetric ? 'm' : 'ft'}</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Joint Compound (Weight)</span>
+            <span className="text-sm text-muted">{t.calculator.screws}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.compoundLbs} <span className="text-xs font-normal text-muted">lbs</span>
+              {results.screwsCount} <span className="text-xs font-normal text-muted">pcs</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
-            <span className="text-sm text-muted">Drywall Screws Needed</span>
+            <span className="text-sm text-muted">{t.calculator.jointCompound}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.screwsNeeded} <span className="text-xs font-normal text-muted">screws</span>
+              {results.compoundLbs} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
             </span>
           </div>
         </>
@@ -134,7 +142,7 @@ export default function DrywallCalculator({
       {/* Length */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">Room Length ({isMetric ? 'meters' : 'feet'})</label>
+          <label className="font-medium text-ink">{t.calculator.length} ({isMetric ? 'm' : 'ft'})</label>
           <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
         </div>
         <div className="flex items-center gap-3">
@@ -142,7 +150,7 @@ export default function DrywallCalculator({
             type="range" 
             min="1" 
             max={isMetric ? 30 : 100} 
-            step="0.5"
+            step="1"
             value={length}
             onChange={(e) => setLength(parseFloat(e.target.value))}
             className="flex-grow accent-indigo-600 dark:accent-indigo-400"
@@ -156,18 +164,18 @@ export default function DrywallCalculator({
         </div>
       </div>
 
-      {/* Room Width */}
+      {/* Width */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">Room Width ({isMetric ? 'meters' : 'feet'})</label>
+          <label className="font-medium text-ink">{t.calculator.width} ({isMetric ? 'm' : 'ft'})</label>
           <span className="font-mono font-semibold text-brand-accent">{drywallWidth} {isMetric ? 'm' : 'ft'}</span>
         </div>
         <div className="flex items-center gap-3">
           <input 
             type="range" 
-            min="0" 
+            min="1" 
             max={isMetric ? 30 : 100} 
-            step="0.5"
+            step="1"
             value={drywallWidth}
             onChange={(e) => setDrywallWidth(parseFloat(e.target.value))}
             className="flex-grow accent-indigo-600 dark:accent-indigo-400"
@@ -181,17 +189,17 @@ export default function DrywallCalculator({
         </div>
       </div>
 
-      {/* Wall Height */}
+      {/* Height */}
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">Wall Height ({isMetric ? 'meters' : 'feet'})</label>
+          <label className="font-medium text-ink">{t.calculator.height} ({isMetric ? 'm' : 'ft'})</label>
           <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'm' : 'ft'}</span>
         </div>
         <div className="flex items-center gap-3">
           <input 
             type="range" 
             min="1" 
-            max={isMetric ? 10 : 25} 
+            max={isMetric ? 10 : 24} 
             step="0.5"
             value={thickness}
             onChange={(e) => setThickness(parseFloat(e.target.value))}
@@ -206,41 +214,20 @@ export default function DrywallCalculator({
         </div>
       </div>
 
-      {/* Sheet size buttons */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-ink block">Drywall Panel Size</label>
-        <div className="flex gap-4">
-          <button 
-            type="button"
-            onClick={() => setSheetSize('4x8')}
-            className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${sheetSize === '4x8' ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
-          >
-            4ft x 8ft Panel
-          </button>
-          <button 
-            type="button"
-            onClick={() => setSheetSize('4x12')}
-            className={`flex-grow py-2.5 px-4 rounded border text-xs font-bold transition-all cursor-pointer ${sheetSize === '4x12' ? 'bg-brand-accent border-brand-accent text-white' : 'border-hairline hover:bg-surface-soft text-ink bg-canvas'}`}
-          >
-            4ft x 12ft Panel
-          </button>
-        </div>
-      </div>
-
-      {/* Ceiling toggle checkbox */}
-      <div className="flex items-center gap-2 mt-4">
+      {/* Include Ceiling Toggle */}
+      <div className="pt-2">
         <button 
           type="button"
           onClick={() => setIncludeCeiling(!includeCeiling)}
-          className="text-muted hover:text-brand-accent cursor-pointer"
+          className="flex items-center gap-2 text-xs font-semibold text-ink cursor-pointer"
         >
           {includeCeiling ? (
-            <CheckSquare size={18} className="text-brand-accent" />
+            <CheckSquare size={16} className="text-brand-accent" />
           ) : (
-            <Square size={18} />
+            <Square size={16} className="text-muted" />
           )}
+          <span>Include Ceiling in Sheet Calculation</span>
         </button>
-        <span className="text-sm text-ink font-medium">Include Ceiling Drywall</span>
       </div>
     </CalculatorShell>
   );

@@ -14,6 +14,14 @@
     "language": "Language",
     "selectLanguage": "Select Language"
   },
+  "headerNav": {
+    "concreteSlab": "Slab",
+    "concreteColumn": "Column",
+    "gravel": "Gravel",
+    "drywall": "Drywall",
+    "framing": "Framing",
+    "rebar": "Rebar"
+  },
   "nav": {
     "concreteSlab": "Concrete Slab Calculator",
     "concreteColumn": "Concrete Column Calculator",
@@ -21,6 +29,96 @@
     "drywall": "Drywall Sheet Calculator",
     "framing": "Wood Framing Calculator",
     "rebar": "Rebar Grid Calculator"
+  },
+  "footer": {
+    "description": "Build Yardage delivers premium, contractor-grade material calculators designed for speed, precision, and ease of use. Calculate quantities for concrete, gravel, drywall, framing, and more in seconds.",
+    "contactLabel": "Contact:",
+    "calculatorsTitle": "CALCULATORS",
+    "companyTitle": "COMPANY",
+    "disclaimerTitle": "Disclaimer:",
+    "disclaimerText": "Our calculations are approximations. Consult a professional contractor before ordering materials. We are not liable for any discrepancies, excess ordering, or project issues resulting from the use of these tools."
+  },
+  "about": {
+    "title": "Built for the Jobsite. Engineered for Precision.",
+    "subtitle": "Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use.",
+    "problemTitle": "The Problem We Solve",
+    "problemDesc": "Material miscalculations are among the most expensive mistakes on a jobsite. Ordering too little concrete causes cold joints, structural weakness, and emergency mixer truck callout fees. Ordering too much aggregate, framing lumber, or drywall wastes valuable capital and clutters tight staging areas.",
+    "standardsTitle": "Trade Code & ASTM Standards Aligned",
+    "standardsDesc": "Build Yardage eliminates guesswork by delivering verified material calculations based on standard geometry and trade practices aligned with ACI, ASTM, and IRC building guidelines.",
+    "speedTitle": "Built for Jobsite Speed & Performance",
+    "speedDesc": "When you are standing on a jobsite with a phone in hand and poor reception, you need results immediately—without waiting for laggy pages, intrusive popups, or heavy layouts that freeze your screen."
+  },
+  "contact": {
+    "title": "Contact Our Engineering Team",
+    "subtitle": "Have feedback, custom calculation requests, or enterprise inquiries? Get in touch with our team.",
+    "directEmail": "Direct Support Email",
+    "responseTime": "Response Time",
+    "responseDesc": "Within 24 Hours on business days",
+    "sendMessage": "Send Us a Message",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "e.g. John Doe",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "john@example.com",
+    "subjectLabel": "Subject / Topic",
+    "subjectPlaceholder": "e.g. Concrete Slab Calculator Feedback",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us how we can help you on your jobsite...",
+    "sendButton": "Send Message",
+    "feature1Title": "Verified Math",
+    "feature1Desc": "Built around ACI, ASTM, and IRC trade standards.",
+    "feature2Title": "Zero Bloat",
+    "feature2Desc": "Fast loading with no popups or intrusive ads.",
+    "feature3Title": "Contractor Grade",
+    "feature3Desc": "Instant material takeoffs for jobsite ordering.",
+    "feature4Title": "Custom Math",
+    "feature4Desc": "Tailored calculators designed for custom project specifications."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: January 2026",
+    "intro": "At Build Yardage, we respect your privacy. This Privacy Policy explains how we handle information when you visit buildyardage.com.",
+    "noTrackingTitle": "1. Zero Personal Data Collection",
+    "noTrackingDesc": "Build Yardage does not require user accounts, registration, or logins. We do not collect, store, or sell personal identification information such as names, phone numbers, or credit card details.",
+    "localStateTitle": "2. Local Storage & Client-Side Calculation",
+    "localStateDesc": "All calculations performed on Build Yardage occur locally in your browser. Any saved calculation history, unit preferences (Imperial vs. Metric), or theme settings are stored strictly in your web browser's localStorage.",
+    "cookiesTitle": "3. Cookies & Analytics",
+    "cookiesDesc": "We use minimal technical cookies exclusively for language routing preferences and anonymous performance analytics to ensure website stability."
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "lastUpdated": "Last updated: January 2026",
+    "intro": "Welcome to Build Yardage. By accessing or using buildyardage.com, you agree to comply with and be bound by the following Terms & Conditions.",
+    "disclaimerTitle": "1. Calculation Disclaimer",
+    "disclaimerDesc": "All calculators provided on Build Yardage are for informational and estimation purposes only. Actual jobsite material requirements may vary due to compaction, excavation depth variations, sub-grade flex, or waste factors. Always verify material quantities with a licensed contractor or supplier before placing orders.",
+    "liabilityTitle": "2. Limitation of Liability",
+    "liabilityDesc": "Build Yardage is provided 'as is' without warranty of any kind. Under no circumstances shall Build Yardage be liable for any direct, indirect, or consequential damages resulting from excess material ordering, insufficient material callouts, or project delays.",
+    "ipTitle": "3. Intellectual Property",
+    "ipDesc": "All software code, layout designs, calculation algorithms, and content on buildyardage.com are the proprietary property of Build Yardage."
+  },
+  "calculatorShell": {
+    "inputsHeader": "Input Dimensions",
+    "resultsHeader": "Estimated Materials",
+    "unitSystem": "Unit System",
+    "imperial": "Imperial",
+    "metric": "Metric",
+    "wasteMargin": "Waste Margin",
+    "pricePerUnit": "Unit Price (Optional)",
+    "estimatedCost": "Estimated Total Cost",
+    "addToTakeoff": "Add to Takeoff Checklist",
+    "inTakeoff": "Added to Takeoff",
+    "takeoffTitle": "Material Takeoff Checklist",
+    "noTakeoffItems": "No material estimates added yet. Click 'Add to Takeoff' above to aggregate project materials.",
+    "itemsSaved": "Items Saved",
+    "totalProjectCost": "Total Project Cost",
+    "clearTakeoff": "Clear Checklist",
+    "printTakeoff": "Print / PDF Checklist",
+    "copyTakeoff": "Copy Takeoff",
+    "exportCsv": "Export CSV",
+    "copyResults": "Copy Results",
+    "copied": "Copied to Clipboard!",
+    "reset": "Reset",
+    "history": "Recent Calculations",
+    "clearHistory": "Clear History"
   },
   "calculator": {
     "unitSystem": "Unit System",
@@ -60,11 +158,40 @@
     "copied": "Copied to clipboard!",
     "copyResults": "Copy Results"
   },
+  "guides": {
+    "whatItDoes": "What Does This Calculator Do?",
+    "formulaMath": "Jobsite Calculation Formula & Math",
+    "estimatingTips": "Contractor Estimating Tips & Waste Buffer",
+    "faqsTitle": "Frequently Asked Questions",
+    "exploreOther": "Explore Other Material Calculators"
+  },
   "landing": {
     "heroTitle": "Precision Material Estimating for Construction & Jobsite Pros",
     "heroSubtitle": "Instant, high-accuracy volume, tonnage, and framing calculations built strictly to ACI, ASTM, and IRC code standards.",
     "exploreCalculators": "Explore Calculators",
     "seoTitle": "Professional Construction Estimating: Precision Calculations for the Jobsite",
-    "faqTitle": "Frequently Asked Questions"
+    "faqTitle": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "How many 80lb bags of concrete are in a cubic yard?",
+        "answer": "There are exactly 45 bags of 80lb pre-mixed concrete in one cubic yard. One 80lb bag yields 0.60 cubic feet of mixed concrete, and 27 cubic feet (1 cubic yard) divided by 0.60 cu ft per bag equals 45 bags (before adding waste margins)."
+      },
+      {
+        "question": "How many tons of gravel are in a cubic yard?",
+        "answer": "There are approximately 1.4 short US tons (2,800 lbs) of crushed gravel or stone in one cubic yard based on standard loose aggregate density (1.40 tons per cu yd). Dense aggregates like crushed granite may reach 1.5 to 1.6 tons per cubic yard."
+      },
+      {
+        "question": "How much extra concrete, gravel, or framing material should I order for waste?",
+        "answer": "Industry standard practice is to order a 10% material waste margin. For concrete, this accounts for uneven sub-grade depth and form flex; for gravel, it covers compaction shrinkage (10%–15%); and for lumber and drywall, it compensates for cuts, headers, and scrap."
+      },
+      {
+        "question": "How do I calculate how many studs I need for a framing wall?",
+        "answer": "To calculate wall studs, convert wall length to inches and divide by stud spacing (16\" or 24\" on-center), then add 1 end stud. Next, add 2–3 extra studs per corner or wall intersection, plus double studs for window or door headers, and apply a 10% waste buffer."
+      },
+      {
+        "question": "How do I calculate how many drywall sheets I need for a room?",
+        "answer": "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts."
+      }
+    ]
   }
 }

@@ -14,6 +14,14 @@
     "language": "言語",
     "selectLanguage": "言語を選択"
   },
+  "headerNav": {
+    "concreteSlab": "スラブ",
+    "concreteColumn": "柱",
+    "gravel": "砂利",
+    "drywall": "石膏ボード",
+    "framing": "木骨",
+    "rebar": "鉄筋"
+  },
   "nav": {
     "concreteSlab": "コンクリートスラブ計算機",
     "concreteColumn": "コンクリート柱・丸基礎計算機",
@@ -21,6 +29,96 @@
     "drywall": "石膏ボード（ドライウォール）枚数計算機",
     "framing": "木造軸組・スタッド柱計算機",
     "rebar": "鉄筋・配筋格子計算機"
+  },
+  "footer": {
+    "description": "Build Yardageは、建設現場・土木工事向けにスピードと精度を追求したプロ仕様の建築材料計算ツールを提供します。コンクリート、砂利、石膏ボード、木材の必要量を瞬時に算出します。",
+    "contactLabel": "お問い合わせ:",
+    "calculatorsTitle": "計算ツール一覧",
+    "companyTitle": "運営会社・利用情報",
+    "disclaimerTitle": "免責事項:",
+    "disclaimerText": "当サイトの計算値は理論上の目安です。実際の材料発注前に必ず施工業者や販売会社にご確認ください。"
+  },
+  "about": {
+    "title": "現場のために。精度とスピードを追求。",
+    "subtitle": "Build Yardageは、複雑で重い計算ツールを排除し、スマートフォンで即座に正確な建築数学を提供する目的で開発されました。",
+    "problemTitle": "解決する課題",
+    "problemDesc": "現場での材料手配ミスは大きな損失につながります。生コンの不足は施工不良を引き起こし、過剰手配は資本の無駄と現場の圧迫を招きます。",
+    "standardsTitle": "建築基準・ASTM規格に準拠",
+    "standardsDesc": "ACI、ASTM、IRCなどの標準建築ガイドラインに基づいた検証済みの計算ロジックを提供します。",
+    "speedTitle": "現場での圧倒的パフォーマンス",
+    "speedDesc": "電波の弱い現場でも即座に起動し、広告の割り込みなしで速やかに計算結果を表示します。"
+  },
+  "contact": {
+    "title": "エンジニアリングチームへのお問い合わせ",
+    "subtitle": "機能へのご要望、カスタム計算機のご相談などお気軽にご連絡ください。",
+    "directEmail": "サポート直通メール",
+    "responseTime": "回答時間",
+    "responseDesc": "営業日24時間以内にご返信いたします",
+    "sendMessage": "メッセージを送信",
+    "nameLabel": "お名前",
+    "namePlaceholder": "例：山田 太郎",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "yamada@example.jp",
+    "subjectLabel": "件名",
+    "subjectPlaceholder": "例：スラブ計算機に関するフィードバック",
+    "messageLabel": "お問い合わせ内容",
+    "messagePlaceholder": "現場でのご質問やご要望をご記入ください...",
+    "sendButton": "送信する",
+    "feature1Title": "検証済みロジック",
+    "feature1Desc": "標準建築基準に基づいた計算。",
+    "feature2Title": "広告なし・超高速",
+    "feature2Desc": "ポップアップなしの快適動作。",
+    "feature3Title": "プロ仕様の積算",
+    "feature3Desc": "発注に必要な数量を即座に算出。",
+    "feature4Title": "カスタム対応",
+    "feature4Desc": "個別仕様に合わせた計算機能。"
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新：2026年1月",
+    "intro": "Build Yardageは利用者のプライバシーを尊重します。",
+    "noTrackingTitle": "1. 個人情報の収集なし",
+    "noTrackingDesc": "アカウント登録やログインは一切不要です。個人識別情報を収集・販売することはありません。",
+    "localStateTitle": "2. ブラウザ内ローカル処理",
+    "localStateDesc": "すべての計算はブラウザ内で完結します。履歴や設定はローカルストレージにのみ保存されます。",
+    "cookiesTitle": "3. クッキーの利用",
+    "cookiesDesc": "言語設定の保持に必要な最小限の技術クッキーのみを使用します。"
+  },
+  "terms": {
+    "title": "利用規約",
+    "lastUpdated": "最終更新：2026年1月",
+    "intro": "buildyardage.comのご利用に関する規約です。",
+    "disclaimerTitle": "1. 計算結果に関する免責",
+    "disclaimerDesc": "計算結果は目安です。注文前に必ず専門業者へご確認ください。",
+    "liabilityTitle": "2. 責任の制限",
+    "liabilityDesc": "当サイトの利用により生じた過剰発注や工事遅延の責任は負いかねます。",
+    "ipTitle": "3. 知的財産権",
+    "ipDesc": "プログラムコードやコンテンツの著作権は当サイトに帰属します。"
+  },
+  "calculatorShell": {
+    "inputsHeader": "入力寸法",
+    "resultsHeader": "計算結果・推定材料量",
+    "unitSystem": "単位系切り替え",
+    "imperial": "インペリアル",
+    "metric": "メートル法",
+    "wasteMargin": "予備・ロス率",
+    "pricePerUnit": "単価（任意入力）",
+    "estimatedCost": "推定合計金額",
+    "addToTakeoff": "材料拾い出しリストに追加",
+    "inTakeoff": "リスト追加済み",
+    "takeoffTitle": "材料拾い出し（テイクオフ）リスト",
+    "noTakeoffItems": "まだ追加された計算はありません。上の「リストに追加」を押して保存してください。",
+    "itemsSaved": "保存アイテム数",
+    "totalProjectCost": "プロジェクト推定総額",
+    "clearTakeoff": "リストをクリア",
+    "printTakeoff": "印刷 / PDF保存",
+    "copyTakeoff": "リストをコピー",
+    "exportCsv": "CSV出力",
+    "copyResults": "結果をコピー",
+    "copied": "クリップボードにコピーしました！",
+    "reset": "リセット",
+    "history": "最近の計算履歴",
+    "clearHistory": "履歴を消去"
   },
   "calculator": {
     "unitSystem": "単位系",
@@ -60,11 +158,32 @@
     "copied": "クリップボードにコピーしました！",
     "copyResults": "結果をコピー"
   },
+  "guides": {
+    "whatItDoes": "この計算ツールの機能・概要",
+    "formulaMath": "現場計算の計算式・計算方法",
+    "estimatingTips": "プロの積み算ポイント＆ロス率の目安",
+    "faqsTitle": "よくある質問",
+    "exploreOther": "他の計算ツールを見る"
+  },
   "landing": {
     "heroTitle": "現場建築・土木工事のための高精度材料計算ツール",
     "heroSubtitle": "ACI、ASTM、IRC規格に準拠した体積・重量・木材・鉄筋の即時精度計算。",
     "exploreCalculators": "計算ツールを見る",
     "seoTitle": "プロ仕様の建築見積り計算：現場向け高精度材料ボリューム計算",
-    "faqTitle": "よくある質問"
+    "faqTitle": "よくある質問",
+    "faqs": [
+      {
+        "question": "コンクリート1立米（1m³）に必要な配合・袋数の目安は？",
+        "answer": "ドライコンクリート（36kg袋）の場合、1立米（1m³）あたり約55〜60袋が必要です。"
+      },
+      {
+        "question": "砂利・砕石1立米（1m³）の重量は何トンですか？",
+        "answer": "標準的な砕石・砂利の比重（約1.5〜1.6）により、1立米あたり約1.5〜1.6トンとなります。"
+      },
+      {
+        "question": "材料のロス率（予備分）はどのくらい見込むべきですか？",
+        "answer": "建築・土木現場では、床掘の凹凸や施工ロスを考慮して通常「10%」の予備率を見込むのが標準的です。"
+      }
+    ]
   }
 }

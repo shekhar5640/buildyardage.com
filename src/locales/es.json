@@ -14,6 +14,14 @@
     "language": "Idioma",
     "selectLanguage": "Seleccionar Idioma"
   },
+  "headerNav": {
+    "concreteSlab": "Losa",
+    "concreteColumn": "Columna",
+    "gravel": "Grava",
+    "drywall": "Drywall",
+    "framing": "Enmarcado",
+    "rebar": "Varilla"
+  },
   "nav": {
     "concreteSlab": "Calculadora de Losa de Concreto",
     "concreteColumn": "Calculadora de Columna de Concreto",
@@ -21,6 +29,96 @@
     "drywall": "Calculadora de Hojas de Panel de Yeso",
     "framing": "Calculadora de Enmarcado de Madera",
     "rebar": "Calculadora de Malla de Varilla (Rebar)"
+  },
+  "footer": {
+    "description": "Build Yardage ofrece calculadoras de materiales de construcción de grado profesional diseñadas para velocidad, precisión y facilidad de uso. Calcule cantidades de concreto, grava, paneles de yeso y más en segundos.",
+    "contactLabel": "Contacto:",
+    "calculatorsTitle": "CALCULADORAS",
+    "companyTitle": "EMPRESA",
+    "disclaimerTitle": "Aviso Legal:",
+    "disclaimerText": "Nuestros cálculos son estimaciones teóricas. Consulte con un profesional antes de realizar pedidos. No nos hacemos responsables por diferencias en compras o retrasos en obra."
+  },
+  "about": {
+    "title": "Diseñado para la Obra. Diseñado para la Precisión.",
+    "subtitle": "Build Yardage fue creado con un único objetivo: reemplazar estimadores lentos con cálculos de construcción instantáneos y exactos para dispositivos móviles.",
+    "problemTitle": "El Problema que Resolvemos",
+    "problemDesc": "Los errores de cálculo de material están entre los fallos más costosos en la obra. Pedir poco concreto causa juntas frías y debilidad estructural. Pedir demasiado desperdicia capital y satura el espacio de trabajo.",
+    "standardsTitle": "Alineado con Normas ACI, ASTM e IRC",
+    "standardsDesc": "Build Yardage elimina las suposiciones entregando cálculos de materiales verificados basados en geometría estándar y prácticas profesionales de construcción.",
+    "speedTitle": "Velocidad y Alto Rendimiento en la Obra",
+    "speedDesc": "Cuando estás en la obra con tu teléfono sin buena recepción, necesitas resultados inmediatos—sin esperar páginas lentas ni anuncios molestos."
+  },
+  "contact": {
+    "title": "Contacte a Nuestro Equipo de Ingeniería",
+    "subtitle": "¿Tiene sugerencias, solicitudes de cálculos personalizados o consultas profesionales? Póngase en contacto con nosotros.",
+    "directEmail": "Correo Electrónico Directo",
+    "responseTime": "Tiempo de Respuesta",
+    "responseDesc": "En menos de 24 horas en días laborables",
+    "sendMessage": "Envíenos un Mensaje",
+    "nameLabel": "Su Nombre",
+    "namePlaceholder": "ej. Juan Pérez",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "juan@ejemplo.com",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "ej. Comentario sobre la Calculadora de Concreto",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "¿Cómo podemos ayudarle en su proyecto?",
+    "sendButton": "Enviar Mensaje",
+    "feature1Title": "Matemática Verificada",
+    "feature1Desc": "Diseñado bajo estándares ACI, ASTM e IRC.",
+    "feature2Title": "Sin Anuncios Molestos",
+    "feature2Desc": "Carga ultra rápida sin ventanas emergentes.",
+    "feature3Title": "Calidad para Contratistas",
+    "feature3Desc": "Desglose instantáneo de materiales para pedidos.",
+    "feature4Title": "Cálculos Personalizados",
+    "feature4Desc": "Herramientas ajustadas a especificaciones exactas."
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: Enero 2026",
+    "intro": "En Build Yardage respetamos su privacidad. Esta política explica cómo manejamos la información en buildyardage.com.",
+    "noTrackingTitle": "1. Cero Recolección de Datos Personales",
+    "noTrackingDesc": "Build Yardage no requiere cuentas ni registros. No recolectamos ni vendemos datos de identificación personal como nombres o tarjetas de crédito.",
+    "localStateTitle": "2. Almacenamiento Local y Procesamiento del Cliente",
+    "localStateDesc": "Todos los cálculos se realizan localmente en su navegador. El historial de cálculos y las preferencias de unidades se guardan únicamente en el localStorage de su navegador.",
+    "cookiesTitle": "3. Cookies",
+    "cookiesDesc": "Utilizamos únicamente cookies técnicas esenciales para mantener las preferencias de idioma y rendimiento."
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "lastUpdated": "Última actualización: Enero 2026",
+    "intro": "Bienvenido a Build Yardage. Al acceder o usar buildyardage.com, usted acepta estos Términos y Condiciones.",
+    "disclaimerTitle": "1. Exención de Responsabilidad de Cálculos",
+    "disclaimerDesc": "Todas las calculadoras son solo para fines informativos y de estimación. Requisitos reales de materiales pueden variar debido a compactación y variaciones de profundidad. Verifique siempre con un contratista antes de ordenar.",
+    "liabilityTitle": "2. Limitación de Responsabilidad",
+    "liabilityDesc": "Build Yardage se proporciona 'tal cual' sin garantías. No nos hacemos responsables de pérdidas resultantes del uso de estas herramientas.",
+    "ipTitle": "3. Propiedad Intelectual",
+    "ipDesc": "Todo el código, diseño y algoritmos son propiedad exclusiva de Build Yardage."
+  },
+  "calculatorShell": {
+    "inputsHeader": "Dimensiones de Entrada",
+    "resultsHeader": "Materiales Estimados",
+    "unitSystem": "Sistema de Unidades",
+    "imperial": "Imperial",
+    "metric": "Métrico",
+    "wasteMargin": "Margen de Desperdicio",
+    "pricePerUnit": "Precio Unitario (Opcional)",
+    "estimatedCost": "Costo Total Estimado",
+    "addToTakeoff": "Agregar a Lista de Materiales",
+    "inTakeoff": "Agregado a la Lista",
+    "takeoffTitle": "Lista de Desglose de Materiales",
+    "noTakeoffItems": "Aún no ha agregado estimaciones. Haga clic en '+' para guardar elementos aquí.",
+    "itemsSaved": "Elementos Guardados",
+    "totalProjectCost": "Costo Total del Proyecto",
+    "clearTakeoff": "Limpiar Lista",
+    "printTakeoff": "Imprimir / PDF Lista",
+    "copyTakeoff": "Copiar Lista",
+    "exportCsv": "Exportar a CSV",
+    "copyResults": "Copiar Resultados",
+    "copied": "¡Copiado al portapapeles!",
+    "reset": "Reiniciar",
+    "history": "Cálculos Recientes",
+    "clearHistory": "Borrar Historial"
   },
   "calculator": {
     "unitSystem": "Sistema de Unidades",
@@ -60,11 +158,40 @@
     "copied": "¡Copiado al portapapeles!",
     "copyResults": "Copiar Resultados"
   },
+  "guides": {
+    "whatItDoes": "¿Qué hace esta calculadora?",
+    "formulaMath": "Fórmulas y Matemáticas de Cálculo",
+    "estimatingTips": "Consejos de Estimación y Margen de Desperdicio",
+    "faqsTitle": "Preguntas Frecuentes",
+    "exploreOther": "Explorar Otras Calculadoras"
+  },
   "landing": {
     "heroTitle": "Estimación Precisa de Materiales para Contratistas y Obras",
     "heroSubtitle": "Cálculos instantáneos de volumen, toneladas y estructuras diseñados según los estándares ACI, ASTM e IRC.",
     "exploreCalculators": "Explorar Calculadoras",
     "seoTitle": "Estimación Profesional de Construcción: Cálculos de Precisión para la Obra",
-    "faqTitle": "Preguntas Frecuentes"
+    "faqTitle": "Preguntas Frecuentes",
+    "faqs": [
+      {
+        "question": "¿Cuántas bolsas de concreto de 80 lb hay en una yarda cúbica?",
+        "answer": "Hay exactamente 45 bolsas de concreto premezclado de 80 lb en una yarda cúbica. Una bolsa de 80 lb rinde 0.60 pies cúbicos, y 27 pies cúbicos (1 yarda cúbica) divididos entre 0.60 son 45 bolsas."
+      },
+      {
+        "question": "¿Cuántas toneladas de grava hay en una yarda cúbica?",
+        "answer": "Aproximadamente 1.4 toneladas cortas de EE. UU. (2,800 lbs) de grava o piedra triturada por yarda cúbica."
+      },
+      {
+        "question": "¿Cuánto material extra debo pedir por desperdicio?",
+        "answer": "La práctica estándar de la industria es pedir un 10% adicional de margen de desperdicio."
+      },
+      {
+        "question": "¿Cómo se calcula la cantidad de pies derechos (studs) para una pared?",
+        "answer": "Convierta la longitud de la pared a pulgadas y divídala entre la separación (16\" o 24\" al centro), luego sume 1 pie derecho final."
+      },
+      {
+        "question": "¿Cuántas hojas de panel de yeso (drywall) necesito para una habitación?",
+        "answer": "Calcule el área total multiplicando el perímetro por la altura de la pared, divida entre la superficie de la hoja (32 pies² para hoja 4x8) y agregue 10% de desperdicio."
+      }
+    ]
   }
 }

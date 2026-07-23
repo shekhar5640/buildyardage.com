@@ -142,7 +142,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            {t.nav.concreteSlab.replace(' Calculator', '').replace('Calculadora de ', '').replace('Calculateur de ', '')}
+            {t.headerNav.concreteSlab}
           </a>
           <a
             href={getLocalizedPath('/calculators/concrete-column-calculator', activeLocale)}
@@ -152,7 +152,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Column / Post
+            {t.headerNav.concreteColumn}
           </a>
           <a
             href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLocale)}
@@ -162,7 +162,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Gravel
+            {t.headerNav.gravel}
           </a>
           <a
             href={getLocalizedPath('/calculators/drywall-calculator', activeLocale)}
@@ -172,7 +172,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Drywall
+            {t.headerNav.drywall}
           </a>
           <a
             href={getLocalizedPath('/calculators/framing-calculator', activeLocale)}
@@ -182,7 +182,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Framing
+            {t.headerNav.framing}
           </a>
           <a
             href={getLocalizedPath('/calculators/rebar-calculator', activeLocale)}
@@ -192,7 +192,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 : 'text-body hover:text-ink border-transparent'
             }`}
           >
-            Rebar Grid
+            {t.headerNav.rebar}
           </a>
         </nav>
 
@@ -323,10 +323,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
               </span>
             </div>
             <p class="text-sm text-zinc-400 max-w-md leading-relaxed">
-              Build Yardage delivers premium, contractor-grade material calculators designed for speed, precision, and ease of use. Calculate quantities for concrete, gravel, drywall, framing, and more in seconds.
+              {t.footer.description}
             </p>
             <div class="flex items-center gap-2 pt-1 text-sm text-zinc-400">
-              <span class="text-zinc-500 font-semibold">Contact:</span>
+              <span class="text-zinc-500 font-semibold">{t.footer.contactLabel}</span>
               <a href="mailto:contact@buildyardage.com" class="text-brand-accent hover:underline font-mono text-xs sm:text-sm">
                 contact@buildyardage.com
               </a>
@@ -338,7 +338,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
           <!-- Calculators Quick Links -->
           <div>
-            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">{t.common.calculators}</h3>
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">{t.footer.calculatorsTitle}</h3>
             <ul class="mt-4 space-y-2">
               <li>
                 <a href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.nav.concreteSlab}</a>
@@ -363,7 +363,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
           <!-- Legal & Compliance -->
           <div class="space-y-4">
-            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
+            <h3 class="text-sm font-semibold text-white tracking-wider uppercase">{t.footer.companyTitle}</h3>
             <ul class="space-y-2">
               <li>
                 <a href={getLocalizedPath('/about', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.about}</a>
@@ -388,8 +388,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         <!-- Disclaimer -->
         <div class="mt-12 border-t border-zinc-800 pt-8">
           <p class="text-xs text-zinc-500 leading-relaxed w-full">
-            <strong class="text-zinc-400 block mb-1">Disclaimer:</strong>
-            {t.common.disclaimer}
+            <strong class="text-zinc-400 block mb-1">{t.footer.disclaimerTitle}</strong>
+            {t.footer.disclaimerText}
           </p>
         </div>
       </div>

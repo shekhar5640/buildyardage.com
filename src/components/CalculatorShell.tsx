@@ -366,11 +366,41 @@ function renderPrintSpecs(item: ShoppingItem) {
   return null;
 }
 
+import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
+
+export interface HistoryItem {
+  id: string;
+  slug: string;
+  material: string;
+  shape: string;
+  inputs: Record<string, any>;
+  outputs: Record<string, any>;
+  isMetric: boolean;
+  timestamp: number;
+}
+
+export interface ShoppingItem {
+  id: string;
+  slug: string;
+  material: string;
+  shape: string;
+  type: string;
+  title: string;
+  details: string;
+  checked: boolean;
+  inputs?: Record<string, any>;
+  outputs?: Record<string, any>;
+  isMetric?: boolean;
+  unitPrice?: number;
+  estimatedCost?: number;
+}
+
 interface CalculatorShellProps {
   type: string;
   material: string;
   shape: string;
   slug: string;
+  locale?: string;
   
   isMetric: boolean;
   setIsMetric: (val: boolean) => void;
@@ -394,6 +424,7 @@ export default function CalculatorShell({
   material,
   shape,
   slug,
+  locale,
   
   isMetric,
   setIsMetric,
@@ -411,6 +442,8 @@ export default function CalculatorShell({
   renderVisualizer,
   renderOutputs
 }: CalculatorShellProps) {
+  const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
+  const t = getTranslations(activeLocale);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [printDate, setPrintDate] = useState<string>('');
@@ -538,14 +571,14 @@ export default function CalculatorShell({
             <div className="flex items-center justify-between border-b border-hairline pb-4 mb-6">
               <h2 className="text-md font-bold text-ink flex items-center gap-2">
                 <Ruler size={18} className="text-brand-accent" />
-                <span>Dimensions</span>
+                <span>{t.calculatorShell.inputsHeader}</span>
               </h2>
               {/* Unit Toggle Switch */}
               <button 
                 onClick={handleUnitToggle}
                 className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
               >
-                <span>Units: {isMetric ? 'Metric' : 'Imperial'}</span>
+                <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
               </button>
             </div>
 
@@ -556,7 +589,7 @@ export default function CalculatorShell({
               {/* Waste Factor Slider */}
               <div className="space-y-2 border-t border-hairline pt-4 mt-4">
                 <div className="flex justify-between text-sm">
-                  <label className="font-semibold text-ink">Waste Margin (%)</label>
+                  <label className="font-semibold text-ink">{t.calculatorShell.wasteMargin} (%)</label>
                   <span className="font-mono font-bold text-red-500">+{waste}%</span>
                 </div>
                 <input 
@@ -577,7 +610,7 @@ export default function CalculatorShell({
             className="w-full mt-8 flex items-center justify-center gap-2 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-md shadow-sm active:scale-95 transition-all cursor-pointer"
           >
             <Plus size={18} />
-            <span>Add to Jobsite Shopping List</span>
+            <span>{t.calculatorShell.addToTakeoff}</span>
           </button>
         </section>
 
@@ -591,7 +624,7 @@ export default function CalculatorShell({
           {/* Core Calculation Outputs Card */}
           <div className="bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between flex-grow shadow-sm">
             <div>
-              <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">Calculation Outputs</h3>
+              <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">{t.calculatorShell.resultsHeader}</h3>
               
               <div className="space-y-4">
                 {renderOutputs()}
@@ -602,19 +635,7 @@ export default function CalculatorShell({
                     {/* Unit Price input row */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
                       <label className="text-sm font-semibold text-ink">
-                        Unit Price ($ per {
-                          type === 'rectangular' || type === 'cylindrical' 
-                            ? (isMetric ? 'm³' : 'yd³') 
-                            : type === 'gravel-rect' 
-                            ? 'ton' 
-                            : type === 'drywall' 
-                            ? 'sheet' 
-                            : type === 'framing' 
-                            ? 'lumber piece' 
-                            : type === 'rebar' 
-                            ? 'stick' 
-                            : 'unit'
-                        })
+                        {t.calculatorShell.pricePerUnit}
                       </label>
                       <div className="relative rounded-md shadow-sm w-full sm:w-36">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -635,7 +656,7 @@ export default function CalculatorShell({
                     {/* Estimated Cost row (calculated only if a price is entered) */}
                     {pricePerUnit > 0 && (results as any).estimatedCost !== undefined && (
                       <div className="flex justify-between items-baseline pt-2">
-                        <span className="text-sm text-ink font-bold">Estimated Material Cost</span>
+                        <span className="text-sm text-ink font-bold">{t.calculatorShell.estimatedCost}</span>
                         <span className="text-2xl font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
                           ${(results as any).estimatedCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
@@ -650,7 +671,7 @@ export default function CalculatorShell({
             <div className="mt-6 p-3 bg-red-50 dark:bg-zinc-900 border border-red-100 dark:border-zinc-800 rounded flex gap-2.5 items-start">
               <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
               <span className="text-xs text-red-700 dark:text-zinc-400">
-                Calculations include a <strong>{waste}% waste margin</strong> for trimming, spills, and jobsite inconsistencies. Order values are rounded up to the nearest whole material package unit.
+                Calculations include a <strong>{waste}% waste margin</strong>.
               </span>
             </div>
           </div>
@@ -663,7 +684,7 @@ export default function CalculatorShell({
             <div className="flex items-center justify-between border-b border-hairline pb-3 mb-4 no-print">
               <h3 className="text-sm font-bold text-ink flex items-center gap-2">
                 <ShoppingBag size={16} className="text-brand-accent" />
-                <span>Jobsite Shopping List</span>
+                <span>{t.calculatorShell.takeoffTitle}</span>
               </h3>
               {shoppingList.length > 0 && (
                 <button 
@@ -671,7 +692,7 @@ export default function CalculatorShell({
                   className="text-xs text-red-500 hover:text-red-600 flex items-center gap-1 font-medium transition-colors cursor-pointer"
                 >
                   <Trash2 size={12} />
-                  <span>Clear</span>
+                  <span>{t.calculatorShell.clearTakeoff}</span>
                 </button>
               )}
             </div>
@@ -679,15 +700,14 @@ export default function CalculatorShell({
             {/* Printable checklist header */}
             <div className="hidden print:block pb-4 mb-4 border-b border-black">
               <h2 className="text-xl font-bold text-black uppercase tracking-tight">Build Yardage</h2>
-              <h3 className="text-md font-bold text-black mt-1">Material Estimate Shopping Checklist</h3>
+              <h3 className="text-md font-bold text-black mt-1">{t.calculatorShell.takeoffTitle}</h3>
               <p className="text-xs text-zinc-500 mt-0.5">Printed on: {printDate}</p>
             </div>
 
             {/* Shopping List Items */}
             {shoppingList.length === 0 ? (
               <div className="text-center py-8 text-muted no-print">
-                <p className="text-xs">No materials added to your checklist yet.</p>
-                <p className="text-[10px] mt-1">Adjust dimensions on the left and click "Add to Jobsite Shopping List" to compile aggregates.</p>
+                <p className="text-xs">{t.calculatorShell.noTakeoffItems}</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -741,7 +761,7 @@ export default function CalculatorShell({
                 {/* Grand Total Cost Summary */}
                 {grandTotalCost > 0 && (
                   <div className="border-t border-hairline pt-3 mt-3 flex justify-between items-baseline">
-                    <span className="text-xs font-bold text-ink uppercase tracking-wider">Project Budget</span>
+                    <span className="text-xs font-bold text-ink uppercase tracking-wider">{t.calculatorShell.totalProjectCost}</span>
                     <span className="text-sm font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
                       ${grandTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
@@ -754,7 +774,7 @@ export default function CalculatorShell({
                   className="w-full mt-4 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 no-print cursor-pointer"
                 >
                   <Printer size={13} />
-                  <span>Print / PDF Checklist</span>
+                  <span>{t.calculatorShell.printTakeoff}</span>
                 </button>
               </div>
             )}
@@ -764,7 +784,7 @@ export default function CalculatorShell({
           <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col shadow-sm history-panel no-print">
             <h3 className="text-sm font-bold text-ink flex items-center gap-2 border-b border-hairline pb-3 mb-4">
               <History size={16} className="text-zinc-500" />
-              <span>Recent Calculations</span>
+              <span>{t.calculatorShell.history}</span>
             </h3>
 
             {history.length === 0 ? (

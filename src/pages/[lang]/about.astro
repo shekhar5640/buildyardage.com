@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SUPPORTED_LOCALES, getTranslations, LOCALES, type SupportedLocale } from '../../i18n/utils';
-import { ShieldCheck, HardHat, Calculator, Zap } from 'lucide-react';
+import { SUPPORTED_LOCALES, getTranslations, type SupportedLocale } from '../../i18n/utils';
+import { HardHat, Zap, ShieldCheck } from 'lucide-react';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
@@ -19,15 +19,15 @@ const jsonLd = {
   "mainEntity": {
     "@type": "Organization",
     "name": "Build Yardage",
-    "url": `https://buildyardage.com/${activeLang}/`,
-    "description": "Build Yardage provides high-precision construction material calculators built around ACI, ASTM, and IRC building code standards."
+    "url": `https://buildyardage.com/${activeLang}/about`,
+    "description": t.about.subtitle
   }
 };
 ---
 
 <BaseLayout
-  title={`${t.common.about} | BuildYardage`}
-  description="Build Yardage was created to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use."
+  title={`${t.common.about} | Build Yardage`}
+  description={t.about.subtitle}
   jsonLd={jsonLd}
   lang={activeLang}
 >
@@ -40,10 +40,10 @@ const jsonLd = {
         <span class="text-brand-accent font-semibold">{t.common.about}</span>
       </nav>
       <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-4xl">
-        Built for the Jobsite. <span class="text-brand-accent">Engineered for Precision.</span>
+        {t.about.title}
       </h1>
       <p class="text-base sm:text-lg text-body max-w-3xl leading-relaxed">
-        Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use.
+        {t.about.subtitle}
       </p>
     </div>
   </section>
@@ -55,9 +55,9 @@ const jsonLd = {
         <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
           <HardHat size={24} />
         </div>
-        <h2 class="text-xl font-bold text-ink">The Problem We Solve</h2>
-        <p class="text-sm text-body leading-relaxed space-y-3">
-          <span>Material miscalculations are among the most expensive mistakes on a jobsite. Ordering too little concrete causes cold joints, structural weakness, and emergency mixer truck callout fees. Ordering too much aggregate, framing lumber, or drywall wastes valuable capital and clutters tight staging areas.</span>
+        <h2 class="text-xl font-bold text-ink">{t.about.problemTitle}</h2>
+        <p class="text-sm text-body leading-relaxed">
+          {t.about.problemDesc}
         </p>
       </div>
 
@@ -65,9 +65,19 @@ const jsonLd = {
         <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
           <Zap size={24} />
         </div>
-        <h2 class="text-xl font-bold text-ink">Built for Jobsite Speed & Performance</h2>
-        <p class="text-sm text-body leading-relaxed space-y-3">
-          <span>When you are standing on a jobsite with a phone in hand and poor reception, you need results immediately—without waiting for laggy pages, intrusive popups, or heavy layouts that freeze your screen.</span>
+        <h2 class="text-xl font-bold text-ink">{t.about.speedTitle}</h2>
+        <p class="text-sm text-body leading-relaxed">
+          {t.about.speedDesc}
+        </p>
+      </div>
+
+      <div class="bg-canvas border border-hairline rounded-xl p-8 space-y-4 md:col-span-2">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
+          <ShieldCheck size={24} />
+        </div>
+        <h2 class="text-xl font-bold text-ink">{t.about.standardsTitle}</h2>
+        <p class="text-sm text-body leading-relaxed">
+          {t.about.standardsDesc}
         </p>
       </div>
     </div>

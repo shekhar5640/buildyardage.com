@@ -13,7 +13,7 @@ const { lang } = Astro.params;
 const activeLang = (lang || 'es') as SupportedLocale;
 const t = getTranslations(activeLang);
 
-const faqItems = [
+const faqItems = t.landing.faqs && t.landing.faqs.length > 0 ? t.landing.faqs : [
   {
     question: "How many 80lb bags of concrete are in a cubic yard?",
     answer: "There are exactly 45 bags of 80lb pre-mixed concrete in one cubic yard. One 80lb bag yields 0.60 cubic feet of mixed concrete, and 27 cubic feet (1 cubic yard) divided by 0.60 cu ft per bag equals 45 bags (before adding waste margins)."
@@ -25,14 +25,6 @@ const faqItems = [
   {
     question: "How much extra concrete, gravel, or framing material should I order for waste?",
     answer: "Industry standard practice is to order a 10% material waste margin. For concrete, this accounts for uneven sub-grade depth and form flex; for gravel, it covers compaction shrinkage (10%–15%); and for lumber and drywall, it compensates for cuts, headers, and scrap."
-  },
-  {
-    question: "How do I calculate how many studs I need for a framing wall?",
-    answer: "To calculate wall studs, convert wall length to inches and divide by stud spacing (16\" or 24\" on-center), then add 1 end stud. Next, add 2–3 extra studs per corner or wall intersection, plus double studs for window or door headers, and apply a 10% waste buffer."
-  },
-  {
-    question: "How do I calculate how many drywall sheets I need for a room?",
-    answer: "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts."
   }
 ];
 

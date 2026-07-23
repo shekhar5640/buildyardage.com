@@ -16,18 +16,19 @@ const t = getTranslations(activeLang);
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  "name": "Contact Build Yardage",
+  "name": `${t.contact.title} - Build Yardage`,
   "url": `https://buildyardage.com/${activeLang}/contact`,
-  "description": "Get in touch with the Build Yardage engineering team."
+  "description": t.contact.subtitle
 };
 ---
 
 <BaseLayout
-  title={`${t.common.contact} | BuildYardage`}
-  description="Get in touch with the Build Yardage engineering team for support, feedback, or inquiries."
+  title={`${t.common.contact} | Build Yardage`}
+  description={t.contact.subtitle}
   jsonLd={jsonLd}
   lang={activeLang}
 >
+  <!-- Header Banner -->
   <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <nav class="flex text-xs text-muted mb-4 gap-2">
@@ -36,28 +37,160 @@ const jsonLd = {
         <span class="text-brand-accent font-semibold">{t.common.contact}</span>
       </nav>
       <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-3xl">
-        Contact Our <span class="text-brand-accent">Engineering Team</span>
+        {t.contact.title}
       </h1>
+      <p class="text-base sm:text-lg text-body max-w-2xl leading-relaxed">
+        {t.contact.subtitle}
+      </p>
     </div>
   </section>
 
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      
+      <!-- Direct Contact Info Cards (4 Feature Cards) -->
       <div class="flex flex-col justify-between gap-4 lg:col-span-1 h-full">
+        <!-- Card 1 -->
         <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
           <div class="flex items-center gap-3 mb-2">
             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
               <Mail size={20} />
             </div>
             <div>
-              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">Direct Support Email</h2>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">{t.contact.directEmail}</h2>
               <a href="mailto:contact@buildyardage.com" class="text-sm font-bold text-ink hover:text-brand-accent transition-colors block">
                 contact@buildyardage.com
               </a>
             </div>
           </div>
         </div>
+
+        <!-- Card 2 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <Clock size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">{t.contact.responseTime}</h2>
+              <span class="text-sm font-bold text-ink block">{t.contact.responseDesc}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <MessageSquare size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">{t.contact.feature1Title}</h2>
+              <span class="text-sm font-bold text-ink block">{t.contact.feature1Desc}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <Wrench size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">{t.contact.feature4Title}</h2>
+              <span class="text-sm font-bold text-ink block">{t.contact.feature4Desc}</span>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Interactive Contact Form -->
+      <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-10 lg:col-span-2 flex flex-col justify-between h-full">
+        <div>
+          <h2 class="text-2xl font-bold text-ink tracking-tight mb-2">{t.contact.sendMessage}</h2>
+
+          <form id="contact-form" class="space-y-6 mt-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">{t.contact.nameLabel}</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder={t.contact.namePlaceholder}
+                  class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">{t.contact.emailLabel}</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder={t.contact.emailPlaceholder}
+                  class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="subject" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">{t.contact.subjectLabel}</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder={t.contact.subjectPlaceholder}
+                class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">{t.contact.messageLabel}</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder={t.contact.messagePlaceholder}
+                class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Align Submit Button to Right -->
+            <div class="flex flex-col items-end gap-3 pt-2">
+              <button
+                type="submit"
+                class="px-8 py-3 bg-brand-primary hover:bg-brand-primary-active text-on-primary font-semibold rounded-lg shadow-sm active:scale-95 transition-all cursor-pointer"
+              >
+                {t.contact.sendButton}
+              </button>
+
+              <div id="form-status" class="hidden w-full p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold items-center gap-2">
+                <CheckCircle2 size={16} />
+                <span>Thank you! Your message has been sent.</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <script is:inline>
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (status) {
+        status.classList.remove('hidden');
+        status.classList.add('flex');
+      }
+      form.reset();
+    });
+  </script>
 </BaseLayout>
