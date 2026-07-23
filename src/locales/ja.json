@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "この計算ツールの機能・概要",
+    "howToUse": "この計算ツールの使い方",
+    "howToUseSubtitle": "現場に合わせた正確な資材仕様を計算するための4つの簡単な手順。",
+    "stepPrefix": "ステップ",
+    "whyUse": "Build Yardage計算ツールが選ばれる理由",
     "formulaMath": "現場計算の計算式・計算方法",
+    "proTip": "プロのヒント",
     "estimatingTips": "プロの積み算ポイント＆ロス率の目安",
     "faqsTitle": "よくある質問",
     "exploreOther": "他の計算ツールを見る"

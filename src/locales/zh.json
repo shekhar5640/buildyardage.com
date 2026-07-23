@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "此计算器的主要功能",
+    "howToUse": "如何使用此计算器",
+    "howToUseSubtitle": "按照以下 4 个简单步骤为您的施工现场计算准确的材料规格。",
+    "stepPrefix": "步骤",
+    "whyUse": "为什么使用 Build Yardage 计算器？",
     "formulaMath": "施工现场公式与计算方法",
+    "proTip": "专家提示",
     "estimatingTips": "工程预算技巧与损耗预留",
     "faqsTitle": "常见问题解答",
     "exploreOther": "浏览其他计算器"

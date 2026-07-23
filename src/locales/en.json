@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "What Does This Calculator Do?",
+    "howToUse": "How to Use This Calculator",
+    "howToUseSubtitle": "Follow these 4 simple steps to compute accurate material specs for your jobsite.",
+    "stepPrefix": "STEP",
+    "whyUse": "Why Use Build Yardage Calculators?",
     "formulaMath": "Jobsite Calculation Formula & Math",
+    "proTip": "PRO TIP",
     "estimatingTips": "Contractor Estimating Tips & Waste Buffer",
     "faqsTitle": "Frequently Asked Questions",
     "exploreOther": "Explore Other Material Calculators"

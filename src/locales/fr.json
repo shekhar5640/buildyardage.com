@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "Que fait ce calculateur ?",
+    "howToUse": "Comment utiliser ce calculateur",
+    "howToUseSubtitle": "Suivez ces 4 étapes simples pour calculer les spécifications de matériaux précises pour votre chantier.",
+    "stepPrefix": "ÉTAPE",
+    "whyUse": "Pourquoi utiliser les calculateurs Build Yardage ?",
     "formulaMath": "Formules et Calculs de Chantier",
+    "proTip": "CONSEIL PRO",
     "estimatingTips": "Conseils d'Estimation et Marges de Perte",
     "faqsTitle": "Foire Aux Questions",
     "exploreOther": "Explorer les Autres Calculateurs"

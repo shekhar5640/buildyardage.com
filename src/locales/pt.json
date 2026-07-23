@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "O que esta calculadora faz?",
+    "howToUse": "Como usar esta calculadora",
+    "howToUseSubtitle": "Siga estes 4 passos simples para calcular as especificações exatas de material para sua obra.",
+    "stepPrefix": "PASSO",
+    "whyUse": "Por que usar as calculadoras do Build Yardage?",
     "formulaMath": "Fórmulas e Matemática da Obra",
+    "proTip": "DICA PRO",
     "estimatingTips": "Dicas de Estimativa e Margem de Perda",
     "faqsTitle": "Perguntas Frequentes",
     "exploreOther": "Explorar Outras Calculadoras"

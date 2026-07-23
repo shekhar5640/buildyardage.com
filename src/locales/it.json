@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "Cosa fa questo calcolatore?",
+    "howToUse": "Come usare questo calcolatore",
+    "howToUseSubtitle": "Segui questi 4 semplici passaggi per calcolare le specifiche dei materiali per il tuo cantiere.",
+    "stepPrefix": "PASSAGGIO",
+    "whyUse": "Perché usare i calcolatori Build Yardage?",
     "formulaMath": "Formule e Matematica di Cantiere",
+    "proTip": "CONSIGLIO PRO",
     "estimatingTips": "Consigli di Stima e Margine di Sfrido",
     "faqsTitle": "Domande Frequenti",
     "exploreOther": "Esplora Altri Calcolatori"

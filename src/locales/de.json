@@ -160,7 +160,12 @@
   },
   "guides": {
     "whatItDoes": "Was macht dieser Rechner?",
+    "howToUse": "So verwenden Sie diesen Rechner",
+    "howToUseSubtitle": "Befolgen Sie diese 4 einfachen Schritte, um präzise Materialspezifikationen für Ihre Baustelle zu berechnen.",
+    "stepPrefix": "SCHRITT",
+    "whyUse": "Warum Build Yardage Rechner verwenden?",
     "formulaMath": "Berechnungsformeln & Mathematik",
+    "proTip": "PRO-TIPP",
     "estimatingTips": "Profi-Tipps & Verschnitt-Puffer",
     "faqsTitle": "Häufig gestellte Fragen",
     "exploreOther": "Weitere Rechner entdecken"
