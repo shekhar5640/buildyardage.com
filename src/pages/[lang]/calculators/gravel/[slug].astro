@@ -3,7 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import GravelCalculator from '../../../../components/GravelCalculator';
 import ToolGuideSection from '../../../../components/ToolGuideSection.astro';
 import { getGravelPseoPages, type PseoPageData } from '../../../../data/pseo/pseoMatrix';
-import { SUPPORTED_LOCALES, LOCALES, type SupportedLocale } from '../../../../i18n/utils';
+import { SUPPORTED_LOCALES, LOCALES, getTranslations, getLocalizedPath, type SupportedLocale } from '../../../../i18n/utils';
 
 export async function getStaticPaths() {
   const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((l) => l !== 'en');
@@ -29,6 +29,7 @@ interface Props {
 const { lang } = Astro.params;
 const { pageData } = Astro.props;
 const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -55,18 +56,18 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title={pageData.metaTitle}
+  title={`${pageData.slug} | ${t.nav.gravel}`}
   description={pageData.metaDescription}
   jsonLd={jsonLd}
   lang={activeLang}
 >
   <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
     <nav class="flex text-xs text-muted gap-2">
-      <a href="/" class="hover:text-ink">Home</a>
+      <a href={getLocalizedPath('/', activeLang)} class="hover:text-ink">{t.common.home}</a>
       <span>/</span>
-      <a href="/calculators/gravel-driveway-calculator" class="hover:text-ink">Gravel Driveway</a>
+      <a href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLang)} class="hover:text-ink">{t.nav.gravel}</a>
       <span>/</span>
-      <span class="text-brand-accent font-semibold">{pageData.h1Title}</span>
+      <span class="text-brand-accent font-semibold">{pageData.slug}</span>
     </nav>
 
     <GravelCalculator

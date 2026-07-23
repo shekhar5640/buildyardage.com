@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Host & Sitemap specification
+Host: https://buildyardage.com
+Sitemap: https://buildyardage.com/sitemap.xml

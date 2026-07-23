@@ -42,6 +42,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-YRRNFR5FDD"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YRRNFR5FDD');
+    </script>
+    
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -196,10 +206,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
           </a>
         </nav>
 
-        <!-- Secondary Actions, Language Switcher & Theme Toggle (Right Aligned) -->
+        <!-- Secondary Actions & Theme Toggle (Right Aligned) -->
         <div class="flex items-center justify-end gap-2.5 shrink-0">
-          <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="header" />
-
           <button
             id="theme-toggle"
             aria-label="Toggle Theme"
@@ -298,10 +306,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         >
           {t.nav.rebar}
         </a>
-
-        <div class="px-3 pt-2">
-          <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="mobile" />
-        </div>
       </div>
     </header>
 
