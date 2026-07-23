@@ -819,8 +819,8 @@ export default function CalculatorShell({
       {/* Printable checklist container (only visible on print, spans full page width) */}
       <div className="hidden print:block print-only-checklist w-full max-w-4xl mx-auto p-8 bg-white text-black font-sans">
         {/* Header Section */}
-        <div className="flex items-center justify-between border-b-2 border-indigo-600 pb-4 mb-6">
-          <div>
+        <div className="print-header flex items-center justify-between border-b-2 border-indigo-600 pb-4 mb-6">
+          <div className="print-header-left">
             <h1 className="text-2xl font-extrabold tracking-tight font-sans flex items-center gap-2 select-none">
               <img src="/favicon.svg" alt="Build Yardage Logo" className="h-7 w-7" />
               <span>
@@ -831,14 +831,14 @@ export default function CalculatorShell({
             <p className="text-xs text-zinc-600 mt-1 font-sans">High-Performance Aggregates & Material Estimator</p>
             <p className="text-xs text-zinc-500 font-mono mt-0.5">URL: www.buildyardage.com</p>
           </div>
-          <div className="text-right">
+          <div className="print-header-right text-right">
             <h2 className="text-md font-bold uppercase tracking-wider text-indigo-600">Jobsite Estimates Report</h2>
             <p className="text-xs text-zinc-500 mt-1">Printed on: {printDate}</p>
           </div>
         </div>
 
         {/* Contractor Estimation Guide & Best Practices */}
-        <div className="mb-10 border border-zinc-200 bg-zinc-50 rounded-lg p-8 page-break-inside-avoid text-zinc-800 text-xs">
+        <div className="print-manual-card mb-10 border border-zinc-200 bg-zinc-50 rounded-lg p-8 page-break-inside-avoid text-zinc-800 text-xs">
           <div className="border-b border-zinc-200 pb-4 mb-5">
             <div className="flex items-center justify-between">
               <h4 className="text-[10px] font-extrabold uppercase text-indigo-600 tracking-wider">Contractor Reference Manual</h4>
@@ -850,9 +850,9 @@ export default function CalculatorShell({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="print-manual-grid grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Column 1: Waste Factors & Allowances */}
-            <div className="space-y-3">
+            <div className="print-manual-col space-y-3">
               <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
                 Waste Factor Allowances
@@ -871,7 +871,7 @@ export default function CalculatorShell({
             </div>
 
             {/* Column 2: Materials & Density Conversions */}
-            <div className="space-y-3">
+            <div className="print-manual-col space-y-3">
               <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 Reference Constants
@@ -893,7 +893,7 @@ export default function CalculatorShell({
             </div>
 
             {/* Column 3: Wall & Drywall Estimating Rules */}
-            <div className="space-y-3">
+            <div className="print-manual-col space-y-3">
               <h4 className="font-extrabold text-zinc-900 uppercase tracking-wider text-[10px] border-b border-zinc-200 pb-1 flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
                 Site Estimation Rules
@@ -916,11 +916,13 @@ export default function CalculatorShell({
           </div>
 
           {/* Bottom Info Bar */}
-          <div className="mt-6 pt-4 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-[11px] text-zinc-500 gap-4">
-            <p className="leading-normal">
-              <strong>Checklist Guide:</strong> Aggregates, pricing, and project budgets are calculated live from jobsite dimensions. Please verify all volume and structural tolerances with your supplier before ordering.
-            </p>
-            <div className="p-2.5 bg-white border border-zinc-200 rounded font-mono text-zinc-600 flex gap-4 shrink-0">
+          <div className="print-manual-footer mt-6 pt-4 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-[11px] text-zinc-500 gap-4">
+            <div className="print-manual-footer-text">
+              <p className="leading-normal">
+                <strong>Checklist Guide:</strong> Aggregates, pricing, and project budgets are calculated live from jobsite dimensions. Please verify all volume and structural tolerances with your supplier before ordering.
+              </p>
+            </div>
+            <div className="print-manual-footer-badge p-2.5 bg-white border border-zinc-200 rounded font-mono text-zinc-600 flex gap-4 shrink-0 justify-end">
               <span>Unit System: {isMetric ? 'Metric' : 'Imperial'}</span>
               <span>Default Margin: +{waste}%</span>
             </div>
@@ -956,14 +958,14 @@ export default function CalculatorShell({
 
                     {/* SVG & Specs grid */}
                     {item.inputs && item.outputs ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                      <div className="print-spec-grid grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                         {/* SVG Visualizer (Left) */}
-                        <div className="flex items-center justify-center bg-zinc-50 border border-zinc-100 rounded-md p-3 min-h-[140px]">
+                        <div className="print-spec-col-svg flex items-center justify-center bg-zinc-50 border border-zinc-100 rounded-md p-3 min-h-[140px]">
                           {renderPrintSVG(item)}
                         </div>
 
                         {/* Detailed Output Grid (Right) */}
-                        <div className="space-y-3">
+                        <div className="print-spec-col-info space-y-3">
                           <h4 className="text-[10px] font-bold uppercase text-zinc-400 tracking-wider">Estimated Specifications</h4>
                           {renderPrintSpecs(item)}
                           <span className="text-[9px] text-zinc-400 font-sans block leading-relaxed mt-1">
