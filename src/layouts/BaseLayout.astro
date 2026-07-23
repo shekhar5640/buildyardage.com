@@ -270,6 +270,15 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             <p class="text-sm text-zinc-400 max-w-md leading-relaxed">
               Build Yardage delivers premium, contractor-grade material calculators designed for speed, precision, and ease of use. Calculate quantities for concrete, gravel, drywall, framing, and more in seconds.
             </p>
+            <div class="flex items-center gap-2 pt-1 text-sm text-zinc-400">
+              <span class="text-zinc-500 font-semibold">Contact:</span>
+              <a href="mailto:contact@buildyardage.com" class="text-brand-accent hover:underline font-mono text-xs sm:text-sm">
+                contact@buildyardage.com
+              </a>
+            </div>
+            <p class="text-xs text-zinc-500 font-mono pt-1">
+              &copy; {new Date().getFullYear()} buildyardage.com. All rights reserved.
+            </p>
           </div>
 
           <!-- Calculators Quick Links -->
@@ -302,26 +311,26 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             <h3 class="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
             <ul class="mt-4 space-y-2">
               <li>
-                <a href="#" class="text-sm text-zinc-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="/about" class="text-sm text-zinc-400 hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <a href="#" class="text-sm text-zinc-400 hover:text-white transition-colors">Terms of Service</a>
+                <a href="/privacy-policy" class="text-sm text-zinc-400 hover:text-white transition-colors">Privacy Policy</a>
               </li>
               <li>
-                <a href="#" class="text-sm text-zinc-400 hover:text-white transition-colors">Contact Support</a>
+                <a href="/terms-and-conditions" class="text-sm text-zinc-400 hover:text-white transition-colors">Terms & Conditions</a>
+              </li>
+              <li>
+                <a href="/contact" class="text-sm text-zinc-400 hover:text-white transition-colors">Contact Support</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- Disclaimer & Copyright -->
-        <div class="mt-12 border-t border-zinc-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p class="text-xs text-zinc-500 leading-normal max-w-xl text-center sm:text-left">
+        <!-- Disclaimer -->
+        <div class="mt-12 border-t border-zinc-800 pt-8">
+          <p class="text-xs text-zinc-500 leading-relaxed w-full">
             <strong class="text-zinc-400 block mb-1">Disclaimer:</strong>
             Our calculations are approximations. Consult a professional contractor before ordering materials. We are not liable for any discrepancies, excess ordering, or project issues resulting from the use of these tools.
-          </p>
-          <p class="text-xs text-zinc-500 shrink-0 font-mono">
-            &copy; {new Date().getFullYear()} buildyardage.com. All rights reserved.
           </p>
         </div>
       </div>

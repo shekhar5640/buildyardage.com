@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Mail, Clock, MessageSquare, Wrench, CheckCircle2 } from 'lucide-react';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Build Yardage",
+  "url": "https://buildyardage.com/contact",
+  "description": "Get in touch with the Build Yardage engineering team for support, feedback, feature requests, or business inquiries at contact@buildyardage.com."
+};
+---
+
+<BaseLayout
+  title="Contact Us | BuildYardage"
+  description="Get in touch with the Build Yardage engineering team for support, feedback, feature requests, or business inquiries at contact@buildyardage.com."
+  jsonLd={jsonLd}
+>
+  <!-- Header Banner -->
+  <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex text-xs text-muted mb-4 gap-2">
+        <a href="/" class="hover:text-ink">Home</a>
+        <span>/</span>
+        <span class="text-brand-accent font-semibold">Contact Us</span>
+      </nav>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-3xl">
+        Contact Our <span class="text-brand-accent">Engineering Team</span>
+      </h1>
+      <p class="text-base sm:text-lg text-body max-w-2xl leading-relaxed">
+        Have feedback, calculator suggestions, custom trade formulas, or business inquiries? We would love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      
+      <!-- Direct Contact Info Cards (4 Cards scaled to match Form height) -->
+      <div class="flex flex-col justify-between gap-4 lg:col-span-1 h-full">
+        <!-- Card 1 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <Mail size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">Direct Support Email</h2>
+              <a href="mailto:contact@buildyardage.com" class="text-sm font-bold text-ink hover:text-brand-accent transition-colors block">
+                contact@buildyardage.com
+              </a>
+            </div>
+          </div>
+          <p class="text-xs text-body leading-relaxed">
+            Send direct emails for bug reports, general questions, or contractor feature requests.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <Clock size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">Response Time</h2>
+              <span class="text-sm font-bold text-ink block">Within 24 Hours</span>
+            </div>
+          </div>
+          <p class="text-xs text-body leading-relaxed">
+            Our engineering team reviews all incoming trade inquiries Monday through Friday.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <MessageSquare size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">Trade Partnerships</h2>
+              <span class="text-sm font-bold text-ink block">Lumberyards & Suppliers</span>
+            </div>
+          </div>
+          <p class="text-xs text-body leading-relaxed">
+            Interested in embedding our high-precision calculators into your supply portal?
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-canvas border border-hairline rounded-xl p-5 flex-1 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+              <Wrench size={20} />
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-wider font-semibold text-muted">Custom Construction Math</h2>
+              <span class="text-sm font-bold text-ink block">Tailored Trade Estimators</span>
+            </div>
+          </div>
+          <p class="text-xs text-body leading-relaxed">
+            Need custom volume or material formulas built specifically for your contractor teams?
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Contact Form -->
+      <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-10 lg:col-span-2 flex flex-col justify-between h-full">
+        <div>
+          <h2 class="text-2xl font-bold text-ink tracking-tight mb-2">Send Us a Message</h2>
+          <p class="text-xs text-muted mb-8 leading-relaxed">
+            Fill out the form below and your message will be routed directly to our support desk.
+          </p>
+
+          <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="John Doe"
+                  class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="john@construction.com"
+                  class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="inquiry-type" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">Inquiry Type</label>
+              <select
+                id="inquiry-type"
+                name="inquiryType"
+                class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors"
+              >
+                <option value="general">General Inquiry</option>
+                <option value="feature">Calculator Feature Request</option>
+                <option value="bug">Report a Math Discrepancy or Bug</option>
+                <option value="business">Business / Partnership</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-ink mb-2">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                placeholder="Tell us how we can help..."
+                class="w-full px-4 py-3 bg-surface-card border border-hairline rounded-lg text-sm text-ink focus:outline-none focus:border-brand-accent transition-colors resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Align Submit Button to Right -->
+            <div class="flex flex-col items-end gap-3 pt-2">
+              <button
+                type="submit"
+                class="px-8 py-3 bg-brand-primary hover:bg-brand-primary-active text-on-primary font-semibold rounded-lg shadow-sm active:scale-95 transition-all cursor-pointer"
+              >
+                Send Message
+              </button>
+
+              <div id="form-status" class="hidden w-full p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold items-center gap-2">
+                <CheckCircle2 size={16} />
+                <span>Thank you! Your message has been sent. We will respond shortly via email.</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (status) {
+        status.classList.remove('hidden');
+        status.classList.add('flex');
+      }
+      form.reset();
+    });
+  </script>
+</BaseLayout>

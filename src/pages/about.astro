@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ShieldCheck, HardHat, Calculator, Zap } from 'lucide-react';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Build Yardage",
+    "url": "https://buildyardage.com",
+    "logo": "https://buildyardage.com/logo.png",
+    "description": "Build Yardage provides high-precision construction material calculators built around ACI, ASTM, and IRC building code standards.",
+    "knowsAbout": [
+      "Concrete Slab Calculations",
+      "Sonotube Column Volumes",
+      "Gravel & Aggregate Tonnage",
+      "Drywall Estimating",
+      "Wood Stud Wall Framing",
+      "Steel Rebar Grid Calculations"
+    ]
+  }
+};
+---
+
+<BaseLayout
+  title="About Us | BuildYardage - Professional Jobsite Estimating"
+  description="Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use."
+  jsonLd={jsonLd}
+>
+  <!-- Header Banner -->
+  <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex text-xs text-muted mb-4 gap-2">
+        <a href="/" class="hover:text-ink">Home</a>
+        <span>/</span>
+        <span class="text-brand-accent font-semibold">About Us</span>
+      </nav>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-4xl">
+        Built for the Jobsite. <span class="text-brand-accent">Engineered for Precision.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-body max-w-3xl leading-relaxed">
+        Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use.
+      </p>
+    </div>
+  </section>
+
+  <!-- Core Mission & Value Pillars -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-canvas border border-hairline rounded-xl p-8 space-y-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+          <HardHat size={24} />
+        </div>
+        <h2 class="text-xl font-bold text-ink">The Problem We Solve</h2>
+        <p class="text-sm text-body leading-relaxed space-y-3">
+          <span>Material miscalculations are among the most expensive mistakes on a jobsite. Ordering too little concrete causes cold joints, structural weakness, and emergency mixer truck callout fees. Ordering too much aggregate, framing lumber, or drywall wastes valuable capital and clutters tight staging areas.</span>
+          <br/><br/>
+          <span>Build Yardage eliminates guesswork by delivering verified material calculations based on standard geometry and trade practices aligned with ACI, ASTM, and IRC building guidelines.</span>
+        </p>
+      </div>
+
+      <div class="bg-canvas border border-hairline rounded-xl p-8 space-y-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+          <Zap size={24} />
+        </div>
+        <h2 class="text-xl font-bold text-ink">Built for Jobsite Speed & Performance</h2>
+        <p class="text-sm text-body leading-relaxed space-y-3">
+          <span>When you are standing on a jobsite with a phone in hand and poor reception, you need results immediately—without waiting for laggy pages, intrusive popups, or heavy layouts that freeze your screen.</span>
+          <br/><br/>
+          <span>We built our calculation tools to be lightweight, clean, and blazingly fast. Running directly in your mobile web browser, Build Yardage delivers instant results so you can calculate, verify dimensions, and order materials on the fly without missing a beat.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Our Estimating Suite -->
+    <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-12 space-y-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight mb-2">
+          Our Core Material Estimating Suite
+        </h2>
+        <p class="text-sm text-muted max-w-3xl">
+          Our suite focuses on high-volume trade calculations, providing exact unit breakdowns, waste buffers, and commercial supply list conversions:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Concrete Slabs & Patios</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Computes total net cubic yards, cubic feet, and pre-mix bag breakdowns (80lb, 60lb, and 40lb) with customizable sub-grade waste allowances.
+          </p>
+        </div>
+
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Sonotube Columns & Footings</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Calculates cylinder concrete volumes for round post holes, structural pier footings, and cardboard forms based on depth and diameter.
+          </p>
+        </div>
+
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Gravel & Aggregates</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Converts driveway and base dimensions into short US tons using industry-standard density constants (1.40 tons/yd³) and compaction factors.
+          </p>
+        </div>
+
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Drywall Systems</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Computes 4x8 ft or 4x12 ft sheet counts, linear feet of joint paper tape, drywall screws, and joint compound (mud) requirements.
+          </p>
+        </div>
+
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Wood Stud Wall Framing</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Calculates vertical studs (16" or 24" O.C.), corner/T-intersection framing, double top plates, and sole plates translated into standard 16ft commercial lumber sticks.
+          </p>
+        </div>
+
+        <div class="border border-hairline rounded-lg p-5 bg-surface-card">
+          <h3 class="text-base font-bold text-ink mb-1.5 flex items-center gap-2">
+            <Calculator size={18} className="text-brand-accent" />
+            <span>Steel Rebar Grids</span>
+          </h3>
+          <p class="text-xs text-muted leading-relaxed">
+            Determines total rebar grid linear footage, 20ft stock bar stick counts, steel weight in pounds, and standard 40d lap splice overlaps.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact CTA Banner -->
+    <div class="bg-surface-card border border-hairline rounded-xl p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-4">
+      <ShieldCheck size={36} className="text-brand-accent" />
+      <h2 class="text-2xl font-bold text-ink sm:text-3xl">Have Questions or Suggestions?</h2>
+      <p class="text-sm text-muted max-w-xl leading-relaxed">
+        We continuously refine our calculation engines based on real-world trade feedback. Contact our engineering team directly at <a href="mailto:contact@buildyardage.com" class="text-brand-accent font-semibold hover:underline">contact@buildyardage.com</a>.
+      </p>
+      <a
+        href="/contact"
+        class="mt-2 px-6 py-2.5 bg-brand-primary hover:bg-brand-primary-active text-on-primary text-sm font-semibold rounded shadow-sm transition-all"
+      >
+        Contact Support & Engineering
+      </a>
+    </div>
+  </section>
+</BaseLayout>

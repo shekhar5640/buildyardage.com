@@ -1,11 +1,58 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, HelpCircle } from 'lucide-react';
+
+const faqItems = [
+  {
+    question: "How many 80lb bags of concrete are in a cubic yard?",
+    answer: "There are exactly 45 bags of 80lb pre-mixed concrete in one cubic yard. One 80lb bag yields 0.60 cubic feet of mixed concrete, and 27 cubic feet (1 cubic yard) divided by 0.60 cu ft per bag equals 45 bags (before adding waste margins)."
+  },
+  {
+    question: "How many tons of gravel are in a cubic yard?",
+    answer: "There are approximately 1.4 short US tons (2,800 lbs) of crushed gravel or stone in one cubic yard based on standard loose aggregate density (1.40 tons per cu yd). Dense aggregates like crushed granite may reach 1.5 to 1.6 tons per cubic yard."
+  },
+  {
+    question: "How much extra concrete, gravel, or framing material should I order for waste?",
+    answer: "Industry standard practice is to order a 10% material waste margin. For concrete, this accounts for uneven sub-grade depth and form flex; for gravel, it covers compaction shrinkage (10%–15%); and for lumber and drywall, it compensates for cuts, headers, and scrap."
+  },
+  {
+    question: "How do I calculate how many studs I need for a framing wall?",
+    answer: "To calculate wall studs, convert wall length to inches and divide by stud spacing (16\" or 24\" on-center), then add 1 end stud. Next, add 2–3 extra studs per corner or wall intersection, plus double studs for window or door headers, and apply a 10% waste buffer."
+  },
+  {
+    question: "How do I calculate how many drywall sheets I need for a room?",
+    answer: "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts."
+  }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Build Yardage",
+      "url": "https://buildyardage.com",
+      "description": "High-precision material calculators for concrete slabs, columns, gravel tonnage, drywall, and wood framing."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map((item) => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    }
+  ]
+};
 ---
 
 <BaseLayout
   title="Build Yardage | Professional Aggregates & Material Calculators"
   description="High-precision material calculators for concrete slabs, columns, gravel tonnage, drywall, and wood framing. Built for contractors and DIY projects."
+  jsonLd={jsonLd}
 >
   <!-- Hero Section -->
   <section class="bg-canvas border-b border-hairline transition-colors duration-200">
@@ -50,7 +97,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/concrete-slab-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 mb-4 transition-colors">
-            <!-- Simple Thin Cube for Slab SVG Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 4L21 8.5L12 13L3 8.5Z" />
               <path d="M3 8.5V14.5L12 19V13" />
@@ -74,7 +120,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/concrete-column-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 mb-4 transition-colors">
-            <!-- Cylindrical Icon for Column SVG Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <ellipse cx="12" cy="6" rx="7" ry="2.5" />
               <path d="M5 6V18" />
@@ -99,7 +144,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/gravel-driveway-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-4 transition-colors">
-            <!-- Simple Curved Pathway Icon for Driveway SVG Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 21C7 15 8 10 10 3" />
               <path d="M20 21C17 15 16 10 14 3" />
@@ -123,7 +167,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/drywall-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 mb-4 transition-colors">
-            <!-- Drywall Sheet Stack & Screw Marks Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M7 3H19C19.55 3 20 3.45 20 4V16C20 16.55 19.55 17 19 17H7C6.45 17 6 16.55 6 16V4C6 3.45 6.45 3 7 3Z" opacity="0.4" />
               <rect x="4" y="7" width="13" height="14" rx="1" />
@@ -151,7 +194,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/framing-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-400 mb-4 transition-colors">
-            <!-- Architectural Wall Framing Studs & Let-in Brace Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 4H21" />
               <path d="M3 6.5H21" />
@@ -179,7 +221,6 @@ import { ChevronRight } from 'lucide-react';
       <a href="/calculators/rebar-calculator" class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 mb-4 transition-colors">
-            <!-- Steel Rebar Grid & Tie Nodes Icon -->
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 8H21" />
               <path d="M3 16H21" />
@@ -207,86 +248,117 @@ import { ChevronRight } from 'lucide-react';
     </div>
   </section>
 
-  <!-- Authoritative 600-Word SEO Section for Search Indexation -->
+  <!-- Authoritative SEO Section for Search Indexation -->
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200 content-visibility-auto">
     <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-12 space-y-8">
       <div>
         <h2 class="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-          Jobsite Material Estimating: Precision Volume, Tonnage & Framing Calculations
+          Professional Construction Estimating: Precision Calculations for the Jobsite
         </h2>
         <p class="mt-3 text-sm text-body leading-relaxed">
-          Accurate material estimating is the backbone of every profitable construction project, commercial pour, and home renovation. Ordering too little material results in costly jobsite delays, cold joints in concrete, and unexpected delivery fees. Ordering too much wastes valuable capital and clutters your jobsite. Build Yardage provides contractors, trade professionals, and DIY builders with instant, ad-free, high-precision construction calculators designed strictly around industry building codes and ASTM standards.
+          Accurate material estimating is the backbone of every profitable construction project, commercial pour, and home renovation. Ordering too little material causes costly jobsite delays, cold joints in concrete, and unexpected delivery fees. Ordering too much wastes capital and clutters your site. Build Yardage provides contractors, trade professionals, and DIY builders with instant, high-precision construction calculators designed strictly around standard building codes and ASTM reference metrics.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-hairline pt-8">
         
-        <!-- Pillar 1: Concrete Volumetric Math -->
+        <!-- Pillar 1: Concrete Slab & Pre-Mix Bag Math -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">1.</span>
-            <span>Volumetric Concrete & Pre-Mix Bag Math</span>
+            <a href="/calculators/concrete-slab-calculator" class="hover:text-brand-accent transition-colors">Concrete Slab & Pre-Mix Bag Math</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Concrete calculations rely on three-dimensional volumetric math. To compute required volume for rectangular slabs, driveways, or garage floors, multiply length (ft) by width (ft) by thickness (converted from inches to feet by dividing by 12). Divide total net cubic feet by 27 to obtain cubic yards. For smaller pours, convert cubic yards to pre-mixed concrete bags: one 80lb bag yields 0.60 cu ft, a 60lb bag yields 0.45 cu ft, and a 40lb bag yields 0.30 cu ft. Always apply a 10% waste buffer to cover sub-grade soil settling and form deflection.
+            Volumetric concrete math requires calculating length, width, and thickness in feet, then dividing total cubic feet by 27 to obtain cubic yards. For smaller pours requiring pre-mix bags, one cubic yard yields approximately 45 bags of 80lb concrete, 60 bags of 60lb concrete, or 90 bags of 40lb concrete. Always factor in a 10% waste buffer to account for uneven sub-grade excavation, ground settling, and formwork deflection to ensure you never run short mid-pour.
           </p>
         </div>
 
-        <!-- Pillar 2: Cylinder & Sonotube Math -->
+        <!-- Pillar 2: Sonotube Column & Footing Geometry -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">2.</span>
-            <span>Sonotube Column & Cylinder Footing Geometry</span>
+            <a href="/calculators/concrete-column-calculator" class="hover:text-brand-accent transition-colors">Sonotube Column & Footing Geometry</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Cylindrical footings, Sonotube cardboard forms, and round fence post holes follow strict geometric cylinder volume principles (Volume = π × r² × h). Radius is half the hole diameter (in feet), while height represents depth below grade. When pouring structural pier footings or deck posts, building code requires extending footings at least 6 inches below your regional frost line to prevent winter heave. Factoring in auger hole bottom expansion, a 10% waste allowance guarantees you never run short mid-pour.
+            Cylindrical footings, Sonotube cardboard forms, and round fence post holes follow strict cylinder volume geometry (Volume = π × r² × h). The radius represents half the hole diameter in feet, while height measures depth below grade. When pouring structural pier footings or deck posts, local building codes generally require extending footings at least 6 inches below your regional frost line to prevent ground heave. A 10% waste allowance accounts for auger hole flare and spillage.
           </p>
         </div>
 
-        <!-- Pillar 3: Aggregate Density & Tonnage -->
+        <!-- Pillar 3: Aggregate Weight & Gravel Base Tonnage -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">3.</span>
-            <span>Aggregate Weight Conversions & Gravel Base Tonnage</span>
+            <a href="/calculators/gravel-driveway-calculator" class="hover:text-brand-accent transition-colors">Aggregate Weight & Gravel Base Tonnage</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Quarries sell aggregate materials (pea gravel, #57 crushed stone, crusher run, and granite) by weight in short US tons rather than cubic yards. Volume-to-weight conversions require multiplying cubic yards by material density constants. Standard crushed stone weighs approximately 1.40 tons per cubic yard (2,800 lbs/yd³). Compaction roller equipment reduces loose aggregate thickness by 10% to 15%. Laying heavy geotextile sub-base fabric beneath your driveway prevents stone loss into soft sub-grade soil.
+            Quarries sell gravel, crushed stone, granite, and sand by weight in short US tons rather than cubic yards. Volume-to-weight conversions require multiplying cubic yards by specific aggregate material density factors. Standard crushed aggregate weighs approximately 1.40 tons per cubic yard (2,800 lbs/yd³). Compaction machinery reduces loose aggregate thickness by 10% to 15%. Laying heavy geotextile sub-base fabric beneath your driveway prevents stone loss into soft sub-grade soil over time.
           </p>
         </div>
 
-        <!-- Pillar 4: Drywall Systems -->
+        <!-- Pillar 4: Drywall Panel System & Finishing Supplies -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">4.</span>
-            <span>Drywall Panel System & Finishing Supplies</span>
+            <a href="/calculators/drywall-calculator" class="hover:text-brand-accent transition-colors">Drywall Panel System & Finishing Supplies</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Estimating drywall requires measuring total wall and ceiling square footage. Standard 4x8 ft sheets cover 32 sq ft, while 4x12 ft panels cover 48 sq ft. Hanging sheets horizontally across studs bridges framing irregularities and reduces taped seam length by 25%. A complete drywall estimate must account for auxiliary finishing materials: approx 32 feet of paper tape per sheet, 38 drywall screws per panel, and 0.05 lbs of joint compound mud per square foot of board surface.
+            Estimating drywall panels requires measuring total wall and ceiling surface square footage. Standard 4x8 ft panels cover 32 sq ft, while 4x12 ft sheets cover 48 sq ft. Hanging panels horizontally across studs bridges framing irregularities and reduces taped seam length by up to 25%. A complete drywall estimate must account for auxiliary finishing materials: approximately 32 feet of paper joint tape, 38 drywall screws, and 0.05 lbs of joint compound mud per panel.
           </p>
         </div>
 
-        <!-- Pillar 5: Wood Stud Framing -->
+        <!-- Pillar 5: Wood Stud Wall Framing & Dimensional Lumber -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">5.</span>
-            <span>Wood Stud Wall Framing & Lumber Stick Matching</span>
+            <a href="/calculators/framing-calculator" class="hover:text-brand-accent transition-colors">Wood Stud Wall Framing & Dimensional Lumber</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Framing wall lumber estimates distinguish between vertical studs, bottom sole plates, and double top plates. Divide wall length (inches) by stud spacing (16" or 24" O.C.) and add 1 for the end stud, plus 3 extra studs per corner or T-intersection. Plates require continuous 2x4 or 2x6 dimensional lumber. Translating linear footage into commercial 16ft lumber sticks minimizes lumberyard scrap waste and keeps jobsite framing budgets tight.
+            Wall framing lumber estimates separate vertical studs from horizontal bottom sole plates and double top plates. Divide total wall length in inches by stud spacing (16" or 24" O.C.) and add 1 end stud, plus 3 extra studs per corner or wall intersection. Plates require continuous 2x4 or 2x6 dimensional lumber runs. Converting total linear footage into standard 16ft commercial lumber sticks minimizes yard scrap waste and keeps jobsite framing budgets accurate.
           </p>
         </div>
 
-        <!-- Pillar 6: Steel Rebar Grids -->
+        <!-- Pillar 6: Steel Rebar Grid Reinforcement & Lap Splices -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold text-ink flex items-center gap-2">
             <span class="text-brand-accent font-bold">6.</span>
-            <span>Steel Rebar Grid Reinforcement & 40d Lap Splices</span>
+            <a href="/calculators/rebar-calculator" class="hover:text-brand-accent transition-colors">Steel Rebar Grid Reinforcement & Lap Splices</a>
           </h3>
           <p class="text-xs text-muted leading-relaxed">
-            Concrete tensile strength is reinforced using steel rebar grids (#3 3/8", #4 1/2", or #5 5/8" bars). Grid calculation requires dividing slab dimensions by grid spacing centers (12" or 18" grid centers). When joining 20ft stock rebar sticks, structural building codes enforce a 40d lap splice overlap (40 times bar diameter). Rebar chairs elevated in the upper 1/3 of the slab ensure proper concrete encasement and corrosion resistance.
+            Concrete tensile strength is reinforced using steel rebar grids (#3 3/8", #4 1/2", or #5 5/8" bars). Grid calculation requires dividing slab dimensions by grid spacing centers (12" or 18"). When connecting standard 20ft stock rebar sticks, structural building codes enforce a 40d lap splice overlap (40 times the bar diameter). Supporting rebar on chairs elevated in the upper third of the slab guarantees proper concrete encasement and corrosion protection.
           </p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual FAQ Section for Search Engine & Jobsite Users -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200">
+    <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-12">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+          <HelpCircle size={22} />
+        </div>
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">
+            Frequently Asked Questions
+          </h2>
+          <p class="text-xs text-muted mt-1">Jobsite material estimating standards and calculation formulas.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        {faqItems.map((item) => (
+          <div class="bg-surface-card border border-hairline rounded-lg p-6 hover:border-brand-accent/40 transition-colors">
+            <h3 class="text-base font-bold text-ink mb-2 flex items-start gap-2">
+              <span class="text-brand-accent font-semibold text-lg leading-none">?</span>
+              <span>{item.question}</span>
+            </h3>
+            <p class="text-xs text-muted leading-relaxed pl-5">
+              {item.answer}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -309,3 +381,4 @@ import { ChevronRight } from 'lucide-react';
     </div>
   </section>
 </BaseLayout>
+

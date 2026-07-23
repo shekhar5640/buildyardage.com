@@ -15,7 +15,11 @@ function generateSitemap() {
     '/calculators/gravel-driveway-calculator',
     '/calculators/drywall-calculator',
     '/calculators/framing-calculator',
-    '/calculators/rebar-calculator'
+    '/calculators/rebar-calculator',
+    '/about',
+    '/contact',
+    '/privacy-policy',
+    '/terms-and-conditions'
   ];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
