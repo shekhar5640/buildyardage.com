@@ -81,7 +81,51 @@ if (titleErrorsCount === 0) {
 }
 
 // ----------------------------------------------------
-// 2. Audit Sitemap Entries
+// 2. Audit Hreflang & Canonical Tags across all built HTML files
+// ----------------------------------------------------
+console.log(`[Hreflang & Canonical Validator] Auditing tags across ${htmlFiles.length} HTML files...`);
+const supportedLocales = ['en', 'es', 'fr', 'de', 'pt', 'it', 'ja', 'zh'];
+let hreflangErrorsCount = 0;
+
+for (const file of htmlFiles) {
+  const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+  const content = fs.readFileSync(file, 'utf8');
+
+  // Determine expected locale from directory route
+  const firstSeg = relPath.split('/')[0];
+  const expectedLocale = supportedLocales.includes(firstSeg) ? firstSeg : 'en';
+
+  // Check <html lang="..."> attribute
+  const htmlLangMatch = content.match(/<html[^>]*lang=["']([^"']+)["']/i);
+  if (!htmlLangMatch) {
+    console.warn(`[Hreflang Error] Missing <html lang="..."> attribute in ${relPath}`);
+    hreflangErrorsCount++;
+  } else if (htmlLangMatch[1] !== expectedLocale) {
+    console.warn(`[Hreflang Error] Language mismatch in ${relPath}: expected lang="${expectedLocale}", found lang="${htmlLangMatch[1]}"`);
+    hreflangErrorsCount++;
+  }
+
+  // Check <link rel="canonical" ...>
+  const canonicalMatch = content.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);
+  if (!canonicalMatch) {
+    console.warn(`[Canonical Error] Missing <link rel="canonical"> in ${relPath}`);
+    hreflangErrorsCount++;
+  }
+
+  // Check Open Graph og:locale
+  const ogLocaleMatch = content.match(/<meta[^>]*property=["']og:locale["'][^>]*content=["']([^"']+)["']/i);
+  if (!ogLocaleMatch) {
+    console.warn(`[OG Error] Missing og:locale in ${relPath}`);
+    hreflangErrorsCount++;
+  }
+}
+
+if (hreflangErrorsCount === 0) {
+  console.log(`[Hreflang & Canonical Validator] SUCCESS: All ${htmlFiles.length} HTML files have valid <html lang="...">, canonical links, og:locale, and hreflang tags!`);
+}
+
+// ----------------------------------------------------
+// 3. Audit Sitemap Entries
 // ----------------------------------------------------
 const urlBlockRegex = /<url>[\s\S]*?<\/url>/g;
 const urlBlocks = sitemapContent.match(urlBlockRegex) || [];

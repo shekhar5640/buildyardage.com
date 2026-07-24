@@ -141,3 +141,34 @@ export function formatMetaTitle(rawTitle: string): string {
   return fullTitle;
 }
 
+/**
+ * Generates strict canonical URL for a given pathname.
+ */
+export function getCanonicalUrl(pathname: string, baseUrl: string = 'https://buildyardage.com'): string {
+  const cleanPath = pathname.replace(/\/$/, '');
+  const isRoot = cleanPath === '' || /^\/[a-z]{2}$/.test(cleanPath);
+  if (isRoot) {
+    return `${baseUrl}${cleanPath}/`;
+  }
+  return `${baseUrl}${cleanPath}`;
+}
+
+const OG_LOCALES: Record<SupportedLocale, string> = {
+  en: 'en_US',
+  es: 'es_ES',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  pt: 'pt_PT',
+  it: 'it_IT',
+  ja: 'ja_JP',
+  zh: 'zh_CN'
+};
+
+/**
+ * Returns ISO OpenGraph locale code for given locale.
+ */
+export function getOgLocale(locale: SupportedLocale): string {
+  return OG_LOCALES[locale] || 'en_US';
+}
+
+
