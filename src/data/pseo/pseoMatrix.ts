@@ -476,7 +476,7 @@ const REBAR_SLABS = [
   { w: 30, l: 30 }
 ];
 const REBAR_SIZES = ['num3', 'num4', 'num5']; // #3, #4, #5
-const REBAR_SPACINGS = [12, 18]; // inches
+const REBAR_SPACINGS = [12]; // inches (standard 12" grid spacing)
 
 export function getRebarPseoPages(): PseoPageData[] {
   const pages: PseoPageData[] = [];
