@@ -475,6 +475,13 @@ export default function CalculatorShell({
     }
   }, []);
 
+  // Listen for open-embed-modal custom event from Astro hero section
+  useEffect(() => {
+    const handleOpenEmbed = () => setIsEmbedModalOpen(true);
+    window.addEventListener('open-embed-modal', handleOpenEmbed);
+    return () => window.removeEventListener('open-embed-modal', handleOpenEmbed);
+  }, []);
+
   // Sync helpers
   const saveShoppingList = (newList: ShoppingItem[]) => {
     setShoppingList(newList);
