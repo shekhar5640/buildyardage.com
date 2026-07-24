@@ -39,8 +39,8 @@
     "disclaimerText": "Unsere Berechnungen sind theoretische Schätzungen. Prüfen Sie Mengen vor der Bestellung mit Ihrem Lieferanten."
   },
   "about": {
-    "title": "Für die Baustelle entwickelt. Auf Präzision ausgelegt.",
-    "subtitle": "Build Yardage wurde entwickelt, um langsame Rechner durch schnelle, exakte Baustoffmathematik für mobile Geräte zu ersetzen.",
+    "title": "Über Build Yardage - Präzise Baustellen-Rechner",
+    "subtitle": "Erfahren Sie mehr über Build Yardage: Hochpräzise Baustellen-Rechner für eine exakte Material-Mengenberechnung in Echtzeit.",
     "problemTitle": "Das Problem, das wir lösen",
     "problemDesc": "Fehlberechnungen kosten Zeit und Geld. Zu wenig Beton führt zu kalten Fugen; zu viel Material blockiert die Baustelle.",
     "standardsTitle": "Konform mit ACI, ASTM & Bau-Standards",
@@ -49,8 +49,8 @@
     "speedDesc": "Sofortige Ergebnisse auf dem Smartphone – ohne Ladezeiten oder störende Werbeeinblendungen."
   },
   "contact": {
-    "title": "Kontaktieren Sie unser Ingenieurteam",
-    "subtitle": "Haben Sie Fragen, Feedback oder Wünsche für maßgeschneiderte Rechner?",
+    "title": "Kontaktieren Sie Unser Ingenieurteam",
+    "subtitle": "Kontaktieren Sie unser Ingenieurteam bei Fragen zu Materialberechnungen, Volumenformeln oder technischen Anfragen.",
     "directEmail": "Direkter Support-Email",
     "responseTime": "Antwortzeit",
     "responseDesc": "Innerhalb von 24 Stunden an Werktagen",
@@ -171,8 +171,8 @@
     "exploreOther": "Weitere Rechner entdecken"
   },
   "landing": {
-    "heroTitle": "Präzise Baustoffberechnung für Profis & Handwerker",
-    "heroSubtitle": "Sofortige Berechnungen von Volumen, Tonnage und Holzbedarf nach Bau-Standards.",
+    "heroTitle": "Baustellen-Rechner und Exakte Material-Mengenberechnung",
+    "heroSubtitle": "Build Yardage bietet hochpräzise Baustellen-Rechner für eine exakte Material-Mengenberechnung in Echtzeit. Ob Betonplatten, Schotter oder Trockenbau – unsere Mengenrechner helfen Bauunternehmern und Handwerkern, Baustoff-Mengen in Sekunden zu berechnen.",
     "exploreCalculators": "Rechner entdecken",
     "seoTitle": "Baustellen-Rechner & Mengenberechnung",
     "seoOverviewTitle": "Hochpräzise Mengenberechnung & Baustellen-Plattform",

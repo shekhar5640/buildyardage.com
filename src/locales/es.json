@@ -50,7 +50,7 @@
   },
   "contact": {
     "title": "Contacte a Nuestro Equipo de Ingeniería",
-    "subtitle": "¿Tiene sugerencias, solicitudes de cálculos personalizados o consultas profesionales? Póngase en contacto con nosotros.",
+    "subtitle": "Contacte a nuestro equipo de ingeniería con preguntas sobre fórmulas de materiales, cálculos de volumen o integración de unidades.",
     "directEmail": "Correo Electrónico Directo",
     "responseTime": "Tiempo de Respuesta",
     "responseDesc": "En menos de 24 horas en días laborables",
@@ -171,8 +171,8 @@
     "exploreOther": "Explorar Otras Calculadoras"
   },
   "landing": {
-    "heroTitle": "Estimación Precisa de Materiales para Contratistas y Obras",
-    "heroSubtitle": "Cálculos instantáneos de volumen, toneladas y estructuras diseñados según los estándares ACI, ASTM e IRC.",
+    "heroTitle": "Calculadoras de Construcción y Estimación de Materiales",
+    "heroSubtitle": "Build Yardage ofrece calculadoras de construcción de alta precisión diseñadas para brindarle estimaciones de materiales instantáneas y exactas. Si necesita una herramienta para losas de concreto, grava o drywall, nuestros estimadores ayudan a contratistas a calcular volúmenes en segundos.",
     "exploreCalculators": "Explorar Calculadoras",
     "seoTitle": "Calculadora y Estimación de Construcción",
     "seoOverviewTitle": "Plataforma de Estimación de Materiales de Construcción de Alta Precisión",

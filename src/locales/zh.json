@@ -39,18 +39,18 @@
     "disclaimerText": "本站所有计算均为理论估算。下订单前请与材料供应商或施工方确认实际规格。"
   },
   "about": {
-    "title": "立足工地，精于计算",
-    "subtitle": "Build Yardage 旨在用极速、精准的移动端计算工具取代臃肿繁琐的传统估算软件。",
-    "problemTitle": "我们解决的问题",
-    "problemDesc": "材料估算错误是施工中成本最高的失误之一。混凝土订少了会导致施工冷缝和二次送货费；订多了则浪费资金并堆满工地。",
-    "standardsTitle": "符合 ACI、ASTM 和 IRC 规范",
-    "standardsDesc": "基于标准几何算法与建筑规范，提供经工程验证的建材计算。",
-    "speedTitle": "为移动端与工地现场提速",
-    "speedDesc": "即使在信号微弱的工地现场，也能秒级打开并获取结果，无弹窗广告干扰。"
+    "title": "关于 Build Yardage - 建筑施工材料用量计算器",
+    "subtitle": "关于 Build Yardage：由工程人员打造的高精度建筑施工材料用量计算器与预算估算平台。",
+    "problemTitle": "我们解决的核心痛点",
+    "problemDesc": "施工现场材料算错是导致工程预算超支的主要原因。混凝土用量估算不足会导致冷缝和二次出车费；材料采购过多则会导致资金占用与现场堆放拥堵。",
+    "standardsTitle": "符合 ACI、ASTM 及 IRC 工程规范",
+    "standardsDesc": "Build Yardage 消除凭经验估算的误差，严格基于行业几何算法与 ACI、ASTM 标准提供经过验证的建材计算结果。",
+    "speedTitle": "为施工现场的高效与快速而设计",
+    "speedDesc": "当您手持手机立足工地且网络信号较弱时，无需等待加载，即可秒级获取精确的材料用量与估算结果。"
   },
   "contact": {
     "title": "联系我们的工程团队",
-    "subtitle": "如果您有改进建议、定制计算器需求或工程合作，请随时与我们联系。",
+    "subtitle": "联系我们的工程团队：如果您对材料计算公式、体积换算或功能建议有任何疑问，欢迎联系我们的工程团队。",
     "directEmail": "官方支持邮箱",
     "responseTime": "回复时间",
     "responseDesc": "工作日 24 小时内回复",
@@ -171,8 +171,8 @@
     "exploreOther": "浏览其他计算器"
   },
   "landing": {
-    "heroTitle": "建筑与工程施工高精度材料用量计算器",
-    "heroSubtitle": "严格基于 ACI、ASTM 和 IRC 规范算法，快速准确计算体积、吨数及骨架用量。",
+    "heroTitle": "建筑施工材料用量计算器与工程预算估算工具",
+    "heroSubtitle": "Build Yardage 提供高精度的建筑施工材料用量计算器与工程预算估算工具。无论您需要计算混凝土平板、砂石、干壁还是钢筋网用量，我们的估算工具都能帮助工程承包商在数秒内精确计算现场材料用量与预算。",
     "exploreCalculators": "浏览计算器",
     "seoTitle": "面向施工现场与工程施工的专业高精度建筑材料用量与预算计算器",
     "seoOverviewTitle": "面向承包商与施工现场的专业建材预算平台",

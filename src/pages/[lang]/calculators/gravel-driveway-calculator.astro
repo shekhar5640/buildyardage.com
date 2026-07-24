@@ -30,6 +30,23 @@ const jsonLd = {
   jsonLd={jsonLd}
   lang={activeLang}
 >
+  <section class="no-print print:hidden bg-canvas border-b border-hairline transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent dark:text-indigo-400 text-xs font-semibold mb-4">
+          <span class="flex h-2 w-2 rounded-full bg-brand-accent animate-pulse"></span>
+          <span>100% Free Contractor Tool</span>
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          {t.nav.gravel}
+        </h1>
+        <p class="mt-3 text-md text-muted leading-relaxed">
+          {t.landing.pillars.gravel}
+        </p>
+      </div>
+    </div>
+  </section>
+
   <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
     <GravelCalculator client:load initialIsMetric={LOCALES[activeLang].isMetricDefault} />
     <ToolGuideSection slug="gravel-driveway-calculator" />

@@ -39,8 +39,8 @@
     "disclaimerText": "Nos calculs sont des estimations théoriques. Consultez un entrepreneur qualifié avant toute commande."
   },
   "about": {
-    "title": "Conçu pour le Chantier. Ingénierie de Précision.",
-    "subtitle": "Build Yardage a été créé pour remplacer les outils lents par des calculs de chantier instantanés et précis.",
+    "title": "À propos de Build Yardage - Calculateurs de Construction",
+    "subtitle": "Découvrez Build Yardage: Des calculateurs de construction de haute précision conçus par des ingénieurs pour le métré instantané des matériaux.",
     "problemTitle": "Le Problème Résolu",
     "problemDesc": "Les erreurs de métré coûtent cher. Trop peu de béton crée des reprises de bétonnage défectueuses. Trop de matériaux encombre le chantier.",
     "standardsTitle": "Conforme aux Normes ACI, ASTM et IRC",
@@ -50,7 +50,7 @@
   },
   "contact": {
     "title": "Contactez Notre Équipe d'Ingénierie",
-    "subtitle": "Une question, une suggestion ou besoin d'un calculateur sur mesure ? Contactez-nous.",
+    "subtitle": "Contactez notre équipe d'ingénierie pour toute question sur les formules de calcul, le métré ou l'intégration d'unités.",
     "directEmail": "E-mail de Support",
     "responseTime": "Délai de Réponse",
     "responseDesc": "Sous 24 heures les jours ouvrés",
@@ -171,8 +171,8 @@
     "exploreOther": "Explorer les Autres Calculateurs"
   },
   "landing": {
-    "heroTitle": "Métré de Matériaux de Précision pour les Professionnels",
-    "heroSubtitle": "Calculs instantanés de volume, tonnage et ossature selon les normes ACI, ASTM et IRC.",
+    "heroTitle": "Calculateurs de Construction et Estimation des Matériaux",
+    "heroSubtitle": "Build Yardage fournit des calculateurs de construction de haute précision conçus pour vous donner des estimations de matériaux instantanées et exactes. Que vous ayez besoin d'outils pour dalles de béton, gravier ou plaques de plâtre, nos estimateurs aident les professionnels à calculer les volumes en quelques secondes.",
     "exploreCalculators": "Explorer les Calculateurs",
     "seoTitle": "Calculs & Estimation de Chantier",
     "seoOverviewTitle": "Plateforme d'Estimation de Matériaux de Chantier de Haute Précision",

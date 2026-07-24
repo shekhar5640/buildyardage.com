@@ -39,8 +39,8 @@
     "disclaimerText": "Nossos cálculos são estimativas teóricas. Verifique as quantidades com seu fornecedor antes de encomendar."
   },
   "about": {
-    "title": "Desenvolvido para a Obra. Projetado para Precisão.",
-    "subtitle": "O Build Yardage foi criado para substituir ferramentas lentas por cálculos matemáticos de construção rápidos e precisos para celulares.",
+    "title": "Sobre o Build Yardage - Calculadoras de Construção",
+    "subtitle": "Saiba mais sobre o Build Yardage: Calculadoras de construção de alta precisão projetadas por engenheiros para estimativa instantânea de materiais.",
     "problemTitle": "O Problema que Resolvemos",
     "problemDesc": "Erros de cálculo custam caro. Pouco concreto gera falhas estruturais; excesso de material entulha o canteiro de obras.",
     "standardsTitle": "Alinhado com Normas ACI, ASTM e IRC",
@@ -50,7 +50,7 @@
   },
   "contact": {
     "title": "Entre em Contato com Nossa Equipe de Engenharia",
-    "subtitle": "Tem dúvidas, sugestões ou precisa de uma calculadora personalizada?",
+    "subtitle": "Entre em contato com nossa equipe de engenharia para dúvidas sobre fórmulas de cálculo, volumes ou integração de unidades.",
     "directEmail": "E-mail de Suporte",
     "responseTime": "Tempo de Resposta",
     "responseDesc": "Em até 24 horas em dias úteis",
@@ -171,8 +171,8 @@
     "exploreOther": "Explorar Outras Calculadoras"
   },
   "landing": {
-    "heroTitle": "Estimativa Precisa de Materiais para Profissionais de Obra",
-    "heroSubtitle": "Cálculos instantâneos de volume, tonelagem e estrutura segundo normas ACI, ASTM e IRC.",
+    "heroTitle": "Calculadoras de Construção e Estimativa de Materiais",
+    "heroSubtitle": "O Build Yardage oferece calculadoras de construção de alta precisão projetadas para fornecer estimativas de materiais instantâneas e exatas. Seja para lajes de concreto, brita ou drywall, nossos estimadores ajudam construtores a calcular volumes em segundos.",
     "exploreCalculators": "Explorar Calculadoras",
     "seoTitle": "Calculadora e Estimativa de Construção",
     "seoOverviewTitle": "Plataforma de Estimativa de Materiais de Construção de Alta Precisão",

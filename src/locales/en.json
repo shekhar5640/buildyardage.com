@@ -39,8 +39,8 @@
     "disclaimerText": "Our calculations are approximations. Consult a professional contractor before ordering materials. We are not liable for any discrepancies, excess ordering, or project issues resulting from the use of these tools."
   },
   "about": {
-    "title": "Built for the Jobsite. Engineered for Precision.",
-    "subtitle": "Build Yardage was created with a single objective: to replace slow, bloated material estimators with instant, exact construction math built specifically for speed and mobile use.",
+    "title": "About Build Yardage - Precision Construction Calculators",
+    "subtitle": "Learn about Build Yardage, built by civil engineers and contractors to deliver precision construction calculators for high-speed jobsite material estimating.",
     "problemTitle": "The Problem We Solve",
     "problemDesc": "Material miscalculations are among the most expensive mistakes on a jobsite. Ordering too little concrete causes cold joints, structural weakness, and emergency mixer truck callout fees. Ordering too much aggregate, framing lumber, or drywall wastes valuable capital and clutters tight staging areas.",
     "standardsTitle": "Trade Code & ASTM Standards Aligned",
@@ -171,8 +171,8 @@
     "exploreOther": "Explore Other Material Calculators"
   },
   "landing": {
-    "heroTitle": "Precision Material Estimating for Construction & Jobsite Pros",
-    "heroSubtitle": "Instant, high-accuracy volume, tonnage, and framing calculations built strictly to ACI, ASTM, and IRC code standards.",
+    "heroTitle": "Precision Construction Calculators & Material Yardage Estimator",
+    "heroSubtitle": "Build Yardage provides high-precision construction calculators designed to give you instant, accurate material yardage estimates. Whether you need an estimator for concrete slabs, gravel, topsoil, or drywall, our tools help contractors calculate precise job site volumes.",
     "exploreCalculators": "Explore Calculators",
     "seoTitle": "Construction Estimating & Calculators",
     "seoOverviewTitle": "High-Precision Construction Estimating Platform for Jobsite Pros",

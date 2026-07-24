@@ -39,8 +39,8 @@
     "disclaimerText": "I nostri calcoli sono stime teoriche. Verificare le quantità prima di ordinare."
   },
   "about": {
-    "title": "Sviluppato per il Cantiere. Progettato per la Precisione.",
-    "subtitle": "Build Yardage è nato per sostituire strumenti lenti con calcoli matematici di cantiere rapidi e precisi per dispositivi mobili.",
+    "title": "Informazioni su Build Yardage - Calcolatori di Cantiere",
+    "subtitle": "Scopri Build Yardage: Calcolatori di cantiere ad alta precisione progettati da ingegneri per la stima immediata dei materiali da costruzione.",
     "problemTitle": "Il Problema che Risolviamo",
     "problemDesc": "Gli errori nei materiali costano cari. Troppo poco calcestruzzo causa difetti strutturali; troppo materiale ingombra il cantiere.",
     "standardsTitle": "Allineato alle Norme ACI, ASTM e IRC",
@@ -50,7 +50,7 @@
   },
   "contact": {
     "title": "Contatta il Nostro Team di Ingegneria",
-    "subtitle": "Hai domande, suggerimenti o necessiti di un calcolatore personalizzato?",
+    "subtitle": "Contatta il nostro team di ingegneria per domande sulle formule dei materiali, sui calcoli di volume o sulle unita di misura.",
     "directEmail": "E-mail di Supporto",
     "responseTime": "Tempo di Risposta",
     "responseDesc": "Entro 24 ore nei giorni lavorativi",
@@ -171,8 +171,8 @@
     "exploreOther": "Esplora Altri Calcolatori"
   },
   "landing": {
-    "heroTitle": "Stima Precisa dei Materiali per i Professionisti del Cantiere",
-    "heroSubtitle": "Calcoli istantanei di volume, tonnellaggio e strutture secondo le norme ACI, ASTM e IRC.",
+    "heroTitle": "Calcolatori di Cantiere e Stima dei Materiali da Costruzione",
+    "heroSubtitle": "Build Yardage fornisce calcolatori di cantiere ad alta precisione progettati per offrire stime dei materiali da costruzione istantanee ed esatte. Che si tratti di solette in calcestruzzo, ghiaia o cartongesso, i nostri calcolatori aiutano imprese e geometri a calcolare i volumi in pochi secondi.",
     "exploreCalculators": "Esplora Calcolatori",
     "seoTitle": "Calcoli di Precisione per Cantiere",
     "seoOverviewTitle": "Piattaforma di Calcolo e Calcolatori per Materiali da Costruzione",
