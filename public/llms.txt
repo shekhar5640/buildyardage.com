@@ -1,0 +1,23 @@
+# Build Yardage
+
+> Build Yardage provides high-precision, instant construction material calculators for contractors, builders, civil engineers, and DIYers.
+
+## Core Calculators & Tools
+
+- [Concrete Slab Calculator](https://buildyardage.com/calculators/concrete-slab-calculator): Calculate cubic yards, concrete bags (60lb & 80lb), and estimated material costs for concrete slabs, footings, and foundations.
+- [Concrete Column & Sonotube Calculator](https://buildyardage.com/calculators/concrete-column-calculator): Calculate cubic volume for cylindrical concrete columns, Sonotubes, circular footings, and piers.
+- [Gravel & Aggregate Calculator](https://buildyardage.com/calculators/gravel-driveway-calculator): Compute cubic yardage, tons, and coverage for driveways, bases, and landscaping gravel.
+- [Drywall & Sheetrock Calculator](https://buildyardage.com/calculators/drywall-calculator): Calculate 4x8 and 4x12 drywall sheets, joint tape, drywall screws, and joint compound.
+- [Wall Framing Calculator](https://buildyardage.com/calculators/framing-calculator): Estimate studs, plates, headers, and dimensional lumber for wood stud wall framing.
+- [Rebar & Mesh Estimator](https://buildyardage.com/calculators/rebar-calculator): Estimate rebar grid spacing, linear footage, tonnage, and 40d lap splices for concrete pours.
+
+## Features & Capabilities
+
+- **Dual Unit System:** Instant conversions between Imperial (cubic yards, feet, inches, tons) and Metric (cubic meters, meters, centimeters, tonnes) units.
+- **Waste Factor Adjustment:** Built-in allowance toggles (5%, 10%, 15%) for material compaction and spillage on job sites.
+- **Multi-Language Support:** Fully localized calculation engines available in English, Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Japanese (`/ja/`), and Chinese (`/zh/`).
+
+## Documentation & Links
+
+- [Homepage](https://buildyardage.com/): Access all construction calculators and site tools.
+- [Sitemap](https://buildyardage.com/sitemap.xml): Full XML index of all public routes and calculators.

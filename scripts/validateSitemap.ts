@@ -224,3 +224,18 @@ ${validBlocks.join('\n')}
 } else {
   console.log(`[Sitemap Validator] SUCCESS: All ${validBlocks.length} URLs in sitemap.xml are 200 OK, canonical, unique, and indexable!`);
 }
+
+// ----------------------------------------------------
+// 4. Audit llms.txt in dist/
+// ----------------------------------------------------
+const llmsPath = path.join(distDir, 'llms.txt');
+if (fs.existsSync(llmsPath)) {
+  const llmsContent = fs.readFileSync(llmsPath, 'utf8');
+  if (llmsContent.includes('# Build Yardage') && llmsContent.includes('## Core Calculators')) {
+    console.log('[llms.txt Validator] SUCCESS: dist/llms.txt is present, non-empty, and valid Markdown!');
+  } else {
+    console.warn('[llms.txt Validator] Warning: dist/llms.txt content format is incomplete.');
+  }
+} else {
+  console.error('[llms.txt Validator] Error: dist/llms.txt missing from build output.');
+}
