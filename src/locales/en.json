@@ -116,6 +116,11 @@
     "exportCsv": "Export CSV",
     "copyResults": "Copy Results",
     "copied": "Copied to Clipboard!",
+    "embedWidget": "Embed Widget",
+    "embedModalTitle": "Embed Calculator on Your Website",
+    "embedModalDesc": "Copy and paste the HTML snippet below to embed this interactive calculator directly onto your blog or website.",
+    "copyEmbedCode": "Copy HTML Code",
+    "embedCopied": "Copied to Clipboard!",
     "reset": "Reset",
     "history": "Recent Calculations",
     "clearHistory": "Clear History"

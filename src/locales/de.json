@@ -114,11 +114,16 @@
     "printTakeoff": "Drucken / PDF Liste",
     "copyTakeoff": "Liste Kopieren",
     "exportCsv": "Als CSV exportieren",
-    "copyResults": "Ergebnisse kopieren",
+    "copyResults": "Ergebnisse Kopieren",
     "copied": "In die Zwischenablage kopiert!",
+    "embedWidget": "Widget Einbinden",
+    "embedModalTitle": "Rechner auf Ihrer Website Einbinden",
+    "embedModalDesc": "Kopieren Sie den folgenden HTML-Code, um diesen Rechner direkt auf Ihrer Website einzubinden.",
+    "copyEmbedCode": "HTML-Code Kopieren",
+    "embedCopied": "Code Kopiert!",
     "reset": "Zurücksetzen",
     "history": "Letzte Berechnungen",
-    "clearHistory": "Historie löschen"
+    "clearHistory": "Verlauf Löschen"
   },
   "calculator": {
     "unitSystem": "Einheitensystem",

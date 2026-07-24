@@ -115,7 +115,12 @@
     "copyTakeoff": "Copia Lista",
     "exportCsv": "Esporta in CSV",
     "copyResults": "Copia Risultati",
-    "copied": "Copiato negli appunti!",
+    "copied": "Copiato negli Appunti!",
+    "embedWidget": "Incorpora Widget",
+    "embedModalTitle": "Incorpora il Calcolatore sul Tuo Sito Web",
+    "embedModalDesc": "Copia e incolla il codice HTML sottostante per incorporare questo calcolatore sul tuo sito o blog.",
+    "copyEmbedCode": "Copia Codice HTML",
+    "embedCopied": "Codice Copiato!",
     "reset": "Ripristina",
     "history": "Calcoli Recenti",
     "clearHistory": "Cancella Cronologia"

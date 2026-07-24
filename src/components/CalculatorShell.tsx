@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Trash2, Printer, Plus, History, CheckSquare, Square, 
-  ShoppingBag, Eye, Ruler, AlertCircle
+  ShoppingBag, Eye, Ruler, AlertCircle, Code
 } from 'lucide-react';
+import EmbedModal from './EmbedModal';
 import { 
   type ConcreteSlabResult,
   type ConcreteColumnResult,
@@ -447,6 +448,7 @@ export default function CalculatorShell({
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [printDate, setPrintDate] = useState<string>('');
+  const [isEmbedModalOpen, setIsEmbedModalOpen] = useState(false);
 
   // Load cache on mount
   useEffect(() => {
@@ -573,13 +575,23 @@ export default function CalculatorShell({
                 <Ruler size={18} className="text-brand-accent" />
                 <span>{t.calculatorShell.inputsHeader}</span>
               </h2>
-              {/* Unit Toggle Switch */}
-              <button 
-                onClick={handleUnitToggle}
-                className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
-              >
-                <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsEmbedModalOpen(true)}
+                  className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
+                  title="Embed calculator on your website"
+                >
+                  <Code size={14} className="text-brand-accent" />
+                  <span>{t.calculatorShell.embedWidget || 'Embed'}</span>
+                </button>
+                {/* Unit Toggle Switch */}
+                <button 
+                  onClick={handleUnitToggle}
+                  className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
+                >
+                  <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
+                </button>
+              </div>
             </div>
 
             {/* Form Inputs (Children) */}
@@ -768,14 +780,23 @@ export default function CalculatorShell({
                   </div>
                 )}
 
-                {/* Print & PDF Action */}
-                <button
-                  onClick={handlePrint}
-                  className="w-full mt-4 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 no-print cursor-pointer"
-                >
-                  <Printer size={13} />
-                  <span>{t.calculatorShell.printTakeoff}</span>
-                </button>
+                {/* Print & Embed Actions */}
+                <div className="flex gap-2 mt-4 no-print">
+                  <button
+                    onClick={handlePrint}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 cursor-pointer"
+                  >
+                    <Printer size={13} />
+                    <span>{t.calculatorShell.printTakeoff}</span>
+                  </button>
+                  <button
+                    onClick={() => setIsEmbedModalOpen(true)}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 cursor-pointer"
+                  >
+                    <Code size={13} />
+                    <span>{t.calculatorShell.embedWidget || 'Embed Widget'}</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -1023,6 +1044,15 @@ export default function CalculatorShell({
           <p className="mt-1 text-right text-zinc-400 font-mono">buildyardage.com</p>
         </div>
       </div>
+
+      {/* Embed Modal Dialog */}
+      <EmbedModal
+        isOpen={isEmbedModalOpen}
+        onClose={() => setIsEmbedModalOpen(false)}
+        calculatorSlug={slug}
+        calculatorTitle={`${material} ${shape}`}
+        t={t}
+      />
     </div>
   );
 }

@@ -115,7 +115,12 @@
     "copyTakeoff": "Copiar Lista",
     "exportCsv": "Exportar em CSV",
     "copyResults": "Copiar Resultados",
-    "copied": "Copiado para a área de transferência!",
+    "copied": "Copiado para a Área de Transferência!",
+    "embedWidget": "Incorporar Widget",
+    "embedModalTitle": "Incorporar Calculadora no seu Site",
+    "embedModalDesc": "Copie e cole o código HTML abaixo para incorporar esta calculadora interativa no seu site ou blog.",
+    "copyEmbedCode": "Copiar Código HTML",
+    "embedCopied": "Código Copiado!",
     "reset": "Redefinir",
     "history": "Cálculos Recentes",
     "clearHistory": "Limpar Histórico"

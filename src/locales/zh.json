@@ -116,9 +116,14 @@
     "exportCsv": "导出为 CSV",
     "copyResults": "复制计算结果",
     "copied": "已复制到剪贴板！",
-    "reset": "重置输入",
-    "history": "最近计算历史",
-    "clearHistory": "清除历史"
+    "embedWidget": "嵌入计算器小部件",
+    "embedModalTitle": "在您的网站上嵌入此计算器",
+    "embedModalDesc": "复制并粘贴下方 HTML 代码，即可将此交互式计算器直接嵌入到您的博客或网站中。",
+    "copyEmbedCode": "复制 HTML 代码",
+    "embedCopied": "代码已复制！",
+    "reset": "重置",
+    "history": "最近计算记录",
+    "clearHistory": "清除记录"
   },
   "calculator": {
     "unitSystem": "单位制",

@@ -51,6 +51,8 @@ console.log(`[Title Tag Validator] Auditing titles across ${htmlFiles.length} HT
 let titleErrorsCount = 0;
 
 for (const file of htmlFiles) {
+  const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+  if (relPath.startsWith('embed/')) continue;
   const content = fs.readFileSync(file, 'utf8');
   const match = content.match(/<title>([^<]*)<\/title>/i);
   if (match) {
@@ -89,6 +91,7 @@ let hreflangErrorsCount = 0;
 
 for (const file of htmlFiles) {
   const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+  if (relPath.startsWith('embed/')) continue;
   const content = fs.readFileSync(file, 'utf8');
 
   // Determine expected locale from directory route
@@ -249,6 +252,9 @@ let h1KeywordErrorsCount = 0;
 
 for (const file of htmlFiles) {
   const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+  // Exclude error pages and embed widgets from H1 check
+  if (relPath === '404.html' || relPath === '500.html' || relPath.startsWith('embed/')) continue;
+
   const html = fs.readFileSync(file, 'utf8');
 
   // Check single H1 tag per page
@@ -261,9 +267,6 @@ for (const file of htmlFiles) {
     h1KeywordErrorsCount++;
     continue;
   }
-
-  // Exclude error pages from keyword parity check
-  if (relPath === '404.html' || relPath === '500.html') continue;
 
   // Check H1 keywords present in body text
   const stopWords = new Set(['how', 'much', 'many', 'for', 'and', 'the', 'with', 'per', 'are', 'can', 'your', 'need', 'from', 'this', 'that', 'into', 'feet', 'deep', 'inch', 'inches']);

@@ -115,7 +115,12 @@
     "copyTakeoff": "Copier la Liste",
     "exportCsv": "Exporter en CSV",
     "copyResults": "Copier les Résultats",
-    "copied": "Copié dans le presse-papier !",
+    "copied": "Copié dans le Presse-papiers !",
+    "embedWidget": "Intégrer le Widget",
+    "embedModalTitle": "Intégrer le Calculateur sur Votre Site",
+    "embedModalDesc": "Copiez et collez le code HTML ci-dessous pour intégrer ce calculateur interactif directement sur votre site ou blog.",
+    "copyEmbedCode": "Copier le Code HTML",
+    "embedCopied": "Code Copié !",
     "reset": "Réinitialiser",
     "history": "Calculs Récents",
     "clearHistory": "Effacer l'Historique"

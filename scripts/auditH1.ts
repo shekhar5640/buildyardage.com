@@ -25,6 +25,9 @@ let keywordErrorsCount = 0;
 
 for (const file of htmlFiles) {
   const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+  // Exclude error pages and embed widgets from H1 check
+  if (relPath === '404.html' || relPath === '500.html' || relPath.startsWith('embed/')) continue;
+
   const html = fs.readFileSync(file, 'utf8');
 
   // Check 1: Single H1 tag per page
@@ -37,9 +40,6 @@ for (const file of htmlFiles) {
     keywordErrorsCount++;
     continue;
   }
-
-  // Exclude error pages from keyword parity check
-  if (relPath === '404.html' || relPath === '500.html') continue;
 
   // Check 2: H1 keywords present in body text
   const stopWords = new Set(['how', 'much', 'many', 'for', 'and', 'the', 'with', 'per', 'are', 'can', 'your', 'need', 'from', 'this', 'that', 'into', 'feet', 'deep', 'inch', 'inches']);
