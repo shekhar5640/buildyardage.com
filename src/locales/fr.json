@@ -174,20 +174,41 @@
     "heroTitle": "Métré de Matériaux de Précision pour les Professionnels",
     "heroSubtitle": "Calculs instantanés de volume, tonnage et ossature selon les normes ACI, ASTM et IRC.",
     "exploreCalculators": "Explorer les Calculateurs",
-    "seoTitle": "Estimation Professionnelle de Chantier : Calculs de Précision",
-    "faqTitle": "Foire Aux Questions",
+    "seoTitle": "Calculs & Estimation de Chantier",
+    "seoOverviewTitle": "Plateforme d'Estimation de Matériaux de Chantier de Haute Précision",
+    "seoOverviewP1": "L'estimation précise des matériaux est le pilier de tout projet de construction, coulage commercial ou rénovation rentable. Commander trop peu de matériaux entraîne des retards de chantier coûteux, des reprises de bétonnage et des frais de livraison imprévus. Commander trop gaspille du capital et encombre le chantier avec des surplus inutiles.",
+    "seoOverviewP2": "Build Yardage fournit aux entrepreneurs, ingénieurs, artisans et bricoleurs des calculateurs de construction de haute précision conçus selon les normes ACI, ASTM et IRC. Nos algorithmes convertissent instantanément les dimensions du terrain en volumes exacts, tonnages, sacs de béton et unités commerciales pour dalles, colonnes, gravier, plaques de plâtre, ossature bois et armatures d'acier.",
+    "seoOverviewP3": "Optimisé pour une vitesse maximale sur appareils mobiles sur le terrain, notre outil prend en charge le passage fluide entre le système métrique (m, mm, m³) et le système impérial (pieds, pouces, verge³) tout en appliquant automatiquement une marge de perte de 10% pour sécuriser tous vos achats.",
+    "pillarTitle": "Fonctionnalités Principales et Applications de Chantier",
+    "pillars": {
+      "concreteSlab": "Calculez les verges/mètres cubes et le nombre de sacs de béton prêt à l'emploi (36kg, 25kg, 80lb) avec marge de perte.",
+      "concreteColumn": "Calculez le volume cylindrique pour tubes Sonotube, colonnes de béton, semelles circulaires et trous de poteaux.",
+      "gravel": "Déterminez le tonnage de gravier et les mètres/verges cubes pour allées et fondations selon la densité des granulats.",
+      "drywall": "Estimez le nombre de plaques de plâtre (4x8 ou 4x12 pieds), les mètres de bande à joint, vis et seaux d'enduit.",
+      "framing": "Calculez les montants verticaux, assemblages d'angles, lisses hautes et lisses basses convertis en pièces de 16 pieds.",
+      "rebar": "Déterminez la longueur totale du quadrillage d'armature, le nombre de barres de 6m/20ft, le poids et le chevauchement 40d."
+    },
+    "faqTitle": "Foire Aux Questions sur l'Estimation de Matériaux",
     "faqs": [
       {
-        "question": "Combien de sacs de béton de 35kg dans un mètre cube ?",
-        "answer": "Il faut environ 55 à 60 sacs de béton préparé de 35kg pour couler un mètre cube de béton frais."
+        "question": "Comment calculer précisément le volume (verges ou mètres cubes) ?",
+        "answer": "Multipliez la longueur, la largeur et la profondeur dans la même unité. Les calculateurs Build Yardage effectuent automatiquement la conversion et donnent le nombre exact de sacs ou de tonnes."
       },
       {
-        "question": "Combien de tonnes de gravier par mètre cube ?",
-        "answer": "Comptez environ 1,5 à 1,6 tonne de gravier ou concassé par mètre cube selon la densité du matériau."
+        "question": "Pourquoi une estimation précise réduit-elle les déchets et les coûts sur le chantier ?",
+        "answer": "Une estimation exacte évite les achats superflus et les déchets. L'intégration scientifique d'une marge de 10% évite les retards et livraisons d'urgence."
       },
       {
-        "question": "Quelle marge de perte prévoir ?",
-        "answer": "La norme du bâtiment recommande d'ajouter une marge de perte sécurité de 10%."
+        "question": "L'application prend-elle en charge le système métrique et impérial ?",
+        "answer": "Oui, basculez instantanément entre mm/m/m³ et pouces/pieds/yd³ pour s'adapter à tous les plans d'architecture."
+      },
+      {
+        "question": "Peut-on enregistrer, exporter ou imprimer les résultats du calcul ?",
+        "answer": "Oui, ajoutez vos calculs à votre liste de chantier et exportez-les en un clic au format CSV/Excel, copiez-les ou imprimez-les en PDF."
+      },
+      {
+        "question": "Quelle marge de perte (Waste Margin) faut-il prévoir sur le chantier ?",
+        "answer": "La règle standard du bâtiment est d'ajouter 10% de marge pour compenser l'irrégularité des sols et les chutes de coupe."
       }
     ]
   }

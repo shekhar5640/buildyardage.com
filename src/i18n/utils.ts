@@ -79,13 +79,13 @@ export function getLocalizedPath(pathname: string, targetLocale: SupportedLocale
 /**
  * Generates Google SEO compliant hreflang alternate links for <head>.
  */
-export function getHreflangLinks(pathname: string, baseUrl: string = 'https://buildyardage.com') {
+export function getHreflangLinks(pathname: string, baseUrl: string = 'https://buildyardage.com'): Array<{ rel: string; hreflang: string; href: string }> {
   const cleanPath = stripLocaleFromPath(pathname);
-  const links = SUPPORTED_LOCALES.map((locale) => {
+  const links: Array<{ rel: string; hreflang: string; href: string }> = SUPPORTED_LOCALES.map((locale) => {
     const localizedPath = locale === DEFAULT_LOCALE ? cleanPath : (cleanPath === '/' ? `/${locale}/` : `/${locale}${cleanPath}`);
     return {
       rel: 'alternate',
-      hreflang: locale,
+      hreflang: locale as string,
       href: `${baseUrl}${localizedPath}`
     };
   });
@@ -99,3 +99,45 @@ export function getHreflangLinks(pathname: string, baseUrl: string = 'https://bu
 
   return links;
 }
+
+/**
+ * Enforces meta title rules: 45 to 58 characters long ending cleanly with '| Build Yardage'.
+ */
+export function formatMetaTitle(rawTitle: string): string {
+  const suffix = ' | Build Yardage';
+  let title = (rawTitle || '').trim();
+
+  // Strip pre-existing brand suffixes
+  title = title
+    .replace(/\s*\|\s*Build\s*Yardage$/i, '')
+    .replace(/\s*\|\s*BuildYardage$/i, '')
+    .trim();
+
+  let fullTitle = `${title}${suffix}`;
+
+  if (fullTitle.length > 58) {
+    const maxContentLen = 58 - suffix.length; // 42 chars
+    title = title.slice(0, maxContentLen).trim();
+    fullTitle = `${title}${suffix}`;
+  } else if (fullTitle.length < 45) {
+    const minContentLen = 45 - suffix.length; // 29 chars
+    if (title.length < minContentLen) {
+      // Intelligently expand short titles
+      if (title.includes('404')) {
+        title = '404 Page Not Found Error Details';
+      } else if (title.includes('500')) {
+        title = '500 Internal Server Error Details';
+      } else {
+        title = `${title} Construction Estimator`;
+      }
+
+      if (title.length > minContentLen) {
+        title = title.slice(0, 58 - suffix.length).trim();
+      }
+    }
+    fullTitle = `${title}${suffix}`;
+  }
+
+  return fullTitle;
+}
+

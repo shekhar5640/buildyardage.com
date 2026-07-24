@@ -174,7 +174,20 @@
     "heroTitle": "Precision Material Estimating for Construction & Jobsite Pros",
     "heroSubtitle": "Instant, high-accuracy volume, tonnage, and framing calculations built strictly to ACI, ASTM, and IRC code standards.",
     "exploreCalculators": "Explore Calculators",
-    "seoTitle": "Professional Construction Estimating: Precision Calculations for the Jobsite",
+    "seoTitle": "Construction Estimating & Calculators",
+    "seoOverviewTitle": "High-Precision Construction Estimating Platform for Jobsite Pros",
+    "seoOverviewP1": "Accurate material estimating is the backbone of every profitable construction project, commercial pour, and home renovation. Ordering too little material causes costly jobsite delays, cold joints in concrete, and unexpected delivery fees. Ordering too much wastes capital and clutters your site.",
+    "seoOverviewP2": "Build Yardage provides contractors, trade professionals, and DIY builders with instant, high-precision construction calculators designed strictly around standard building codes and ASTM reference metrics. Our suite of engineered algorithms instantly converts field dimensions into exact volume, weight, bag counts, and commercial ordering units for concrete, gravel, drywall, wall framing, and rebar grids.",
+    "seoOverviewP3": "Optimized for high-speed mobile performance on low-bandwidth job sites, our platform supports seamless switching between Imperial (feet/inches) and Metric (meters/mm) units while automatically applying a 10% industry waste buffer to keep your bids precise and profitable.",
+    "pillarTitle": "Key Material Calculator Features & Site Applications",
+    "pillars": {
+      "concreteSlab": "Estimate cubic yards, cubic feet, meters, and pre-mix bag counts (80lb, 60lb, 40lb) with automated 10% waste margins.",
+      "concreteColumn": "Calculate cylindrical volumes for Sonotube cardboard forms, concrete columns, pier footings, and round post holes.",
+      "gravel": "Determine gravel base tons and cubic yards for driveways, pathways, or sub-bases based on aggregate loose density.",
+      "drywall": "Calculate drywall sheet quantities, joint paper tape linear feet, screw counts, and bucket mud requirements.",
+      "framing": "Estimate vertical stud counts, corner assemblies, double top plates, and sole plates translated into 16ft lumber sticks.",
+      "rebar": "Determine total rebar grid linear footage, 20ft stock bar stick counts, steel weight in pounds, and standard 40d lap splice overlaps."
+    },
     "faqTitle": "Frequently Asked Questions",
     "faqs": [
       {

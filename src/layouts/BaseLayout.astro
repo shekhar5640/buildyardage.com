@@ -5,6 +5,7 @@ import {
   getTranslations,
   getHreflangLinks,
   getLocalizedPath,
+  formatMetaTitle,
   type SupportedLocale
 } from '../i18n/utils';
 import { LanguageSelector } from '../components/LanguageSelector';
@@ -21,6 +22,7 @@ const { title, description, jsonLd, lang: propLang } = Astro.props;
 const activeLocale = propLang || getLocaleFromUrl(Astro.url.pathname);
 const t = getTranslations(activeLocale);
 const hreflangLinks = getHreflangLinks(Astro.url.pathname);
+const cleanTitle = formatMetaTitle(title);
 
 // Default structured data for the site if none provided
 const defaultJsonLd = {
@@ -53,7 +55,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     </script>
     
     <!-- SEO Meta Tags -->
-    <title>{title}</title>
+    <title>{cleanTitle}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

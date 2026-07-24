@@ -174,20 +174,41 @@
     "heroTitle": "Stima Precisa dei Materiali per i Professionisti del Cantiere",
     "heroSubtitle": "Calcoli istantanei di volume, tonnellaggio e strutture secondo le norme ACI, ASTM e IRC.",
     "exploreCalculators": "Esplora Calcolatori",
-    "seoTitle": "Stima Professionale Edilizia: Calcoli di Precisione per Cantiere",
-    "faqTitle": "Domande Frequenti",
+    "seoTitle": "Calcoli di Precisione per Cantiere",
+    "seoOverviewTitle": "Piattaforma di Calcolo e Calcolatori per Materiali da Costruzione",
+    "seoOverviewP1": "La stima precisa dei materiali è la spina dorsale di ogni progetto di costruzione, getto commerciale e ristrutturazione redditizia. Ordinare troppo poco materiale causa costosi ritardi in cantiere, giunti freddi nel calcestruzzo e costi imprevisti di consegna. Ordinare troppo spreca capitale e intasa l'area di lavoro con residui inutili.",
+    "seoOverviewP2": "Build Yardage fornisce a imprese, ingegneri, geometri e artigiani calcolatori di cantiere ad alta precisione progettati secondo le norme ACI, ASTM e IRC. I nostri algoritmi convertono istantaneamente le dimensioni rilevate sul campo in volumi esatti, tonnellaggio, sacchi di cemento e unità commerciali per solette, pilastri, ghiaia, cartongesso, intelaiature in legno e armature in acciaio.",
+    "seoOverviewP3": "Ottimizzato per dispositivi mobili direttamente in cantiere. Supporta il passaggio immediato tra il Sistema Metrico (metri, mm, m³) e il Sistema Imperiale (piedi, pollici, iarde³), applicando automaticamente un margine di sfrido del 10% per acquisti precisi ed efficienti.",
+    "pillarTitle": "Funzionalità Principali e Applicazioni di Cantiere",
+    "pillars": {
+      "concreteSlab": "Calcola iardi cubi, metri cubi e il numero di sacchi di calcestruzzo premiscelato (25kg/35kg/80lb) con margine di sfrido.",
+      "concreteColumn": "Calcola il volume cilindrico per tubi Sonotube, colonne in ceto armato, plinti circolari e pali di fondazione.",
+      "gravel": "Determina il tonnellaggio di ghiaia e i metri/iardi cubi per viali e sottofondi in base alla densità del materiale.",
+      "drywall": "Stima il numero di pannelli in cartongesso (4x8 o 4x12 piedi), metri di nastro per giunti, viti e secchi di stucco.",
+      "framing": "Calcola montanti verticali, angoli, traversine superiori e inferiori convertiti in pezzi commerciali da 16 piedi.",
+      "rebar": "Stima lo sviluppo totale della rete di tondini di armatura, barre da 6m/20ft, peso in kg/lbs e sovrapposizione 40d."
+    },
+    "faqTitle": "Domande Frequenti sulla Stima dei Materiali",
     "faqs": [
       {
-        "question": "Quanti sacchi di calcestruzzo da 35kg servono per un metro cubo?",
-        "answer": "Servono circa 55-60 sacchi di calcestruzzo premiscelato da 35kg per metro cubo."
+        "question": "Come calcolare il volume (iardi o metri cubi) in modo preciso?",
+        "answer": "Moltiplica lunghezza, larghezza e profondità nella stessa unità di misura. I calcolatori di Build Yardage convertono automaticamente in m³ o yd³ indicando il numero esatto di sacchi o tonnellate."
       },
       {
-        "question": "Quanto pesa un metro cubo di ghiaia?",
-        "answer": "Un metro cubo di ghiaia o pietrisco pesa circa 1,5 - 1,6 tonnellate."
+        "question": "Perché una stima precisa riduce gli sprechi e i costi in cantiere?",
+        "answer": "Una stima esatta evita acquisti in eccesso o carenze. Un margine di sfrido del 10% calcolato scientificamente previene fermi cantiere e spedizioni d'urgenza."
       },
       {
-        "question": "Quanto sfrido considerare?",
-        "answer": "La norma del settore raccomanda di aggiungere un margine di sfrido del 10%."
+        "question": "La piattaforma supporta sia il Sistema Metrico che quello Imperiale?",
+        "answer": "Sì, passa all'istante tra mm/m/m³ e pollici/piedi/yd³ per adattarsi ai progetti di qualsiasi paese."
+      },
+      {
+        "question": "È possibile salvare, esportare o stampare i risultati del calcolo?",
+        "answer": "Sì, aggiungi i calcoli al tuo elenco materiali e copiali, stampali in PDF o esportali in CSV/Excel con un solo clic."
+      },
+      {
+        "question": "Quale percentuale di sfrido (Waste Margin) è consigliabile inserire?",
+        "answer": "La norma raccomandata nel settore delle costruzioni è il 10% per coprire l'irregolarità dello scavo e i tagli di rifilatura."
       }
     ]
   }

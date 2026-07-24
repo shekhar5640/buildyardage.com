@@ -174,28 +174,41 @@
     "heroTitle": "Estimación Precisa de Materiales para Contratistas y Obras",
     "heroSubtitle": "Cálculos instantáneos de volumen, toneladas y estructuras diseñados según los estándares ACI, ASTM e IRC.",
     "exploreCalculators": "Explorar Calculadoras",
-    "seoTitle": "Estimación Profesional de Construcción: Cálculos de Precisión para la Obra",
-    "faqTitle": "Preguntas Frecuentes",
+    "seoTitle": "Calculadora y Estimación de Construcción",
+    "seoOverviewTitle": "Plataforma de Estimación de Materiales de Construcción de Alta Precisión",
+    "seoOverviewP1": "La estimación precisa de materiales es la columna vertebral de todo proyecto de construcción, colado comercial y remodelación rentable. Pedir muy poco material causa costosos retrasos en la obra, juntas frías en el concreto y cargos imprevistos por entregas secundarias. Pedir demasiado desperdicia capital y satura el espacio de trabajo con sobrantes innecesarios.",
+    "seoOverviewP2": "Build Yardage proporciona a contratistas, ingenieros, maestros de obra y constructores particulares calculadoras de construcción de alta precisión diseñadas estrictamente bajo las normativas ACI (Instituto Americano del Concreto), ASTM (Sociedad Estadounidense para Pruebas y Materiales) e IRC (Código Internacional de Residencia). Nuestras fórmulas convierten dimensiones de campo en volúmenes exactos, tonelaje, bolsas de concreto y unidades comerciales para losas, columnas, grava, drywall, carpintería y varilla de acero.",
+    "seoOverviewP3": "Optimizado para un rendimiento ultrarrápido en dispositivos móviles en obras con baja conectividad, la plataforma permite alternar sin problemas entre el sistema métrico (metros, mm, m³) y el sistema imperial (pies, pulgadas, yardas³), aplicando automáticamente un margen de desperdicio del 10% para mantener sus presupuestos seguros y listos para comprar en el proveedor.",
+    "pillarTitle": "Funciones Principales y Aplicaciones de Obra",
+    "pillars": {
+      "concreteSlab": "Calcula yardas cúbicas, metros cúbicos y bolsas de concreto premezclado (36kg, 25kg, 80lb) con margen de desperdicio.",
+      "concreteColumn": "Calcula el volumen cilíndrico para tubos Sonotube, columnas de concreto, zapatas circulares y orificios para postes.",
+      "gravel": "Calcula toneladas de grava y metros/yardas cúbicas para caminos, sub-bases y pavimentos según la densidad del agregado.",
+      "drywall": "Estima la cantidad de paneles de yeso (4x8 o 4x12 pies), metros de cinta de junta, tornillos y cubetas de pasta/masilla.",
+      "framing": "Calcula postes verticales, ensambles de esquina, soleras superiores dobles y soleras inferiores convertidas a piezas de 16 pies.",
+      "rebar": "Estima la longitud total de la parrilla de varilla corrugada, piezas de 20 pies/6m, peso en kg/libras y empalmes traslapados 40d."
+    },
+    "faqTitle": "Preguntas Frecuentes sobre Estimación de Materiales",
     "faqs": [
       {
-        "question": "¿Cuántas bolsas de concreto de 80 lb hay en una yarda cúbica?",
-        "answer": "Hay exactamente 45 bolsas de concreto premezclado de 80 lb en una yarda cúbica. Una bolsa de 80 lb rinde 0.60 pies cúbicos, y 27 pies cúbicos (1 yarda cúbica) divididos entre 0.60 son 45 bolsas."
+        "question": "¿Cómo calcular el volumen (yardas o metros cúbicos) de forma precisa?",
+        "answer": "Multiplique la longitud, el ancho y la profundidad en la misma unidad de medida (metros o pies). Las calculadoras de Build Yardage realizan la conversión automáticamente y determinan la cantidad exacta de bolsas o toneladas."
       },
       {
-        "question": "¿Cuántas toneladas de grava hay en una yarda cúbica?",
-        "answer": "Aproximadamente 1.4 toneladas cortas de EE. UU. (2,800 lbs) de grava o piedra triturada por yarda cúbica."
+        "question": "¿Por qué una estimación precisa reduce los residuos y costos en la obra?",
+        "answer": "Una estimación exacta evita compras excesivas o faltantes de material. Además, incluir científicamente un margen del 10% previene retrasos de trabajo y costos de envío urgentes."
       },
       {
-        "question": "¿Cuánto material extra debo pedir por desperdicio?",
-        "answer": "La práctica estándar de la industria es pedir un 10% adicional de margen de desperdicio."
+        "question": "¿La plataforma admite tanto el Sistema Métrico como el Sistema Imperial?",
+        "answer": "Sí, todas nuestras calculadoras permiten cambiar instantáneamente entre milímetros/metros/m³ y pulgadas/pies/yd³ para adaptarse a los planos de cualquier país."
       },
       {
-        "question": "¿Cómo se calcula la cantidad de pies derechos (studs) para una pared?",
-        "answer": "Convierta la longitud de la pared a pulgadas y divídala entre la separación (16\" o 24\" al centro), luego sume 1 pie derecho final."
+        "question": "¿Se pueden guardar, exportar o imprimir los resultados del cálculo?",
+        "answer": "Sí, puede agregar múltiples cálculos a su lista de materiales del proyecto y exportarla en un clic a formato CSV/Excel, copiarla al portapapeles o imprimirla en PDF."
       },
       {
-        "question": "¿Cuántas hojas de panel de yeso (drywall) necesito para una habitación?",
-        "answer": "Calcule el área total multiplicando el perímetro por la altura de la pared, divida entre la superficie de la hoja (32 pies² para hoja 4x8) y agregue 10% de desperdicio."
+        "question": "¿Qué porcentaje de desperdicio (Waste Margin) se debe incluir en la construcción?",
+        "answer": "La norma recomendada en la industria de la construcción es del 10%. Esto cubre irregularidades en la excavación del suelo, flexión de cimbras y recortes."
       }
     ]
   }

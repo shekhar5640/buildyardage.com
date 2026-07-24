@@ -56,7 +56,7 @@ export function getConcreteSlabPseoPages(): PseoPageData[] {
       const res = calculateConcreteSlab(dim.l, dim.w, depth, 10, false);
 
       const h1Title = `How Much Concrete Do I Need for a ${dim.w}x${dim.l} Slab (${depth} Inches Deep)?`;
-      const metaTitle = `${dim.w}x${dim.l} Concrete Slab Calculator (${depth}" Depth) | BuildYardage`;
+      const metaTitle = `${dim.w}x${dim.l} Concrete Slab Calculator (${depth}" Deep) | Build Yardage`;
       const quickAnswer = `A ${dim.w}x${dim.l} slab poured at a ${depth}" depth requires ${res.cubicYards} Cubic Yards of concrete (${res.cubicFeet} cu ft), which equals roughly ${res.bags80lb} bags (80lb) including a 10% waste buffer.`;
       const metaDescription = `Calculating a ${dim.w}x${dim.l} slab? A ${depth}" deep slab requires ${res.cubicYards} cu yds (${res.bags80lb} 80lb bags). Get exact material lists, rebar grid, and cost estimates instantly.`;
 
@@ -149,7 +149,7 @@ export function getConcreteColumnPseoPages(): PseoPageData[] {
       const res = calculateConcreteColumn(dia, depth * 12, 10, false);
 
       const h1Title = `How Much Concrete for a ${dia}" Diameter Sonotube Column (${depth} Feet Deep)?`;
-      const metaTitle = `${dia}" Concrete Column Calculator (${depth}ft Deep) | BuildYardage`;
+      const metaTitle = `${dia}" Concrete Column Calculator (${depth}ft) | Build Yardage`;
       const quickAnswer = `A single ${dia}" diameter Sonotube or post hole at ${depth}ft depth requires ${res.cubicYards} Cubic Yards (${res.cubicFeet} cu ft) of concrete, or roughly ${res.bags80lb} bags (80lb).`;
       const metaDescription = `Calculating a ${dia}" x ${depth}ft concrete column? Requires ${res.cubicYards} cu yds (${res.bags80lb} 80lb bags) per hole. Get exact bag counts and ready-mix estimates.`;
 
@@ -234,7 +234,7 @@ export function getGravelPseoPages(): PseoPageData[] {
       const res = calculateGravel(dim.l, dim.w, depth, 10, 1.4, false);
 
       const h1Title = `How Many Tons of Gravel Do I Need for a ${dim.w}x${dim.l} Driveway (${depth}" Deep)?`;
-      const metaTitle = `${dim.w}x${dim.l} Gravel Driveway Calculator (${depth}" Depth) | BuildYardage`;
+      const metaTitle = `${dim.w}x${dim.l} Gravel Calculator (${depth}" Depth) | Build Yardage`;
       const quickAnswer = `A ${dim.w}x${dim.l} gravel driveway at ${depth}" depth requires ${res.tons} US Tons (${res.cubicYards} Cubic Yards) of aggregate stone based on a standard 1.4 tons/yd³ density.`;
       const metaDescription = `Calculating gravel for a ${dim.w}x${dim.l} driveway? A ${depth}" deep layer requires ${res.tons} Tons (${res.cubicYards} cu yds). Get exact quarry tonnage and delivery estimates.`;
 
@@ -321,7 +321,7 @@ export function getDrywallPseoPages(): PseoPageData[] {
       const res = calculateDrywall(room.l, room.w, h, false, '4x8', 10, false);
 
       const h1Title = `How Many Drywall Sheets Do I Need for a ${room.w}x${room.l} Room (${h}ft Ceilings)?`;
-      const metaTitle = `${room.w}x${room.l} Drywall Calculator (${h}ft Ceiling) | BuildYardage`;
+      const metaTitle = `${room.w}x${room.l} Drywall Calculator (${h}ft Room) | Build Yardage`;
       const quickAnswer = `A ${room.w}x${room.l} room with ${h}ft ceilings requires ${res.sheetsNeeded} 4x8ft drywall panels (${res.totalAreaSqFt} sq ft total), along with ${res.tapeFeet} ft of joint tape and ${(res.compoundLbs / 4.5).toFixed(1)} gallons of joint compound.`;
       const metaDescription = `Hanging drywall in a ${room.w}x${room.l} room (${h}ft high)? You need ${res.sheetsNeeded} 4x8 panels (${res.totalAreaSqFt} sq ft). Get complete panel, tape, mud, and screw counts.`;
 
@@ -401,7 +401,7 @@ export function getFramingPseoPages(): PseoPageData[] {
       const res = calculateFraming(len, oc, 2, 2, 1, 10, false);
 
       const h1Title = `How Many 2x4 Studs Do I Need for a ${len} Foot Wall (${oc}" O.C. Spacing)?`;
-      const metaTitle = `${len}ft Wall Framing Calculator (${oc}" O.C.) | BuildYardage`;
+      const metaTitle = `${len}ft Wall Framing Calculator (${oc}" OC) | Build Yardage`;
       const quickAnswer = `A ${len}ft wall framed at ${oc}" on-center with double top plates requires ${res.studsCount} vertical studs, plus ${res.topPlates16ft + res.bottomPlates16ft} commercial 16ft lumber sticks for top and sole plates.`;
       const metaDescription = `Framing a ${len}ft wall at ${oc}" O.C.? Requires ${res.studsCount} 2x4 studs and ${res.topPlates16ft + res.bottomPlates16ft} 16ft plate sticks. Get exact lumberyard ordering lists.`;
 
@@ -490,7 +490,7 @@ export function getRebarPseoPages(): PseoPageData[] {
         const res = calculateRebar(slab.l, slab.w, 3, sp, 20, 18, 10, barNumStr, false);
 
         const h1Title = `How Much Rebar Do I Need for a ${slab.w}x${slab.l} Concrete Slab (${barNumStr} Bar)?`;
-        const metaTitle = `${slab.w}x${slab.l} Rebar Grid Calculator (${barNumStr} Bar @ ${sp}" Spacing) | BuildYardage`;
+        const metaTitle = `${slab.w}x${slab.l} Rebar Grid Calculator (${barNumStr} Bar) | Build Yardage`;
         const quickAnswer = `A ${slab.w}x${slab.l} slab rebar grid using ${barNumStr} steel at ${sp}" grid spacing requires ${res.totalPieces} 20ft stock rebar sticks (${res.totalLength} total linear feet) weighing approx ${res.estimatedWeightLbs} lbs.`;
         const metaDescription = `Calculating rebar for a ${slab.w}x${slab.l} slab? Requires ${res.totalPieces} 20ft sticks of ${barNumStr} rebar (${res.estimatedWeightLbs} lbs). Includes 40d lap splices and grid spacing.`;
 

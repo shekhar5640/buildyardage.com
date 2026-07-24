@@ -174,20 +174,41 @@
     "heroTitle": "Präzise Baustoffberechnung für Profis & Handwerker",
     "heroSubtitle": "Sofortige Berechnungen von Volumen, Tonnage und Holzbedarf nach Bau-Standards.",
     "exploreCalculators": "Rechner entdecken",
-    "seoTitle": "Professionelle Baustellen-Kalkulation: Präzise Mengenberechnung",
-    "faqTitle": "Häufig gestellte Fragen",
+    "seoTitle": "Baustellen-Rechner & Mengenberechnung",
+    "seoOverviewTitle": "Hochpräzise Mengenberechnung & Baustellen-Plattform",
+    "seoOverviewP1": "Die exakte Mengenberechnung ist das Fundament jedes wirtschaftlichen Bauprojekts, Betongusses und Umbaus. Zu wenig Material führt zu kostspieligen Baustellenverzögerungen, Kaltfugen im Beton und unerwarteten Nachlieferungsgebühren. Zu viel Material verschwendet Kapital und blockiert den Baustellenbereich mit unnötigem Verschnitt.",
+    "seoOverviewP2": "Build Yardage bietet Bauunternehmern, Handwerkern, Architekten und Heimwerkern hochpräzise Mengenrechner, die nach den Normen ACI, ASTM und IRC entwickelt wurden. Unsere Algorithmen rechnen Baustellenmaße direkt in exakte Kubikmeter, Tonnen, Betonsäcke und Handelsmaße für Betonplatten, Säulen, Schotter, Trockenbau, Holzständerwerk und Bewehrungsstahl um.",
+    "seoOverviewP3": "Optimiert für blitzschnelle Ladezeiten auf mobilen Geräten direkt auf der Baustelle. Unterstützt nahtloses Umschalten zwischen dem metrischen System (Meter, mm, m³) und dem imperialen System (Fuß, Zoll, Yards³) mit automatischer 10% Verschnitt-Einkalkulation für volle Kostenkontrolle.",
+    "pillarTitle": "Hauptfunktionen und Baustelleneinsatz",
+    "pillars": {
+      "concreteSlab": "Berechnen Sie Kubikmeter, Kubikfuß und die exakte Anzahl an Beton-Trockensäcken (25kg/35kg/40lb) inklusive Verschnitt.",
+      "concreteColumn": "Zylindrisches Volumen für Sonotube-Schalrohre, Betonstützen, Punktfundamente und Zaunpfostenlöcher ermitteln.",
+      "gravel": "Schotter-, Kies- und Splitt-Tonnage sowie Kubikmeter für Auffahrten und Unterbau nach Materialdichte berechnen.",
+      "drywall": "Anzahl der Gipskartonplatten (Raummaße), Fugenband-Meter, Trockenbauschrauben und Spachtelmasse-Eimer kalkulieren.",
+      "framing": "Vertikales Ständerwerk, Eckausbildungen, Schwellen und Doppelgurte berechnen und in 16ft Handelslängen umwandeln.",
+      "rebar": "Bewehrungsstahl-Gitter, Gesamtlänge, Anzahl der 6m/20ft Stangen, Gewicht in kg/lbs und 40d Überlappung berechnen."
+    },
+    "faqTitle": "Häufig gestellte Fragen zur Mengenberechnung",
     "faqs": [
       {
-        "question": "Wie viel Sack Trockenbeton benötigt man pro Kubikmeter?",
-        "answer": "Für einen Kubikmeter Fertigbeton benötigt man ca. 55 bis 60 Säcke à 35kg Trockenbeton."
+        "question": "Wie berechnet man das Volumen (Kubikmeter/Kubikyards) exakt?",
+        "answer": "Multiplizieren Sie Länge, Breite und Tiefe in der gleichen Maßeinheit. Die Rechner von Build Yardage rechnen automatisch in m³ oder yd³ um und geben die Sack- oder Tonnageanzahl an."
       },
       {
-        "question": "Wie viel wiegt ein Kubikmeter Schotter?",
-        "answer": "Ein Kubikmeter Schotter oder Kies wiegt im losen Zustand ca. 1,5 bis 1,7 Tonnen."
+        "question": "Warum spart eine präzise Mengenberechnung Material und Kosten?",
+        "answer": "Exakte Berechnungen verhindern Fehlkäufe und Entsorgungskosten. Ein wissenschaftlich einkalkulierter Verschnittpuffer von 10% verhindert teure Express-Nachlieferungen."
       },
       {
-        "question": "Wie viel Verschnitt sollte man einplanen?",
-        "answer": "Es wird empfohlen, einen Sicherheitspuffer von 10% Verschnitt einzukalkulieren."
+        "question": "Werden sowohl das metrische als auch das imperiale System unterstützt?",
+        "answer": "Ja, Sie können in allen Rechnern mit einem Klick zwischen mm/m/m³ und Zoll/Fuß/yd³ wechseln."
+      },
+      {
+        "question": "Kann man die Berechnungsergebnisse speichern, exportieren oder drucken?",
+        "answer": "Ja, fügen Sie Berechnungen Ihrer Materialliste hinzu und exportieren Sie diese per Klick als CSV/Excel, kopieren Sie sie oder drucken Sie sie als PDF."
+      },
+      {
+        "question": "Wie viel Verschnitt (Verschnittpuffer) sollte man einkalkulieren?",
+        "answer": "Im Baugewerbe wird ein Verschnittpuffer von 10% empfohlen, um Unebenheiten im Erdreich, Schalungsdruck und Anschnitte abzudecken."
       }
     ]
   }

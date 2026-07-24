@@ -174,20 +174,41 @@
     "heroTitle": "Estimativa Precisa de Materiais para Profissionais de Obra",
     "heroSubtitle": "Cálculos instantâneos de volume, tonelagem e estrutura segundo normas ACI, ASTM e IRC.",
     "exploreCalculators": "Explorar Calculadoras",
-    "seoTitle": "Estimativa Profissional de Construção: Cálculos de Precisão",
-    "faqTitle": "Perguntas Frequentes",
+    "seoTitle": "Calculadora e Estimativa de Construção",
+    "seoOverviewTitle": "Plataforma de Estimativa de Materiais de Construção de Alta Precisão",
+    "seoOverviewP1": "A estimativa precisa de materiais é a base de qualquer projeto de construção, concretagem e reforma lucrativa. Comprar pouco material gera atrasos dispendiosos na obra, juntas frias no concreto e custos não previstos de frete. Comprar em excesso desperdiça capital e empilha materiais desnecessários no canteiro.",
+    "seoOverviewP2": "O Build Yardage oferece a empreiteiros, engenheiros, mestres de obras e construtores calculadoras de alta precisão baseadas rigorosamente nas normas ACI (Instituto Americano do Concreto), ASTM e IRC. Nossos algoritmos convertem dimensões do terreno em volumes exatos, tonelagem, sacos de concreto e unidades comerciais para lajes, colunas, brita, drywall, estruturas de madeira e armações de aço.",
+    "seoOverviewP3": "Otimizado para velocidade máxima em dispositivos móveis no canteiro de obras, o sistema permite alternar facilmente entre o Sistema Métrico (metros, mm, m³) e o Sistema Imperial (pés, polegadas, jardas³), aplicando automaticamente 10% de margem de perda para garantir compras sem surpresas.",
+    "pillarTitle": "Principais Funções e Aplicações na Obra",
+    "pillars": {
+      "concreteSlab": "Calcule jardas cúbicas, metros cúbicos e quantidade de sacos de concreto pré-misturado (36kg, 25kg, 80lb) com margem de perda.",
+      "concreteColumn": "Calcule o volume cilíndrico para tubos Sonotube, colunas de concreto, sapatas circulares e brocas.",
+      "gravel": "Determine toneladas de brita/cascalho e metros/jardas cúbicas para garagens e sub-bases conforme a densidade.",
+      "drywall": "Estime placas de gesso acartonado/drywall (4x8 ou 4x12 pés), metros de fita para junta, parafusos e baldes de massa.",
+      "framing": "Calcule montantes verticais, travamentos de canto, guias e combeiras convertidas em peças comerciais de 16 pés.",
+      "rebar": "Estime a metragem total da malha de ferragem/vergalhão, barras de 6m/20ft, peso em kg/lbs e trespasse 40d."
+    },
+    "faqTitle": "Perguntas Frequentes sobre Estimativa de Materiais",
     "faqs": [
       {
-        "question": "Quantos sacos de concreto de 36kg por metro cúbico?",
-        "answer": "São necessários cerca de 55 a 60 sacos de concreto pré-misturado de 36kg para cada metro cúbico de concreto."
+        "question": "Como calcular o volume (jardas ou metros cúbicos) de forma precisa?",
+        "answer": "Multiplique comprimento, largura e profundidade na mesma unidade de medida. As calculadoras do Build Yardage realizam a conversão automática para m³ ou yd³ e indicam sacos ou toneladas."
       },
       {
-        "question": "Quantas toneladas de brita em um metro cúbico?",
-        "answer": "Um metro cúbico de brita pesa aproximadamente 1,5 a 1,6 tonelada."
+        "question": "Por que a estimativa precisa reduz resíduos e custos na obra?",
+        "answer": "Estimativas exatas evitam desperdício e compras em excesso. A margem científica de 10% evita paralisações e fretes de emergência."
       },
       {
-        "question": "Qual margem de perda adicionar?",
-        "answer": "Recomenda-se adicionar 10% de margem de perda para compensar variações no terreno e cortes."
+        "question": "O sistema suporta tanto o Sistema Métrico quanto o Imperial?",
+        "answer": "Sim, alterne instantaneamente entre mm/m/m³ e polegadas/pés/yd³ para se adaptar aos projetos de qualquer país."
+      },
+      {
+        "question": "É possível salvar, exportar ou imprimir os resultados?",
+        "answer": "Sim, adicione seus cálculos à lista de materiais do projeto e exporte em um clique para CSV/Excel, copie ou imprima em PDF."
+      },
+      {
+        "question": "Qual margem de perda (Waste Margin) deve ser incluída?",
+        "answer": "A norma padrão da construção é incluir 10% de margem de perda para compensar desníveis no solo e cortes de materiais."
       }
     ]
   }

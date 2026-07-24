@@ -44,7 +44,45 @@ for (const file of htmlFiles) {
   }
 }
 
-// Regex to parse <url> blocks
+// ----------------------------------------------------
+// 1. Audit Title Tags across all built HTML files
+// ----------------------------------------------------
+console.log(`[Title Tag Validator] Auditing titles across ${htmlFiles.length} HTML files...`);
+let titleErrorsCount = 0;
+
+for (const file of htmlFiles) {
+  const content = fs.readFileSync(file, 'utf8');
+  const match = content.match(/<title>([^<]*)<\/title>/i);
+  if (match) {
+    const rawTitle = match[1];
+    const decodedTitle = rawTitle
+      .replace(/&amp;/g, '&')
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>');
+    const len = decodedTitle.length;
+    const relPath = path.relative(distDir, file).replace(/\\/g, '/');
+
+    if (len < 45 || len > 58) {
+      console.warn(`[Title Tag Warning] Title length out of range (45-58 chars): [${len} chars] ${relPath}: "${decodedTitle}"`);
+      titleErrorsCount++;
+    }
+
+    if (!decodedTitle.endsWith('| Build Yardage')) {
+      console.warn(`[Title Tag Warning] Title missing '| Build Yardage' suffix: ${relPath}: "${decodedTitle}"`);
+      titleErrorsCount++;
+    }
+  }
+}
+
+if (titleErrorsCount === 0) {
+  console.log(`[Title Tag Validator] SUCCESS: All ${htmlFiles.length} HTML files have valid titles (45-58 chars ending with '| Build Yardage')!`);
+}
+
+// ----------------------------------------------------
+// 2. Audit Sitemap Entries
+// ----------------------------------------------------
 const urlBlockRegex = /<url>[\s\S]*?<\/url>/g;
 const urlBlocks = sitemapContent.match(urlBlockRegex) || [];
 
@@ -64,7 +102,7 @@ for (const block of urlBlocks) {
   const urlStr = locMatch[1];
   const urlObj = new URL(urlStr);
 
-  // 1. Protocol & Domain check
+  // Protocol & Domain check
   if (urlObj.protocol !== 'https:') {
     errors.push(`Non-https protocol: ${urlStr}`);
     continue;
@@ -74,7 +112,7 @@ for (const block of urlBlocks) {
     continue;
   }
 
-  // 2. Trailing slash consistency check
+  // Trailing slash consistency check
   const pathname = urlObj.pathname;
   const isHomepageRoot = pathname === '/' || /^\/[a-z]{2}\/$/.test(pathname);
 
@@ -90,7 +128,7 @@ for (const block of urlBlocks) {
     }
   }
 
-  // 3. Exclude non-indexable routes
+  // Exclude non-indexable routes
   if (
     pathname.includes('/404') ||
     pathname.includes('/500') ||
@@ -101,7 +139,7 @@ for (const block of urlBlocks) {
     continue;
   }
 
-  // 4. Check corresponding built file in dist/
+  // Check corresponding built file in dist/
   let normalizedRoute = pathname;
   if (!isHomepageRoot && normalizedRoute.endsWith('/')) {
     normalizedRoute = normalizedRoute.slice(0, -1);
@@ -114,7 +152,7 @@ for (const block of urlBlocks) {
     continue;
   }
 
-  // 5. Check duplicate entries
+  // Check duplicate entries
   if (seenLocs.has(urlStr)) {
     errors.push(`Duplicate URL entry found: ${urlStr}`);
     continue;
