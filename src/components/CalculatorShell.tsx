@@ -582,23 +582,13 @@ export default function CalculatorShell({
                 <Ruler size={18} className="text-brand-accent" />
                 <span>{t.calculatorShell.inputsHeader}</span>
               </h2>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setIsEmbedModalOpen(true)}
-                  className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
-                  title="Embed calculator on your website"
-                >
-                  <Code size={14} className="text-brand-accent" />
-                  <span>{t.calculatorShell.embedWidget || 'Embed'}</span>
-                </button>
-                {/* Unit Toggle Switch */}
-                <button 
-                  onClick={handleUnitToggle}
-                  className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
-                >
-                  <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
-                </button>
-              </div>
+              {/* Unit Toggle Switch */}
+              <button 
+                onClick={handleUnitToggle}
+                className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
+              >
+                <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
+              </button>
             </div>
 
             {/* Form Inputs (Children) */}

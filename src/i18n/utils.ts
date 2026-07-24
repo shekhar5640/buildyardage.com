@@ -107,17 +107,32 @@ export function formatMetaTitle(rawTitle: string): string {
   const suffix = ' | Build Yardage';
   let title = (rawTitle || '').trim();
 
-  // Strip pre-existing brand suffixes
+  // Strip pre-existing brand prefixes & suffixes
   title = title
+    .replace(/^Build\s*Yardage\s*\|\s*/i, '')
+    .replace(/^BuildYardage\s*\|\s*/i, '')
     .replace(/\s*\|\s*Build\s*Yardage$/i, '')
     .replace(/\s*\|\s*BuildYardage$/i, '')
+    .replace(/\s*-\s*BuildYardage$/i, '')
+    .replace(/\s*-\s*Build\s*Yardage$/i, '')
     .trim();
+
+  // Remove internal duplicate brand mentions if title is long enough
+  if (title.length > 20 && /Build\s*Yardage/i.test(title)) {
+    title = title.replace(/\s*Build\s*Yardage\s*/gi, ' ').replace(/\s+/g, ' ').trim();
+  }
 
   let fullTitle = `${title}${suffix}`;
 
   if (fullTitle.length > 58) {
     const maxContentLen = 58 - suffix.length; // 42 chars
     title = title.slice(0, maxContentLen).trim();
+    // Clean up trailing connectors or punctuation resulting from truncation
+    title = title
+      .replace(/[\s&|,-:]+$/, '')
+      .replace(/\s+and$/i, '')
+      .replace(/\s+or$/i, '')
+      .trim();
     fullTitle = `${title}${suffix}`;
   } else if (fullTitle.length < 45) {
     const minContentLen = 45 - suffix.length; // 29 chars
@@ -127,12 +142,15 @@ export function formatMetaTitle(rawTitle: string): string {
         title = '404 Page Not Found Error Details';
       } else if (title.includes('500')) {
         title = '500 Internal Server Error Details';
+      } else if (title.toLowerCase().includes('contact')) {
+        title = 'Contact & Customer Support Team';
       } else {
         title = `${title} Construction Estimator`;
       }
 
       if (title.length > minContentLen) {
         title = title.slice(0, 58 - suffix.length).trim();
+        title = title.replace(/[\s&|,-:]+$/, '').trim();
       }
     }
     fullTitle = `${title}${suffix}`;
