@@ -452,6 +452,7 @@ export default function CalculatorShell({
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
   const [printDate, setPrintDate] = useState<string>('');
   const [isEmbedModalOpen, setIsEmbedModalOpen] = useState(false);
+  const [currency, setCurrency] = useState<string>('$');
 
   // Load cache on mount
   useEffect(() => {
@@ -465,6 +466,9 @@ export default function CalculatorShell({
       const storedList = localStorage.getItem('buildyardage_shopping');
       if (storedList) setShoppingList(JSON.parse(storedList));
 
+      const storedCurrency = localStorage.getItem('buildyardage_currency');
+      if (storedCurrency) setCurrency(storedCurrency);
+
       setPrintDate(new Date().toLocaleDateString(undefined, { 
         weekday: 'long', 
         year: 'numeric', 
@@ -477,6 +481,15 @@ export default function CalculatorShell({
       console.error('LocalStorage hydration failed:', e);
     }
   }, []);
+
+  const handleCurrencyChange = (newCurrency: string) => {
+    setCurrency(newCurrency);
+    try {
+      localStorage.setItem('buildyardage_currency', newCurrency);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // Listen for open-embed-modal custom event from Astro hero section
   useEffect(() => {
@@ -649,9 +662,12 @@ export default function CalculatorShell({
         <section className="order-2 lg:order-none lg:col-span-4 bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between shadow-sm calculator-inputs">
           <div>
             <div className="flex items-center justify-between border-b border-hairline pb-4 mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-ink flex items-center gap-2">
-                <Ruler size={15} className="text-brand-accent" />
-                <span>{t.calculatorShell.inputsHeader}</span>
+              <h2 
+                className="font-bold uppercase tracking-wider text-ink flex items-center gap-2 whitespace-nowrap"
+                style={{ fontSize: '15px', lineHeight: '1.2' }}
+              >
+                <Ruler size={16} className="text-brand-accent shrink-0" />
+                <span className="whitespace-nowrap">{t.calculatorShell.inputsHeader}</span>
               </h2>
               {/* Unit Toggle Switch */}
               <button 
@@ -712,14 +728,36 @@ export default function CalculatorShell({
                 {/* Pricing Input & Cost Estimation */}
                 {results && (
                   <div className="border-t border-hairline pt-4 mt-6 space-y-4">
-                    {/* Unit Price input row */}
+                    {/* Unit Price input row with Currency Selector */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-                      <label className="text-sm font-semibold text-ink">
-                        {t.calculatorShell.pricePerUnit}
-                      </label>
+                      <div className="flex items-center gap-2">
+                        <label className="text-sm font-semibold text-ink">
+                          {t.calculatorShell.pricePerUnit}
+                        </label>
+                        {/* Currency Selector */}
+                        <select
+                          value={currency}
+                          onChange={(e) => handleCurrencyChange(e.target.value)}
+                          className="text-xs font-semibold px-1.5 py-1 rounded border border-hairline bg-surface-soft text-ink focus:outline-none focus:border-brand-accent cursor-pointer"
+                          title="Select Currency"
+                          aria-label="Select Currency"
+                        >
+                          <option value="$">$ (USD)</option>
+                          <option value="€">€ (EUR)</option>
+                          <option value="£">£ (GBP)</option>
+                          <option value="₹">₹ (INR)</option>
+                          <option value="C$">C$ (CAD)</option>
+                          <option value="A$">A$ (AUD)</option>
+                          <option value="¥">¥ (JPY/CNY)</option>
+                          <option value="R$">R$ (BRL)</option>
+                          <option value="fr.">fr. (CHF)</option>
+                          <option value="kr">kr (SEK)</option>
+                        </select>
+                      </div>
+
                       <div className="relative rounded-md shadow-sm w-full sm:w-36">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="text-muted-soft text-xs">$</span>
+                          <span className="text-muted-soft text-xs font-bold">{currency}</span>
                         </div>
                         <input 
                           type="number"
@@ -733,15 +771,17 @@ export default function CalculatorShell({
                       </div>
                     </div>
 
-                    {/* Estimated Cost row (calculated only if a price is entered) */}
-                    {pricePerUnit > 0 && (results as any).estimatedCost !== undefined && (
-                      <div className="flex justify-between items-baseline pt-2">
-                        <span className="text-sm text-ink font-bold">{t.calculatorShell.estimatedCost}</span>
-                        <span className="text-2xl font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
-                          ${(results as any).estimatedCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </span>
-                      </div>
-                    )}
+                    {/* Estimated Total Cost row - ALWAYS PRESENT */}
+                    <div className="flex justify-between items-baseline pt-2 border-t border-hairline-soft">
+                      <span className="text-sm text-ink font-bold">{t.calculatorShell.estimatedCost}</span>
+                      <span className="text-2xl font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
+                        {currency}
+                        {((pricePerUnit > 0 && (results as any).estimatedCost !== undefined)
+                          ? (results as any).estimatedCost
+                          : 0
+                        ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>

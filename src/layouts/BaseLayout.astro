@@ -50,14 +50,24 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-YRRNFR5FDD"></script>
+    <!-- Google Tag Manager / Analytics (Loaded on window load to prevent FCP/LCP main thread blocking) -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-YRRNFR5FDD');
+      function initGtag() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-YRRNFR5FDD';
+        document.head.appendChild(s);
+        gtag('config', 'G-YRRNFR5FDD');
+      }
+      if (document.readyState === 'complete') {
+        initGtag();
+      } else {
+        window.addEventListener('load', initGtag, { once: true });
+      }
     </script>
     
     <!-- Canonical & SEO Meta Tags -->

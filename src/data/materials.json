@@ -14,7 +14,7 @@
   {
     "slug": "concrete-column-calculator",
     "material": "Concrete",
-    "shape": "Column (Cylinder)",
+    "shape": "Column",
     "type": "cylindrical",
     "meta_title": "Concrete Column & Pier Calculator | Build Yardage",
     "meta_description": "Estimate concrete volume for round columns, sonotubes, and fence post holes. Supports custom diameter and height.",
@@ -26,7 +26,7 @@
   {
     "slug": "gravel-driveway-calculator",
     "material": "Gravel",
-    "shape": "Driveway (Rectangular)",
+    "shape": "Driveway",
     "type": "gravel-rect",
     "meta_title": "Gravel Driveway & Tons Calculator | Build Yardage",
     "meta_description": "Estimate gravel tonnage and cubic yards needed for a driveway or patio base. Enter custom dimensions and density factors.",
@@ -38,7 +38,7 @@
   {
     "slug": "drywall-calculator",
     "material": "Drywall",
-    "shape": "Room Panels",
+    "shape": "Sheet",
     "type": "drywall",
     "meta_title": "Drywall Sheet & Panel Calculator | Build Yardage",
     "meta_description": "Calculate standard 4x8 or 4x12 drywall sheets, screws, tape, and joint compound needed for walls and ceilings.",
@@ -50,9 +50,9 @@
   {
     "slug": "framing-calculator",
     "material": "Wood",
-    "shape": "Stud Wall",
+    "shape": "Framing",
     "type": "framing",
-    "meta_title": "Wood Stud Wall Framing Calculator | Build Yardage",
+    "meta_title": "Wood Framing Calculator | Build Yardage",
     "meta_description": "Calculate total studs, top plates, and bottom plates needed for a wood frame wall. Supports 16\" and 24\" spacing.",
     "default_waste_percent": 10,
     "default_thickness": 0,
@@ -62,7 +62,7 @@
   {
     "slug": "rebar-calculator",
     "material": "Rebar",
-    "shape": "Reinforcement Grid",
+    "shape": "Grid",
     "type": "rebar",
     "meta_title": "Rebar Steel Grid Weight Calculator | Build Yardage",
     "meta_description": "Estimate rebar grid spacing, total linear footage, number of sticks/pieces, and total weight by bar size (#3 to #8). Free construction estimator.",

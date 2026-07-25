@@ -45,7 +45,7 @@ const jsonLd = {
       <nav class="flex text-xs text-muted mb-4 gap-2">
         <a href="/" class="hover:text-ink">Home</a>
         <span>/</span>
-        <a href="/calculators/framing-calculator" class="hover:text-ink">Wood Stud Wall Framing Calculator</a>
+        <a href="/calculators/framing-calculator" class="hover:text-ink">Wood Framing Calculator</a>
         <span>/</span>
         <span class="text-brand-accent font-semibold">{pageData.slug}</span>
       </nav>
@@ -60,7 +60,7 @@ const jsonLd = {
       <FramingCalculator 
         initialWallLength={pageData.inputs.wallLength} 
         initialStudSpacing={pageData.inputs.studSpacing} 
-        client:load 
+        client:idle 
       />
 
       <div class="mt-8 bg-brand-accent/10 border border-brand-accent/30 rounded-xl p-6 shadow-xs max-w-7xl">
