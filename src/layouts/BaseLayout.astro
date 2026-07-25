@@ -12,6 +12,7 @@ import {
   type SupportedLocale
 } from '../i18n/utils';
 import { LanguageSelector } from '../components/LanguageSelector';
+import FooterEmail from '../components/FooterEmail';
 
 interface Props {
   title: string;
@@ -341,9 +342,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             </p>
             <div class="flex items-center gap-2 pt-1 text-sm text-zinc-400">
               <span class="text-zinc-500 font-semibold">{t.footer.contactLabel}</span>
-              <a href="mailto:contact@buildyardage.com" class="text-brand-accent hover:underline font-mono text-xs sm:text-sm">
-                contact@buildyardage.com
-              </a>
+              <FooterEmail client:idle />
             </div>
             <p class="text-xs text-zinc-500 font-mono pt-1">
               &copy; {new Date().getFullYear()} buildyardage.com. {t.common.copyright}
