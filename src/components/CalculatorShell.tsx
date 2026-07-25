@@ -840,7 +840,12 @@ export default function CalculatorShell({
         <div className="print-header flex items-center justify-between border-b-2 border-indigo-600 pb-4 mb-6">
           <div className="print-header-left">
             <div className="text-2xl font-extrabold tracking-tight font-sans flex items-center gap-2 select-none">
-              <img src="/favicon.svg" alt="Build Yardage Logo" className="h-7 w-7" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="h-7 w-7 shrink-0" aria-label="Build Yardage Logo">
+                <rect width="32" height="32" rx="8" fill="#10B981"/>
+                <path d="M16 6L7 11V21L16 26L25 21V11L16 6Z" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 11L16 16L25 11" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M16 16V26" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
               <span>
                 <span className="text-black">Build</span>
                 <span style={{ color: '#4f46e5' }}>yardage</span>
