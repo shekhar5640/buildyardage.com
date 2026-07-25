@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { 
   Trash2, Printer, Plus, History, CheckSquare, Square, 
-  ShoppingBag, Eye, Ruler, AlertCircle, Code
+  ShoppingBag, Eye, Ruler, AlertCircle, Code, Info
 } from 'lucide-react';
 const EmbedModal = lazy(() => import('./EmbedModal'));
+const UnitPriceBreakdownModal = lazy(() => import('./UnitPriceBreakdownModal'));
 import { LOGO_DATA_URI } from '../constants/logo';
 import { 
   type ConcreteSlabResult,
@@ -420,6 +421,7 @@ interface CalculatorShellProps {
   renderVisualizer: () => React.ReactNode;
   renderOutputs: () => React.ReactNode;
   isEmbed?: boolean;
+  breakdownContext?: Record<string, any>;
 }
 
 export default function CalculatorShell({
@@ -444,7 +446,8 @@ export default function CalculatorShell({
   children,
   renderVisualizer,
   renderOutputs,
-  isEmbed = false
+  isEmbed = false,
+  breakdownContext = {},
 }: CalculatorShellProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -453,6 +456,7 @@ export default function CalculatorShell({
   const [printDate, setPrintDate] = useState<string>('');
   const [isEmbedModalOpen, setIsEmbedModalOpen] = useState(false);
   const [currency, setCurrency] = useState<string>('$');
+  const [showBreakdownModal, setShowBreakdownModal] = useState(false);
 
   // Load cache on mount
   useEffect(() => {
@@ -730,9 +734,21 @@ export default function CalculatorShell({
                   <div className="border-t border-hairline pt-4 mt-6 space-y-4">
                     {/* Unit Price input row with Embedded Currency Selector */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-                      <label className="text-sm font-semibold text-ink">
-                        {t.calculatorShell.pricePerUnit}
-                      </label>
+                      <div className="flex items-center gap-1.5">
+                        <label className="text-sm font-semibold text-ink">
+                          {t.calculatorShell.pricePerUnit}
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setShowBreakdownModal(true)}
+                          title="Open Cost Breakdown Helper"
+                          aria-label="Open Unit Price Cost Breakdown Helper"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded-md text-brand-accent hover:bg-brand-accent/10 transition-colors text-xs font-semibold border border-brand-accent/30"
+                        >
+                          <Info size={11} />
+                          <span>Estimate</span>
+                        </button>
+                      </div>
 
                       <div className="relative flex rounded-md shadow-sm w-full sm:w-44 border border-hairline bg-canvas focus-within:border-brand-accent focus-within:ring-1 focus-within:ring-brand-accent transition-all overflow-hidden">
                         {/* Integrated Currency Selector Prefix Addon */}
@@ -1163,6 +1179,20 @@ export default function CalculatorShell({
           />
         </Suspense>
       )}
+      {showBreakdownModal && (
+        <Suspense fallback={null}>
+          <UnitPriceBreakdownModal
+            isOpen={showBreakdownModal}
+            onClose={() => setShowBreakdownModal(false)}
+            onApply={(total) => setPriceInput(String(total))}
+            calculatorType={type}
+            currency={currency}
+            isMetric={isMetric}
+            breakdownContext={breakdownContext}
+          />
+        </Suspense>
+      )}
     </div>
+
   );
 }

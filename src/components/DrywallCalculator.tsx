@@ -96,6 +96,7 @@ export default function DrywallCalculator({
       onAdd={handleAdd}
       onRestore={handleRestore}
       isEmbed={isEmbed}
+      breakdownContext={{ sheetSize }}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <rect x="50" y="40" width="200" height="100" fill="var(--color-surface-soft)" stroke="var(--color-muted)" strokeWidth="1.5" />

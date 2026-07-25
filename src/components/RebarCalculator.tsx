@@ -98,6 +98,7 @@ export default function RebarCalculator({
       onAdd={handleAdd}
       onRestore={handleRestore}
       isEmbed={isEmbed}
+      breakdownContext={{ rebarSize }}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <rect x="40" y="30" width="220" height="120" fill="var(--color-surface-soft)" stroke="var(--color-muted)" strokeWidth="1.5" />
