@@ -22,11 +22,10 @@ export default function EmbedModal({
 
   // Clean slug for embed iframe route
   const embedSlug = calculatorSlug.replace(/-calculator$/, '');
-  const canonicalUrl = `https://buildyardage.com/calculators/${calculatorSlug}`;
   const embedUrl = `https://buildyardage.com/embed/${embedSlug}`;
 
   // Standardized Backlink Embed Snippet
-  const snippet = `<iframe src="${embedUrl}" width="100%" height="520" frameborder="0"></iframe>\n<p style="font-size:12px; text-align:center;">\n  Powered by <a href="${canonicalUrl}" target="_blank" rel="noopener">Build Yardage ${calculatorTitle}</a>\n</p>`;
+  const snippet = `<iframe src="${embedUrl}" width="100%" height="480" style="border:0; overflow:hidden;" title="BuildYardage Calculator"></iframe>\n<p style="font-size:12px; text-align:center; margin-top:6px; font-family:sans-serif;">\n  Powered by <a href="https://buildyardage.com/" target="_blank" rel="noopener">BuildYardage</a>\n</p>`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(snippet);
@@ -74,7 +73,7 @@ export default function EmbedModal({
             <textarea
               readOnly
               value={snippet}
-              rows={4}
+              rows={5}
               className="w-full font-mono text-xs p-3.5 rounded-lg border border-hairline bg-surface-card text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent resize-none selection:bg-brand-accent/20"
             />
           </div>
@@ -85,12 +84,12 @@ export default function EmbedModal({
           <label className="text-xs font-semibold text-muted uppercase tracking-wider">
             Widget Preview
           </label>
-          <div className="border border-hairline rounded-lg overflow-hidden bg-surface-card p-2 text-center">
+          <div className="border border-hairline rounded-lg overflow-hidden bg-surface-card p-3 text-center">
             <div className="text-[11px] text-muted mb-1 font-mono">
               [iframe src="{embedUrl}"]
             </div>
-            <p className="text-xs text-muted">
-              Powered by <a href={canonicalUrl} target="_blank" rel="noopener" className="text-brand-accent underline font-medium">Build Yardage {calculatorTitle}</a>
+            <p style={{ fontSize: '12px', textAlign: 'center', marginTop: '6px', fontFamily: 'sans-serif' }}>
+              Powered by <a href="https://buildyardage.com/" target="_blank" rel="noopener" className="text-brand-accent underline font-medium">BuildYardage</a>
             </p>
           </div>
         </div>

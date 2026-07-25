@@ -6,8 +6,6 @@ import GravelCalculator from '../../components/GravelCalculator';
 import DrywallCalculator from '../../components/DrywallCalculator';
 import FramingCalculator from '../../components/FramingCalculator';
 import RebarCalculator from '../../components/RebarCalculator';
-import { ExternalLink } from 'lucide-react';
-import { LOGO_DATA_URI } from '../../constants/logo';
 
 export function getStaticPaths() {
   const embedRoutes = [
@@ -16,6 +14,7 @@ export function getStaticPaths() {
     { slug: 'concrete-column', calcSlug: 'concrete-column-calculator', title: 'Concrete Column Calculator', component: 'concrete-column' },
     { slug: 'concrete-column-calculator', calcSlug: 'concrete-column-calculator', title: 'Concrete Column Calculator', component: 'concrete-column' },
     { slug: 'gravel', calcSlug: 'gravel-driveway-calculator', title: 'Gravel Driveway Calculator', component: 'gravel' },
+    { slug: 'gravel-driveway', calcSlug: 'gravel-driveway-calculator', title: 'Gravel Driveway Calculator', component: 'gravel' },
     { slug: 'gravel-driveway-calculator', calcSlug: 'gravel-driveway-calculator', title: 'Gravel Driveway Calculator', component: 'gravel' },
     { slug: 'drywall', calcSlug: 'drywall-calculator', title: 'Drywall Calculator', component: 'drywall' },
     { slug: 'drywall-calculator', calcSlug: 'drywall-calculator', title: 'Drywall Calculator', component: 'drywall' },
@@ -34,38 +33,13 @@ export function getStaticPaths() {
 const { routeData } = Astro.props;
 ---
 
-<EmbedLayout title={`${routeData.title} Widget | Build Yardage`}>
-  <div class="max-w-4xl mx-auto space-y-3">
-    <!-- Header banner inside embed widget -->
-    <div class="flex items-center justify-between border-b border-hairline pb-2.5 px-1">
-      <div class="flex items-center gap-2">
-        <img src={LOGO_DATA_URI} alt="Build Yardage Logo" class="h-5 w-5" />
-        <span class="text-sm font-extrabold tracking-tight text-ink font-sans">
-          Build<span class="text-indigo-600 dark:text-indigo-400">yardage</span>
-        </span>
-      </div>
-      <a 
-        href={`https://buildyardage.com/calculators/${routeData.calcSlug}`}
-        target="_blank" 
-        rel="noopener"
-        class="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1"
-      >
-        <span>Full Calculator</span>
-        <ExternalLink size={12} />
-      </a>
-    </div>
-
-    <!-- Calculator Component Island -->
-    {routeData.component === 'concrete-slab' && <ConcreteSlabCalculator client:load />}
-    {routeData.component === 'concrete-column' && <ConcreteColumnCalculator client:load />}
-    {routeData.component === 'gravel' && <GravelCalculator client:load />}
-    {routeData.component === 'drywall' && <DrywallCalculator client:load />}
-    {routeData.component === 'framing' && <FramingCalculator client:load />}
-    {routeData.component === 'rebar' && <RebarCalculator client:load />}
-
-    <!-- Attribution Backlink Footer -->
-    <div class="text-center pt-2 pb-1 border-t border-hairline text-xs text-muted">
-      Powered by <a href={`https://buildyardage.com/calculators/${routeData.calcSlug}`} target="_blank" rel="noopener" class="font-semibold text-brand-accent hover:underline">Build Yardage {routeData.title}</a>
-    </div>
+<EmbedLayout title={`${routeData.title} Widget | BuildYardage`}>
+  <div class="h-full w-full overflow-hidden p-3">
+    {routeData.component === 'concrete-slab' && <ConcreteSlabCalculator isEmbed={true} client:load />}
+    {routeData.component === 'concrete-column' && <ConcreteColumnCalculator isEmbed={true} client:load />}
+    {routeData.component === 'gravel' && <GravelCalculator isEmbed={true} client:load />}
+    {routeData.component === 'drywall' && <DrywallCalculator isEmbed={true} client:load />}
+    {routeData.component === 'framing' && <FramingCalculator isEmbed={true} client:load />}
+    {routeData.component === 'rebar' && <RebarCalculator isEmbed={true} client:load />}
   </div>
 </EmbedLayout>

@@ -8,13 +8,15 @@ interface ConcreteColumnProps {
   initialDepth?: number;
   initialIsMetric?: boolean;
   locale?: string;
+  isEmbed?: boolean;
 }
 
 export default function ConcreteColumnCalculator({
   initialDiameter = 12,
   initialDepth = 8,
   initialIsMetric = false,
-  locale
+  locale,
+  isEmbed = false
 }: ConcreteColumnProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -86,6 +88,7 @@ export default function ConcreteColumnCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
+      isEmbed={isEmbed}
       renderVisualizer={() => (
         <svg viewBox="0 0 240 180" className="w-full max-h-[180px]">
           <ellipse cx="120" cy="40" rx="45" ry="15" fill="var(--color-surface-strong)" stroke="var(--color-muted)" strokeWidth="1.5" />

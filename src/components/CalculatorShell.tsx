@@ -419,6 +419,7 @@ interface CalculatorShellProps {
   children: React.ReactNode; // Inputs
   renderVisualizer: () => React.ReactNode;
   renderOutputs: () => React.ReactNode;
+  isEmbed?: boolean;
 }
 
 export default function CalculatorShell({
@@ -442,7 +443,8 @@ export default function CalculatorShell({
   
   children,
   renderVisualizer,
-  renderOutputs
+  renderOutputs,
+  isEmbed = false
 }: CalculatorShellProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -569,6 +571,79 @@ export default function CalculatorShell({
   const handleUnitToggle = () => {
     setIsMetric(!isMetric);
   };
+
+  if (isEmbed) {
+    return (
+      <div className="h-[460px] max-h-[460px] w-full bg-canvas border border-hairline rounded-xl p-3 flex flex-col justify-between overflow-hidden text-ink select-none font-sans box-border">
+        {/* Widget Top Bar */}
+        <div className="flex items-center justify-between border-b border-hairline pb-2 mb-2 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <img src={LOGO_DATA_URI} alt="BuildYardage Logo" className="h-4 w-4 select-none" />
+            <span className="text-xs font-bold tracking-tight text-ink">
+              Build<span className="text-brand-accent">Yardage</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={handleUnitToggle}
+              className="text-[11px] font-semibold px-2 py-0.5 rounded border border-hairline bg-surface-soft text-ink hover:bg-hairline cursor-pointer transition-all active:scale-95"
+            >
+              {isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}
+            </button>
+            <a 
+              href={`https://buildyardage.com/calculators/${slug}`}
+              target="_blank" 
+              rel="noopener"
+              className="text-[11px] font-semibold text-brand-accent hover:underline flex items-center gap-1"
+            >
+              <span>Full Calc</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Widget Grid Layout: Inputs Left, Outputs & Visualizer Right */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-grow overflow-hidden items-stretch">
+          {/* Inputs Column */}
+          <div className="space-y-2 flex flex-col justify-between overflow-hidden pr-1">
+            <div className="space-y-2 text-xs">
+              {children}
+            </div>
+
+            {/* Waste Margin Slider */}
+            <div className="space-y-1 border-t border-hairline pt-2">
+              <div className="flex justify-between text-[11px]">
+                <label className="font-semibold text-ink">{t.calculatorShell.wasteMargin} (%)</label>
+                <span className="font-mono font-bold text-red-500">+{waste}%</span>
+              </div>
+              <input 
+                type="range" 
+                min="0" 
+                max="30" 
+                value={waste}
+                onChange={(e) => setWaste(parseInt(e.target.value) || 0)}
+                className="w-full h-1 accent-indigo-600 dark:accent-indigo-400"
+              />
+            </div>
+          </div>
+
+          {/* Outputs Column */}
+          <div className="bg-surface-card border border-hairline rounded-lg p-2.5 flex flex-col justify-between overflow-hidden">
+            <div className="space-y-1.5 overflow-hidden text-xs">
+              <h3 className="text-[10px] font-semibold text-muted uppercase tracking-wider mb-1">{t.calculatorShell.resultsHeader}</h3>
+              <div className="space-y-2 text-xs">
+                {renderOutputs()}
+              </div>
+            </div>
+
+            {/* Visualizer Mini SVG */}
+            <div className="mt-2 pt-2 border-t border-hairline flex items-center justify-center max-h-[100px] overflow-hidden shrink-0">
+              {renderVisualizer()}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

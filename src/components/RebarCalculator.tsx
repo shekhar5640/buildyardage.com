@@ -10,6 +10,7 @@ interface RebarProps {
   initialRebarSize?: string;
   initialIsMetric?: boolean;
   locale?: string;
+  isEmbed?: boolean;
 }
 
 export default function RebarCalculator({
@@ -18,7 +19,8 @@ export default function RebarCalculator({
   initialSpacing = 12,
   initialRebarSize = '#4',
   initialIsMetric = false,
-  locale
+  locale,
+  isEmbed = false
 }: RebarProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -37,14 +39,14 @@ export default function RebarCalculator({
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);
 
   const results = useMemo(() => {
-    const res = calculateRebar(length, width, rebarSpacing, rebarStickLength, rebarOverlap, thickness, rebarSize, waste, isMetric);
+    const res = calculateRebar(length, width, thickness, rebarSpacing, rebarStickLength, rebarOverlap, waste, rebarSize, isMetric);
     if (pricePerUnit > 0) {
       res.estimatedCost = parseFloat((res.totalPieces * pricePerUnit).toFixed(2));
     } else {
       res.estimatedCost = undefined;
     }
     return res;
-  }, [length, width, rebarSpacing, rebarStickLength, rebarOverlap, thickness, rebarSize, waste, isMetric, pricePerUnit]);
+  }, [length, width, thickness, rebarSpacing, rebarStickLength, rebarOverlap, waste, rebarSize, isMetric, pricePerUnit]);
 
   const handleRestore = (inputs: Record<string, any>, metric: boolean) => {
     setIsMetric(metric);
@@ -57,7 +59,7 @@ export default function RebarCalculator({
   const handleAdd = (): ShoppingItem => {
     const lUnit = isMetric ? "m" : "ft";
     const itemTitle = `${t.nav.rebar} (${length}${lUnit} x ${width}${lUnit} @ ${rebarSpacing}" grid)`;
-    const itemDetails = `${results.totalPieces} sticks (${rebarSize}) + ${results.totalWeightLbs} ${isMetric ? 'kg' : 'lbs'}`;
+    const itemDetails = `${results.totalPieces} sticks (${rebarSize}) + ${isMetric ? results.estimatedWeightKgs : results.estimatedWeightLbs} ${isMetric ? 'kg' : 'lbs'}`;
 
     const newItem: ShoppingItem = {
       id: Date.now().toString(),
@@ -95,6 +97,7 @@ export default function RebarCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
+      isEmbed={isEmbed}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <rect x="40" y="30" width="220" height="120" fill="var(--color-surface-soft)" stroke="var(--color-muted)" strokeWidth="1.5" />
@@ -125,14 +128,14 @@ export default function RebarCalculator({
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.rebarWeight}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.totalWeightLbs} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
+              {isMetric ? results.estimatedWeightKgs : results.estimatedWeightLbs} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.lapSplice}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.lapSpliceInches} <span className="text-xs font-normal text-muted">{isMetric ? 'cm' : 'in'}</span>
+              {rebarOverlap} <span className="text-xs font-normal text-muted">{isMetric ? 'cm' : 'in'}</span>
             </span>
           </div>
         </>

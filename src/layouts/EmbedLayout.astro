@@ -7,11 +7,11 @@ interface Props {
   lang?: string;
 }
 
-const { title, description = 'Build Yardage Construction Calculator Widget', lang = 'en' } = Astro.props;
+const { title, description = 'BuildYardage Calculator Widget', lang = 'en' } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang={lang} class="h-full bg-canvas">
+<html lang={lang} class="h-full w-full m-0 p-0 overflow-hidden bg-canvas">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,7 @@ const { title, description = 'Build Yardage Construction Calculator Widget', lan
     <meta name="robots" content="noindex, follow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="h-full bg-canvas text-ink antialiased p-2 sm:p-4 selection:bg-brand-accent selection:text-white">
+  <body class="h-full w-full m-0 p-0 overflow-hidden bg-canvas text-ink antialiased selection:bg-brand-accent selection:text-white">
     <slot />
   </body>
 </html>

@@ -8,13 +8,15 @@ interface FramingProps {
   initialStudSpacing?: number;
   initialIsMetric?: boolean;
   locale?: string;
+  isEmbed?: boolean;
 }
 
 export default function FramingCalculator({
   initialWallLength = 50,
   initialStudSpacing = 16,
   initialIsMetric = false,
-  locale
+  locale,
+  isEmbed = false
 }: FramingProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -89,6 +91,7 @@ export default function FramingCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
+      isEmbed={isEmbed}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <rect x="30" y="30" width="240" height="120" fill="none" stroke="var(--color-ink)" strokeWidth="3" />

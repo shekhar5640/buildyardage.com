@@ -10,6 +10,7 @@ interface DrywallProps {
   initialHeight?: number;
   initialIsMetric?: boolean;
   locale?: string;
+  isEmbed?: boolean;
 }
 
 export default function DrywallCalculator({
@@ -17,7 +18,8 @@ export default function DrywallCalculator({
   initialWidth = 10,
   initialHeight = 8,
   initialIsMetric = false,
-  locale
+  locale,
+  isEmbed = false
 }: DrywallProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -27,7 +29,7 @@ export default function DrywallCalculator({
   const [thickness, setThickness] = useState<number>(initialHeight); // wall height
   const [waste, setWaste] = useState<number>(10);
   const [includeCeiling, setIncludeCeiling] = useState<boolean>(false);
-  const [sheetSize, setSheetSize] = useState<string>('4x8');
+  const [sheetSize, setSheetSize] = useState<'4x8' | '4x12'>('4x8');
   const [isMetric, setIsMetric] = useState<boolean>(initialIsMetric);
   const [priceInput, setPriceInput] = useState<string>("");
 
@@ -93,6 +95,7 @@ export default function DrywallCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
+      isEmbed={isEmbed}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <rect x="50" y="40" width="200" height="100" fill="var(--color-surface-soft)" stroke="var(--color-muted)" strokeWidth="1.5" />
@@ -126,7 +129,7 @@ export default function DrywallCalculator({
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.screws}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.screwsCount} <span className="text-xs font-normal text-muted">pcs</span>
+              {results.screwsNeeded} <span className="text-xs font-normal text-muted">pcs</span>
             </span>
           </div>
 

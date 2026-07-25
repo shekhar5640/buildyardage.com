@@ -9,6 +9,7 @@ interface GravelProps {
   initialDepth?: number;
   initialIsMetric?: boolean;
   locale?: string;
+  isEmbed?: boolean;
 }
 
 export default function GravelCalculator({
@@ -16,7 +17,8 @@ export default function GravelCalculator({
   initialWidth = 10,
   initialDepth = 4,
   initialIsMetric = false,
-  locale
+  locale,
+  isEmbed = false
 }: GravelProps) {
   const activeLocale = (locale || (typeof window !== 'undefined' ? getLocaleFromUrl(window.location.pathname) : 'en')) as SupportedLocale;
   const t = getTranslations(activeLocale);
@@ -91,6 +93,7 @@ export default function GravelCalculator({
       results={results}
       onAdd={handleAdd}
       onRestore={handleRestore}
+      isEmbed={isEmbed}
       renderVisualizer={() => (
         <svg viewBox="0 0 300 180" className="w-full max-h-[180px]">
           <defs>
