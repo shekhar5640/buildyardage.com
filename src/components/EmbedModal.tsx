@@ -25,7 +25,7 @@ export default function EmbedModal({
   const embedUrl = `https://buildyardage.com/embed/${embedSlug}`;
 
   // Standardized Backlink Embed Snippet
-  const snippet = `<iframe src="${embedUrl}" width="100%" height="480" style="border:0; overflow:hidden;" title="BuildYardage Calculator"></iframe>\n<p style="font-size:12px; text-align:center; margin-top:6px; font-family:sans-serif;">\n  Powered by <a href="https://buildyardage.com/" target="_blank" rel="noopener">BuildYardage</a>\n</p>`;
+  const snippet = `<iframe src="${embedUrl}" width="100%" height="650" style="border:0;" title="BuildYardage Calculator"></iframe>\n<p style="font-size:12px; text-align:center; margin-top:8px; font-family:sans-serif;">\n  Powered by <a href="https://buildyardage.com/" target="_blank" rel="noopener">BuildYardage</a>\n</p>`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(snippet);

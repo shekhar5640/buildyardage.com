@@ -574,19 +574,19 @@ export default function CalculatorShell({
 
   if (isEmbed) {
     return (
-      <div className="h-[460px] max-h-[460px] w-full bg-canvas border border-hairline rounded-xl p-3 flex flex-col justify-between overflow-hidden text-ink select-none font-sans box-border">
-        {/* Widget Top Bar */}
-        <div className="flex items-center justify-between border-b border-hairline pb-2 mb-2 shrink-0">
-          <div className="flex items-center gap-1.5">
-            <img src={LOGO_DATA_URI} alt="BuildYardage Logo" className="h-4 w-4 select-none" />
-            <span className="text-xs font-bold tracking-tight text-ink">
+      <div className="w-full max-w-2xl mx-auto bg-canvas border border-hairline rounded-xl p-4 sm:p-6 space-y-5 shadow-sm font-sans box-border text-ink">
+        {/* Widget Top Bar Header */}
+        <div className="flex items-center justify-between border-b border-hairline pb-3">
+          <div className="flex items-center gap-2">
+            <img src={LOGO_DATA_URI} alt="BuildYardage Logo" className="h-5 w-5 select-none" />
+            <span className="text-sm font-extrabold tracking-tight text-ink">
               Build<span className="text-brand-accent">Yardage</span>
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button 
               onClick={handleUnitToggle}
-              className="text-[11px] font-semibold px-2 py-0.5 rounded border border-hairline bg-surface-soft text-ink hover:bg-hairline cursor-pointer transition-all active:scale-95"
+              className="text-xs font-semibold px-2.5 py-1 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline cursor-pointer transition-all active:scale-95"
             >
               {isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}
             </button>
@@ -594,52 +594,47 @@ export default function CalculatorShell({
               href={`https://buildyardage.com/calculators/${slug}`}
               target="_blank" 
               rel="noopener"
-              className="text-[11px] font-semibold text-brand-accent hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1"
             >
-              <span>Full Calc</span>
+              <span>Full Calculator</span>
             </a>
           </div>
         </div>
 
-        {/* Widget Grid Layout: Inputs Left, Outputs & Visualizer Right */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-grow overflow-hidden items-stretch">
-          {/* Inputs Column */}
-          <div className="space-y-2 flex flex-col justify-between overflow-hidden pr-1">
-            <div className="space-y-2 text-xs">
-              {children}
-            </div>
-
-            {/* Waste Margin Slider */}
-            <div className="space-y-1 border-t border-hairline pt-2">
-              <div className="flex justify-between text-[11px]">
-                <label className="font-semibold text-ink">{t.calculatorShell.wasteMargin} (%)</label>
-                <span className="font-mono font-bold text-red-500">+{waste}%</span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="30" 
-                value={waste}
-                onChange={(e) => setWaste(parseInt(e.target.value) || 0)}
-                className="w-full h-1 accent-indigo-600 dark:accent-indigo-400"
-              />
-            </div>
+        {/* Inputs Form Section with comfortable spacing & min-heights */}
+        <div className="space-y-4">
+          <div className="space-y-4">
+            {children}
           </div>
 
-          {/* Outputs Column */}
-          <div className="bg-surface-card border border-hairline rounded-lg p-2.5 flex flex-col justify-between overflow-hidden">
-            <div className="space-y-1.5 overflow-hidden text-xs">
-              <h3 className="text-[10px] font-semibold text-muted uppercase tracking-wider mb-1">{t.calculatorShell.resultsHeader}</h3>
-              <div className="space-y-2 text-xs">
-                {renderOutputs()}
-              </div>
+          {/* Waste Margin Slider */}
+          <div className="space-y-2 border-t border-hairline pt-3 mt-4">
+            <div className="flex justify-between text-xs font-semibold">
+              <label className="text-ink">{t.calculatorShell.wasteMargin} (%)</label>
+              <span className="font-mono font-bold text-red-500">+{waste}%</span>
             </div>
-
-            {/* Visualizer Mini SVG */}
-            <div className="mt-2 pt-2 border-t border-hairline flex items-center justify-center max-h-[100px] overflow-hidden shrink-0">
-              {renderVisualizer()}
-            </div>
+            <input 
+              type="range" 
+              min="0" 
+              max="30" 
+              value={waste}
+              onChange={(e) => setWaste(parseInt(e.target.value) || 0)}
+              className="w-full h-1.5 accent-indigo-600 dark:accent-indigo-400 cursor-pointer"
+            />
           </div>
+        </div>
+
+        {/* Results Output Card */}
+        <div className="bg-surface-card border border-hairline rounded-lg p-4 space-y-3">
+          <h3 className="text-xs font-semibold text-muted uppercase tracking-wider">{t.calculatorShell.resultsHeader}</h3>
+          <div className="space-y-3">
+            {renderOutputs()}
+          </div>
+        </div>
+
+        {/* Visualizer SVG */}
+        <div className="bg-surface-card border border-hairline rounded-lg p-3 flex items-center justify-center min-h-[140px]">
+          {renderVisualizer()}
         </div>
       </div>
     );

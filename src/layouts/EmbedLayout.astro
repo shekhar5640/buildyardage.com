@@ -11,7 +11,7 @@ const { title, description = 'BuildYardage Calculator Widget', lang = 'en' } = A
 ---
 
 <!DOCTYPE html>
-<html lang={lang} class="h-full w-full m-0 p-0 overflow-hidden bg-canvas">
+<html lang={lang} class="h-full w-full m-0 p-0 overflow-y-auto scroll-smooth bg-canvas">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +20,7 @@ const { title, description = 'BuildYardage Calculator Widget', lang = 'en' } = A
     <meta name="robots" content="noindex, follow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="h-full w-full m-0 p-0 overflow-hidden bg-canvas text-ink antialiased selection:bg-brand-accent selection:text-white">
+  <body class="min-h-full w-full m-0 p-0 overflow-y-auto scroll-smooth bg-canvas text-ink antialiased selection:bg-brand-accent selection:text-white">
     <slot />
   </body>
 </html>
