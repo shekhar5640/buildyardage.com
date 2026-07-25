@@ -95,9 +95,9 @@ export function calculateConcreteSlab(
 /**
  * Calculates concrete needed for a cylindrical column / post hole
  * @param diameter Diameter (inches or cm)
- * @param height Height (inches or cm)
+ * @param height Height (ft or m)
  * @param wastePercent Waste percentage (e.g. 5)
- * @param isMetric True if inputs are in cm, false if inches
+ * @param isMetric True if diameter in cm and height in m
  */
 export function calculateConcreteColumn(
   diameter: number,
@@ -109,14 +109,14 @@ export function calculateConcreteColumn(
   let hFt = 0;
 
   if (isMetric) {
-    // diameter and height in cm, convert exactly to feet
+    // diameter in cm, convert to feet; height in m, convert exactly to feet
     const dIn = diameter / 2.54;
     rFt = (dIn / 2) / 12;
-    hFt = (height / 2.54) / 12;
+    hFt = height / 0.3048;
   } else {
-    // diameter and height in inches
+    // diameter in inches; height in feet
     rFt = diameter / 24; // D / 2 / 12
-    hFt = height / 12;
+    hFt = height;
   }
 
   const rawVolumeNoWaste = Math.PI * Math.pow(rFt, 2) * hFt;
