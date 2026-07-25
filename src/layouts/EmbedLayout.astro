@@ -20,6 +20,42 @@ const { title, description = 'BuildYardage Calculator Widget', lang = 'en' } = A
     <meta name="robots" content="noindex, follow" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Responsive Layout Breakpoints for SEO Audits & Mobile Devices -->
+    <style is:inline>
+      /* Mobile-first base layout styles */
+      :root {
+        --layout-breakpoint: "mobile";
+      }
+
+      /* Small devices and mobile landscape */
+      @media (min-width: 640px) {
+        :root {
+          --layout-breakpoint: "sm";
+        }
+      }
+
+      /* Tablet and iPad viewports */
+      @media (min-width: 768px) {
+        :root {
+          --layout-breakpoint: "md";
+        }
+      }
+
+      /* Laptop and Desktop viewports */
+      @media (min-width: 1024px) {
+        :root {
+          --layout-breakpoint: "lg";
+        }
+      }
+
+      /* Large Desktop viewports */
+      @media (min-width: 1280px) {
+        :root {
+          --layout-breakpoint: "xl";
+        }
+      }
+    </style>
   </head>
   <body class="min-h-full w-full m-0 p-0 overflow-y-auto scroll-smooth bg-canvas text-ink antialiased selection:bg-brand-accent selection:text-white">
     <slot />
