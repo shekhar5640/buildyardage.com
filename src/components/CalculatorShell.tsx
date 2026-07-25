@@ -643,14 +643,14 @@ export default function CalculatorShell({
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Upper Grid Layout */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 print-full-width no-print">
+      <div className="flex flex-col gap-6 lg:grid lg:grid-cols-12 print-full-width no-print">
         
         {/* COLUMN 1: Inputs Panel (4 cols) */}
-        <section className="lg:col-span-4 bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between shadow-sm calculator-inputs">
+        <section className="order-2 lg:order-none lg:col-span-4 bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between shadow-sm calculator-inputs">
           <div>
             <div className="flex items-center justify-between border-b border-hairline pb-4 mb-6">
-              <h2 className="text-md font-bold text-ink flex items-center gap-2">
-                <Ruler size={18} className="text-brand-accent" />
+              <h2 className="text-xs font-bold uppercase tracking-wider text-ink flex items-center gap-2">
+                <Ruler size={15} className="text-brand-accent" />
                 <span>{t.calculatorShell.inputsHeader}</span>
               </h2>
               {/* Unit Toggle Switch */}
@@ -694,15 +694,15 @@ export default function CalculatorShell({
           </button>
         </section>
 
-        {/* COLUMN 2: Visualizer & Outputs (5 cols) */}
-        <section className="lg:col-span-5 flex flex-col gap-6 print-card-border">
+        {/* COLUMN 2: Visualizer & Outputs (5 cols) - Mobile uses contents so children order cleanly */}
+        <section className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6 lg:order-none print-card-border">
           {/* Dynamic SVG Visualizer Panel */}
-          <div className="bg-surface-card border border-hairline rounded-lg p-5 flex items-center justify-center min-h-[220px]">
+          <div className="order-1 lg:order-none bg-surface-card border border-hairline rounded-lg p-5 flex items-center justify-center min-h-[220px]">
             {renderVisualizer()}
           </div>
 
           {/* Core Calculation Outputs Card */}
-          <div className="bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between flex-grow shadow-sm">
+          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between flex-grow shadow-sm">
             <div>
               <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">{t.calculatorShell.resultsHeader}</h3>
               
@@ -758,7 +758,7 @@ export default function CalculatorShell({
         </section>
 
         {/* COLUMN 3: Shopping List & History (3 cols) */}
-        <section className="lg:col-span-3 flex flex-col gap-6 print-full-width">
+        <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-6 print-full-width">
           {/* Jobsite Shopping List Sidebar Card */}
           <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col shadow-sm shopping-list-print">
             <div className="flex items-center justify-between border-b border-hairline pb-3 mb-4 no-print">

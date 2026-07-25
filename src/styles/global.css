@@ -80,6 +80,8 @@ body {
 }
 
 /* Responsive Layout Breakpoints for Mobile, Tablet, Desktop & SEO Audit Engines */
+
+/* Mobile Base Layout & Touch Targets (Under 640px) - PRESERVED UNCHANGED */
 @media screen and (max-width: 639px) {
   :root {
     --viewport-mobile: 1;
@@ -99,51 +101,64 @@ body {
   }
 }
 
+/* Small Devices & Mobile Landscape (640px and up) */
 @media screen and (min-width: 640px) {
   :root {
     --viewport-sm: 1;
   }
   h1 {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
   }
   .calculator-inputs {
     padding: 1.25rem;
   }
 }
 
+/* Tablets & iPad Viewports (768px and up) */
 @media screen and (min-width: 768px) {
   :root {
     --viewport-md: 1;
   }
   h1 {
-    font-size: 3.25rem;
+    font-size: 2.5rem;
   }
   h2 {
-    font-size: 1.875rem;
+    font-size: 1.65rem;
   }
   .calculator-card {
     padding: 1.5rem;
   }
 }
 
+/* Laptops & Desktop Viewports (1024px and up) */
 @media screen and (min-width: 1024px) {
+  html {
+    font-size: 16px; /* Resets base rem unit calculations back to standard desktop scale */
+  }
   :root {
     --viewport-lg: 1;
   }
   h1 {
-    font-size: 3.75rem;
+    font-size: 2.75rem;
+  }
+  h2 {
+    font-size: 1.75rem;
   }
   .calculator-inputs {
-    padding: 1.75rem;
+    padding: 1.5rem;
   }
 }
 
+/* Large Desktop Viewports (1280px and up) */
 @media screen and (min-width: 1280px) {
   :root {
     --viewport-xl: 1;
   }
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 1.875rem;
   }
 }
 
