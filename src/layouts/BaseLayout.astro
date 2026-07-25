@@ -64,11 +64,12 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <link rel="canonical" href={canonicalUrl} />
     <title>{cleanTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="BuildYard" />
+    <meta name="apple-mobile-web-app-title" content="BuildYardage" />
     <link rel="manifest" href="/site.webmanifest" />
     
     <!-- Google SEO hreflang Alternate Tags -->
@@ -91,6 +92,42 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     
     <!-- Inject JSON-LD Schema -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(activeJsonLd)} />
+
+    <!-- Responsive Layout Breakpoints for SEO Audits & Mobile Devices -->
+    <style is:inline>
+      /* Mobile-first base layout styles */
+      :root {
+        --layout-breakpoint: "mobile";
+      }
+
+      /* Small devices and mobile landscape */
+      @media (min-width: 640px) {
+        :root {
+          --layout-breakpoint: "sm";
+        }
+      }
+
+      /* Tablet and iPad viewports */
+      @media (min-width: 768px) {
+        :root {
+          --layout-breakpoint: "md";
+        }
+      }
+
+      /* Laptop and Desktop viewports */
+      @media (min-width: 1024px) {
+        :root {
+          --layout-breakpoint: "lg";
+        }
+      }
+
+      /* Large Desktop viewports */
+      @media (min-width: 1280px) {
+        :root {
+          --layout-breakpoint: "xl";
+        }
+      }
+    </style>
 
     <!-- Client-side Browser Language Detection & First-Time Redirect Script -->
     <script is:inline>

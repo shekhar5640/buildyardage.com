@@ -1,21 +1,32 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import FooterEmail from '../components/FooterEmail';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FooterEmail from '../../components/FooterEmail';
+import { SUPPORTED_LOCALES, getTranslations, getLocalizedPath, type SupportedLocale } from '../../i18n/utils';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "500 Server Error - Build Yardage",
-  "url": "https://buildyardage.com/500",
-  "description": "An unexpected error occurred on BuildYardage.com."
+  "url": `https://buildyardage.com/${activeLang}/500`
 };
 ---
 
 <BaseLayout
   title="500 - Server Error"
-  description="An unexpected error occurred while processing your request on BuildYardage.com."
+  description="An unexpected error occurred while processing your request."
   jsonLd={jsonLd}
+  lang={activeLang}
 >
   <section class="min-h-[70vh] flex items-center justify-center py-16 sm:py-24 bg-canvas transition-colors duration-200">
     <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
@@ -51,11 +62,11 @@ const jsonLd = {
         </button>
         
         <a
-          href="/"
+          href={getLocalizedPath('/', activeLang)}
           class="inline-flex items-center gap-2 px-6 py-3 bg-surface-card hover:bg-surface-soft border border-hairline text-ink font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all"
         >
           <Home size={18} />
-          <span>Return Home</span>
+          <span>{t.common.home}</span>
         </a>
       </div>
 

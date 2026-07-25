@@ -1,20 +1,31 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SUPPORTED_LOCALES, getTranslations, getLocalizedPath, type SupportedLocale } from '../../i18n/utils';
 import { HardHat, Home, Calculator, ArrowLeft } from 'lucide-react';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const activeLang = (lang || 'es') as SupportedLocale;
+const t = getTranslations(activeLang);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "404 Page Not Found - Build Yardage",
-  "url": "https://buildyardage.com/404",
-  "description": "The requested calculation page could not be found on BuildYardage.com."
+  "name": `404 - ${t.common.home}`,
+  "url": `https://buildyardage.com/${activeLang}/404`
 };
 ---
 
 <BaseLayout
   title="404 - Page Not Found"
-  description="The requested calculation page could not be found on BuildYardage.com."
+  description="The requested calculation page could not be found."
   jsonLd={jsonLd}
+  lang={activeLang}
 >
   <section class="min-h-[70vh] flex items-center justify-center py-16 sm:py-24 bg-canvas transition-colors duration-200">
     <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
@@ -42,11 +53,11 @@ const jsonLd = {
       <!-- Action Buttons -->
       <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
         <a
-          href="/"
+          href={getLocalizedPath('/', activeLang)}
           class="inline-flex items-center gap-2 px-6 py-3 bg-brand-primary hover:bg-brand-primary-active text-on-primary font-semibold text-sm rounded-lg shadow-sm active:scale-95 transition-all"
         >
           <Home size={18} />
-          <span>Return to Home</span>
+          <span>{t.common.home}</span>
         </a>
         <button
           onclick="history.back()"
@@ -65,7 +76,7 @@ const jsonLd = {
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
           <a
-            href="/calculators/concrete-slab-calculator"
+            href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
@@ -78,7 +89,7 @@ const jsonLd = {
           </a>
 
           <a
-            href="/calculators/concrete-column-calculator"
+            href={getLocalizedPath('/calculators/concrete-column-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
@@ -91,7 +102,7 @@ const jsonLd = {
           </a>
 
           <a
-            href="/calculators/gravel-driveway-calculator"
+            href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
@@ -104,7 +115,7 @@ const jsonLd = {
           </a>
 
           <a
-            href="/calculators/drywall-calculator"
+            href={getLocalizedPath('/calculators/drywall-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
@@ -117,7 +128,7 @@ const jsonLd = {
           </a>
 
           <a
-            href="/calculators/framing-calculator"
+            href={getLocalizedPath('/calculators/framing-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
@@ -130,7 +141,7 @@ const jsonLd = {
           </a>
 
           <a
-            href="/calculators/rebar-calculator"
+            href={getLocalizedPath('/calculators/rebar-calculator', activeLang)}
             class="p-4 bg-surface-card hover:border-brand-accent border border-hairline rounded-xl transition-all group flex items-start gap-3"
           >
             <div class="p-2 rounded-lg bg-brand-accent/10 text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
