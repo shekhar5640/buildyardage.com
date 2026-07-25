@@ -145,7 +145,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
         <!-- Logo / Wordmark (Left Aligned) -->
         <div class="flex items-center justify-start shrink-0">
           <a href={getLocalizedPath('/', activeLocale)} class="flex items-center gap-2 group">
-            <img src={LOGO_DATA_URI} alt="Build Yardage Logo" class="h-8 w-8 group-hover:scale-105 transition-transform duration-200 select-none" />
+            <img src={LOGO_DATA_URI} alt="Build Yardage Logo" width="32" height="32" class="h-8 w-8 group-hover:scale-105 transition-transform duration-200 select-none" />
             <span class="text-xl font-bold tracking-tight text-ink">
               Build<span class="text-brand-accent">Yardage</span>
             </span>
@@ -331,7 +331,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
           <!-- Brand Info -->
           <div class="space-y-4 md:col-span-2">
             <div class="flex items-center gap-2">
-              <img src={LOGO_DATA_URI} alt="Build Yardage Logo" class="h-7 w-7 select-none" />
+              <img src={LOGO_DATA_URI} alt="Build Yardage Logo" width="28" height="28" class="h-7 w-7 select-none" />
               <span class="text-lg font-bold tracking-tight text-white">
                 Build<span class="text-brand-accent">Yardage</span>
               </span>
@@ -394,7 +394,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
             </ul>
 
             <div class="pt-2">
-              <LanguageSelector client:load currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="footer" />
+              <LanguageSelector client:idle currentLocale={activeLocale} currentPathname={Astro.url.pathname} variant="footer" />
             </div>
           </div>
         </div>

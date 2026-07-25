@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getTranslations, SUPPORTED_LOCALES, getLocalizedPath, type SupportedLocale } from '../../i18n/utils';
-import { ChevronRight, HelpCircle, Box, Cylinder, Truck, FileText, Grid, Layers } from 'lucide-react';
+import { ChevronRight, HelpCircle, Cylinder, Route, Layers, Fence, Grid } from 'lucide-react';
 
 export function getStaticPaths() {
   return SUPPORTED_LOCALES.filter((l) => l !== 'en').map((lang) => ({
@@ -63,7 +63,7 @@ const jsonLd = {
   lang={activeLang}
 >
   <!-- Hero Section -->
-  <section class="bg-canvas border-b border-hairline transition-colors duration-200">
+  <section class="bg-canvas border-b border-hairline transition-colors duration-200 min-h-[380px] sm:min-h-[420px] flex items-center justify-center">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 text-center">
       <h1 class="text-4xl font-extrabold tracking-tight text-ink sm:text-5xl md:text-6xl max-w-4xl mx-auto leading-[1.1] selection:bg-brand-accent">
         {t.landing.heroTitle}
@@ -104,7 +104,11 @@ const jsonLd = {
       <a href={getLocalizedPath('/calculators/concrete-slab-calculator', activeLang)} class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 mb-4 transition-colors">
-            <Box size={20} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5L2 9.5L12 14L22 9.5L12 5Z"/>
+              <path d="M2 9.5V14.5L12 19L22 14.5V9.5"/>
+              <path d="M12 14V19"/>
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             {t.nav.concreteSlab}
@@ -142,7 +146,11 @@ const jsonLd = {
       <a href={getLocalizedPath('/calculators/gravel-driveway-calculator', activeLang)} class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-4 transition-colors">
-            <Truck size={20} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 3v18"/>
+              <path d="M19 3v18"/>
+              <path d="M12 3v18" stroke-dasharray="2 3"/>
+            </svg>
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             {t.nav.gravel}
@@ -161,7 +169,7 @@ const jsonLd = {
       <a href={getLocalizedPath('/calculators/drywall-calculator', activeLang)} class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 mb-4 transition-colors">
-            <FileText size={20} />
+            <Layers size={20} />
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             {t.nav.drywall}
@@ -180,7 +188,7 @@ const jsonLd = {
       <a href={getLocalizedPath('/calculators/framing-calculator', activeLang)} class="group bg-canvas border border-hairline hover:border-brand-accent rounded-lg p-6 flex flex-col justify-between hover:shadow-md transition-all duration-200">
         <div>
           <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 mb-4 transition-colors">
-            <Layers size={20} />
+            <Fence size={20} />
           </div>
           <h3 class="text-md font-bold text-ink group-hover:text-brand-accent transition-colors">
             {t.nav.framing}

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { 
   Trash2, Printer, Plus, History, CheckSquare, Square, 
   ShoppingBag, Eye, Ruler, AlertCircle, Code
 } from 'lucide-react';
-import EmbedModal from './EmbedModal';
+const EmbedModal = lazy(() => import('./EmbedModal'));
 import { LOGO_DATA_URI } from '../constants/logo';
 import { 
   type ConcreteSlabResult,
@@ -1043,14 +1043,18 @@ export default function CalculatorShell({
         </div>
       </div>
 
-      {/* Embed Modal Dialog */}
-      <EmbedModal
-        isOpen={isEmbedModalOpen}
-        onClose={() => setIsEmbedModalOpen(false)}
-        calculatorSlug={slug}
-        calculatorTitle={`${material} ${shape}`}
-        t={t}
-      />
+      {/* Embed Modal Dialog (Lazy loaded on demand) */}
+      {isEmbedModalOpen && (
+        <Suspense fallback={null}>
+          <EmbedModal
+            isOpen={isEmbedModalOpen}
+            onClose={() => setIsEmbedModalOpen(false)}
+            calculatorSlug={slug}
+            calculatorTitle={`${material} ${shape}`}
+            t={t}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
