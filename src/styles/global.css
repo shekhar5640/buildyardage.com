@@ -430,3 +430,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
   }
 }
 
+/* Select Dropdown & Option Dark Mode Contrast Fix */
+select option {
+  background-color: #ffffff;
+  color: #09090b;
+}
+
+[data-theme="dark"] select option,
+.dark select option {
+  background-color: #18181b;
+  color: #f4f4f5;
+}
+

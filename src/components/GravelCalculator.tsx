@@ -116,21 +116,21 @@ export default function GravelCalculator({
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-body font-medium">{t.calculator.tonnage}</span>
             <span className="text-2xl font-mono font-extrabold text-ink">
-              {results.tons} <span className="text-sm font-medium">{isMetric ? 'tonnes' : 'tons'}</span>
+              {results.tons.toFixed(2)} <span className="text-sm font-medium">{isMetric ? 'tonnes' : 'tons'}</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.cubicYards}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.cubicYards} <span className="text-xs font-normal text-muted">cu yd</span>
+              {results.cubicYards.toFixed(2)} <span className="text-xs font-normal text-muted">cu yd</span>
             </span>
           </div>
 
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.cubicMeters}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {results.cubicMeters} <span className="text-xs font-normal text-muted">m³</span>
+              {results.cubicMeters.toFixed(2)} <span className="text-xs font-normal text-muted">m³</span>
             </span>
           </div>
         </>

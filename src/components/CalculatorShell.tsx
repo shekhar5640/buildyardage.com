@@ -728,36 +728,34 @@ export default function CalculatorShell({
                 {/* Pricing Input & Cost Estimation */}
                 {results && (
                   <div className="border-t border-hairline pt-4 mt-6 space-y-4">
-                    {/* Unit Price input row with Currency Selector */}
+                    {/* Unit Price input row with Embedded Currency Selector */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-                      <div className="flex items-center gap-2">
-                        <label className="text-sm font-semibold text-ink">
-                          {t.calculatorShell.pricePerUnit}
-                        </label>
-                        {/* Currency Selector */}
-                        <select
-                          value={currency}
-                          onChange={(e) => handleCurrencyChange(e.target.value)}
-                          className="text-xs font-semibold px-1.5 py-1 rounded border border-hairline bg-surface-soft text-ink focus:outline-none focus:border-brand-accent cursor-pointer"
-                          title="Select Currency"
-                          aria-label="Select Currency"
-                        >
-                          <option value="$">$ (USD)</option>
-                          <option value="€">€ (EUR)</option>
-                          <option value="£">£ (GBP)</option>
-                          <option value="₹">₹ (INR)</option>
-                          <option value="C$">C$ (CAD)</option>
-                          <option value="A$">A$ (AUD)</option>
-                          <option value="¥">¥ (JPY/CNY)</option>
-                          <option value="R$">R$ (BRL)</option>
-                          <option value="fr.">fr. (CHF)</option>
-                          <option value="kr">kr (SEK)</option>
-                        </select>
-                      </div>
+                      <label className="text-sm font-semibold text-ink">
+                        {t.calculatorShell.pricePerUnit}
+                      </label>
 
-                      <div className="relative rounded-md shadow-sm w-full sm:w-36">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span className="text-muted-soft text-xs font-bold">{currency}</span>
+                      <div className="relative flex rounded-md shadow-sm w-full sm:w-44 border border-hairline bg-canvas focus-within:border-brand-accent focus-within:ring-1 focus-within:ring-brand-accent transition-all overflow-hidden">
+                        {/* Integrated Currency Selector Prefix Addon */}
+                        <div className="flex items-center bg-surface-soft border-r border-hairline px-2 shrink-0">
+                          <select
+                            value={currency}
+                            onChange={(e) => handleCurrencyChange(e.target.value)}
+                            className="text-xs font-bold bg-transparent text-ink focus:outline-none cursor-pointer py-1.5 pr-0.5"
+                            title="Select Currency"
+                            aria-label="Select Currency"
+                          >
+                            <option value="$" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">$ (USD)</option>
+                            <option value="€" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">€ (EUR)</option>
+                            <option value="£" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">£ (GBP)</option>
+                            <option value="₹" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">₹ (INR)</option>
+                            <option value="C$" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">C$ (CAD)</option>
+                            <option value="A$" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">A$ (AUD)</option>
+                            <option value="¥" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">¥ (JPY)</option>
+                            <option value="CN¥" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">CN¥ (CNY)</option>
+                            <option value="R$" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">R$ (BRL)</option>
+                            <option value="fr." className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">fr. (CHF)</option>
+                            <option value="kr" className="bg-canvas text-ink dark:bg-zinc-900 dark:text-zinc-100">kr (SEK)</option>
+                          </select>
                         </div>
                         <input 
                           type="number"
@@ -766,7 +764,7 @@ export default function CalculatorShell({
                           placeholder="0.00"
                           value={priceInput}
                           onChange={(e) => setPriceInput(e.target.value)}
-                          className="w-full text-sm font-mono border border-hairline rounded pl-7 pr-3 py-1.5 bg-canvas text-ink focus:outline-none focus:border-brand-accent text-left sm:text-right"
+                          className="w-full text-sm font-mono px-3 py-1.5 bg-transparent text-ink focus:outline-none text-left sm:text-right"
                         />
                       </div>
                     </div>

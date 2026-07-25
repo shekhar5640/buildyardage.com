@@ -70,24 +70,25 @@ export function calculateConcreteSlab(
   let tIn = thickness;
 
   if (isMetric) {
-    lFt = length * 3.28084;
-    wFt = width * 3.28084;
+    lFt = length / 0.3048;
+    wFt = width / 0.3048;
     tIn = thickness / 2.54;
   }
 
   const rawVolumeNoWaste = lFt * wFt * (tIn / 12);
   const cubicFeet = rawVolumeNoWaste * (1 + wastePercent / 100);
   const cubicYards = cubicFeet / 27;
-  const cubicMeters = cubicFeet / 35.3147;
+  // Exact conversion from cubic feet to cubic meters: 1 cu ft = 0.028316846592 cu m
+  const cubicMeters = cubicFeet * 0.028316846592;
 
   return {
-    cubicFeet: parseFloat(cubicFeet.toFixed(2)),
-    cubicYards: parseFloat(cubicYards.toFixed(2)),
-    cubicMeters: parseFloat(cubicMeters.toFixed(2)),
+    cubicFeet,
+    cubicYards,
+    cubicMeters,
     bags80lb: Math.ceil(cubicFeet / 0.60),
     bags60lb: Math.ceil(cubicFeet / 0.45),
     bags40lb: Math.ceil(cubicFeet / 0.30),
-    rawVolumeNoWaste: parseFloat(rawVolumeNoWaste.toFixed(2)),
+    rawVolumeNoWaste,
   };
 }
 
@@ -108,11 +109,10 @@ export function calculateConcreteColumn(
   let hFt = 0;
 
   if (isMetric) {
-    // diameter and height in cm
-    const dM = diameter / 100;
-    const hM = height / 100;
-    rFt = (dM / 2) * 3.28084;
-    hFt = hM * 3.28084;
+    // diameter and height in cm, convert exactly to feet
+    const dIn = diameter / 2.54;
+    rFt = (dIn / 2) / 12;
+    hFt = (height / 2.54) / 12;
   } else {
     // diameter and height in inches
     rFt = diameter / 24; // D / 2 / 12
@@ -122,16 +122,16 @@ export function calculateConcreteColumn(
   const rawVolumeNoWaste = Math.PI * Math.pow(rFt, 2) * hFt;
   const cubicFeet = rawVolumeNoWaste * (1 + wastePercent / 100);
   const cubicYards = cubicFeet / 27;
-  const cubicMeters = cubicFeet / 35.3147;
+  const cubicMeters = cubicFeet * 0.028316846592;
 
   return {
-    cubicFeet: parseFloat(cubicFeet.toFixed(2)),
-    cubicYards: parseFloat(cubicYards.toFixed(2)),
-    cubicMeters: parseFloat(cubicMeters.toFixed(2)),
+    cubicFeet,
+    cubicYards,
+    cubicMeters,
     bags80lb: Math.ceil(cubicFeet / 0.60),
     bags60lb: Math.ceil(cubicFeet / 0.45),
     bags40lb: Math.ceil(cubicFeet / 0.30),
-    rawVolumeNoWaste: parseFloat(rawVolumeNoWaste.toFixed(2)),
+    rawVolumeNoWaste,
   };
 }
 
@@ -157,23 +157,23 @@ export function calculateGravel(
   let dIn = depth;
 
   if (isMetric) {
-    lFt = length * 3.28084;
-    wFt = width * 3.28084;
+    lFt = length / 0.3048;
+    wFt = width / 0.3048;
     dIn = depth / 2.54;
   }
 
   const rawVolumeNoWaste = lFt * wFt * (dIn / 12);
   const cubicFeet = rawVolumeNoWaste * (1 + wastePercent / 100);
   const cubicYards = cubicFeet / 27;
-  const cubicMeters = cubicFeet / 35.3147;
+  const cubicMeters = cubicFeet * 0.028316846592;
   const tons = cubicYards * densityTonsPerYd;
 
   return {
-    cubicFeet: parseFloat(cubicFeet.toFixed(2)),
-    cubicYards: parseFloat(cubicYards.toFixed(2)),
-    cubicMeters: parseFloat(cubicMeters.toFixed(2)),
-    tons: parseFloat(tons.toFixed(2)),
-    rawVolumeNoWaste: parseFloat(rawVolumeNoWaste.toFixed(2)),
+    cubicFeet,
+    cubicYards,
+    cubicMeters,
+    tons,
+    rawVolumeNoWaste,
   };
 }
 
@@ -201,9 +201,9 @@ export function calculateDrywall(
   let hFt = height;
 
   if (isMetric) {
-    lFt = length * 3.28084;
-    wFt = width * 3.28084;
-    hFt = height * 3.28084;
+    lFt = length / 0.3048;
+    wFt = width / 0.3048;
+    hFt = height / 0.3048;
   }
 
   // Calculate wall area
@@ -219,7 +219,8 @@ export function calculateDrywall(
   // Calculate ceiling area
   const ceilingAreaSqFt = (includeCeiling && wFt > 0) ? (lFt * wFt) : 0;
   const totalAreaSqFt = wallAreaSqFt + ceilingAreaSqFt;
-  const totalAreaSqM = totalAreaSqFt / 10.7639;
+  // 1 sq ft = 0.3048^2 sq meters = 0.09290304 sq meters
+  const totalAreaSqM = totalAreaSqFt * 0.09290304;
 
   // Drywall sheets calculation
   const sheetAreaSqFt = sheetSize === '4x8' ? 32 : 48;
@@ -235,8 +236,8 @@ export function calculateDrywall(
   const compoundLbs = parseFloat((totalAreaSqFt * 0.05).toFixed(1));
 
   return {
-    totalAreaSqFt: parseFloat(totalAreaSqFt.toFixed(2)),
-    totalAreaSqM: parseFloat(totalAreaSqM.toFixed(2)),
+    totalAreaSqFt,
+    totalAreaSqM,
     sheetsNeeded,
     tapeFeet,
     screwsNeeded,
@@ -266,7 +267,7 @@ export function calculateFraming(
   let lFt = length;
 
   if (isMetric) {
-    lFt = length * 3.28084;
+    lFt = length / 0.3048;
   }
 
   // Stud spacing in feet
@@ -294,14 +295,12 @@ export function calculateFraming(
   const bottomPlates16ft = Math.ceil(bottomPlatesLinear / 16);
   const topPlates16ft = Math.ceil(topPlatesLinear / 16);
 
-  const roundedPlatesLinearFt = parseFloat(totalPlatesLinearFt.toFixed(2));
-
   return {
     studsCount,
     bottomPlates16ft,
     topPlates16ft,
-    totalPlatesLinearFt: roundedPlatesLinearFt,
-    platesTotalLength: roundedPlatesLinearFt,
+    totalPlatesLinearFt,
+    platesTotalLength: totalPlatesLinearFt,
   };
 }
 
@@ -403,20 +402,22 @@ export function calculateRebar(
   if (isMetric) {
     // totalLength is in meters, so weight in kgs is length * weightKgsPerM
     estimatedWeightKgs = totalLength * barWeightInfo.weightKgsPerM;
-    estimatedWeightLbs = estimatedWeightKgs * 2.20462;
+    // Exact lb to kg definition: 1 lb = 0.45359237 kg
+    estimatedWeightLbs = estimatedWeightKgs / 0.45359237;
   } else {
     // totalLength is in feet, so weight in lbs is length * weightLbsPerFt
     estimatedWeightLbs = totalLength * barWeightInfo.weightLbsPerFt;
-    estimatedWeightKgs = estimatedWeightLbs / 2.20462;
+    // Exact lb to kg definition: 1 lb = 0.45359237 kg
+    estimatedWeightKgs = estimatedWeightLbs * 0.45359237;
   }
 
   return {
-    gridLength: parseFloat(gridLength.toFixed(2)),
-    gridWidth: parseFloat(gridWidth.toFixed(2)),
-    totalLength: parseFloat(totalLength.toFixed(2)),
+    gridLength,
+    gridWidth,
+    totalLength,
     totalPieces: Math.ceil(totalPieces),
-    estimatedWeightLbs: parseFloat(estimatedWeightLbs.toFixed(1)),
-    estimatedWeightKgs: parseFloat(estimatedWeightKgs.toFixed(1)),
+    estimatedWeightLbs,
+    estimatedWeightKgs,
   };
 }
 

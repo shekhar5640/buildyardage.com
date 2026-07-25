@@ -128,7 +128,7 @@ export default function RebarCalculator({
           <div className="flex justify-between items-baseline border-b border-hairline-soft pb-2">
             <span className="text-sm text-muted">{t.calculator.rebarWeight}</span>
             <span className="text-md font-mono font-bold text-ink">
-              {isMetric ? results.estimatedWeightKgs : results.estimatedWeightLbs} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
+              {isMetric ? results.estimatedWeightKgs.toFixed(2) : results.estimatedWeightLbs.toFixed(2)} <span className="text-xs font-normal text-muted">{isMetric ? 'kg' : 'lbs'}</span>
             </span>
           </div>
 
