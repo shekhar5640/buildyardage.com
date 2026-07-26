@@ -663,9 +663,10 @@ export default function CalculatorShell({
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-12 print-full-width no-print">
         
         {/* COLUMN 1: Inputs Panel (4 cols) */}
-        <section className="order-2 lg:order-none lg:col-span-4 bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between shadow-sm calculator-inputs">
+        {/* order-1 on mobile so inputs appear FIRST before the SVG visualizer */}
+        <section className="order-1 lg:order-none lg:col-span-4 bg-canvas border border-hairline rounded-lg p-4 sm:p-6 flex flex-col justify-between shadow-sm calculator-inputs">
           <div>
-            <div className="flex items-center justify-between border-b border-hairline pb-4 mb-6">
+            <div className="flex items-center justify-between border-b border-hairline pb-4 mb-5">
               <h2 
                 className="font-bold uppercase tracking-wider text-ink flex items-center gap-2 whitespace-nowrap"
                 style={{ fontSize: '15px', lineHeight: '1.2' }}
@@ -673,17 +674,17 @@ export default function CalculatorShell({
                 <Ruler size={16} className="text-brand-accent shrink-0" />
                 <span className="whitespace-nowrap">{t.calculatorShell.inputsHeader}</span>
               </h2>
-              {/* Unit Toggle Switch */}
+              {/* Unit Toggle Switch - large touch target on mobile */}
               <button 
                 onClick={handleUnitToggle}
-                className="flex items-center gap-2 text-xs font-semibold px-2.5 py-1.5 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer"
+                className="flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer min-h-[36px]"
               >
                 <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
               </button>
             </div>
 
             {/* Form Inputs (Children) */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {children}
 
               {/* Waste Factor Slider */}
@@ -707,22 +708,24 @@ export default function CalculatorShell({
           <button
             type="button"
             onClick={() => handleAddItem()}
-            className="w-full mt-8 flex items-center justify-center gap-2 py-3 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-md shadow-sm active:scale-95 transition-all cursor-pointer"
+            className="w-full mt-6 flex items-center justify-center gap-2 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-md shadow-sm active:scale-95 transition-all cursor-pointer text-sm"
           >
             <Plus size={18} />
             <span>{t.calculatorShell.addToTakeoff}</span>
           </button>
         </section>
 
-        {/* COLUMN 2: Visualizer & Outputs (5 cols) - Mobile uses contents so children order cleanly */}
+        {/* COLUMN 2: Visualizer & Outputs (5 cols)
+            Uses display:contents on mobile so its children become direct flex children
+            with their own order: visualizer=order-2, outputs=order-3 */}
         <section className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6 lg:order-none print-card-border">
-          {/* Dynamic SVG Visualizer Panel */}
-          <div className="order-1 lg:order-none bg-surface-card border border-hairline rounded-lg p-5 flex items-center justify-center min-h-[220px]">
+          {/* Dynamic SVG Visualizer Panel - order-2 on mobile so it appears after inputs */}
+          <div className="order-2 lg:order-none bg-surface-card border border-hairline rounded-lg p-5 flex items-center justify-center min-h-[200px]">
             {renderVisualizer()}
           </div>
 
-          {/* Core Calculation Outputs Card */}
-          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-lg p-6 flex flex-col justify-between flex-grow shadow-sm">
+          {/* Core Calculation Outputs Card - order-3 on mobile so it appears after the SVG visualizer */}
+          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-lg p-4 sm:p-6 flex flex-col justify-between flex-grow shadow-sm">
             <div>
               <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">{t.calculatorShell.resultsHeader}</h3>
               
@@ -732,9 +735,9 @@ export default function CalculatorShell({
                 {/* Pricing Input & Cost Estimation */}
                 {results && (
                   <div className="border-t border-hairline pt-4 mt-6 space-y-4">
-                    {/* Unit Price input row with Embedded Currency Selector */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-                      <div className="flex items-center gap-1.5">
+                    {/* Unit Price input row - stacks vertically on mobile, horizontal on sm+ */}
+                    <div className="flex flex-col gap-2.5">
+                      <div className="flex items-center justify-between gap-1.5">
                         <label className="text-sm font-semibold text-ink">
                           {t.calculatorShell.pricePerUnit}
                         </label>
@@ -743,20 +746,20 @@ export default function CalculatorShell({
                           onClick={() => setShowBreakdownModal(true)}
                           title="Open Cost Breakdown Helper"
                           aria-label="Open Unit Price Cost Breakdown Helper"
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded-md text-brand-accent hover:bg-brand-accent/10 transition-colors text-xs font-semibold border border-brand-accent/30"
+                          className="flex items-center gap-1 px-2 py-1 rounded-md text-brand-accent hover:bg-brand-accent/10 transition-colors text-xs font-semibold border border-brand-accent/30 min-h-[32px]"
                         >
                           <Info size={11} />
                           <span>Estimate</span>
                         </button>
                       </div>
 
-                      <div className="relative flex rounded-md shadow-sm w-full sm:w-44 border border-hairline bg-canvas focus-within:border-brand-accent focus-within:ring-1 focus-within:ring-brand-accent transition-all overflow-hidden">
+                      <div className="relative flex rounded-md shadow-sm w-full border border-hairline bg-canvas focus-within:border-brand-accent focus-within:ring-1 focus-within:ring-brand-accent transition-all overflow-hidden">
                         {/* Integrated Currency Selector Prefix Addon */}
                         <div className="flex items-center bg-surface-soft border-r border-hairline px-2 shrink-0">
                           <select
                             value={currency}
                             onChange={(e) => handleCurrencyChange(e.target.value)}
-                            className="text-xs font-bold bg-transparent text-ink focus:outline-none cursor-pointer py-1.5 pr-0.5"
+                            className="text-xs font-bold bg-transparent text-ink focus:outline-none cursor-pointer py-2 pr-0.5"
                             title="Select Currency"
                             aria-label="Select Currency"
                           >
@@ -780,7 +783,7 @@ export default function CalculatorShell({
                           placeholder="0.00"
                           value={priceInput}
                           onChange={(e) => setPriceInput(e.target.value)}
-                          className="w-full text-sm font-mono px-3 py-1.5 bg-transparent text-ink focus:outline-none text-left sm:text-right"
+                          className="w-full text-sm font-mono px-3 py-2 bg-transparent text-ink focus:outline-none"
                         />
                       </div>
                     </div>
@@ -812,7 +815,7 @@ export default function CalculatorShell({
         </section>
 
         {/* COLUMN 3: Shopping List & History (3 cols) */}
-        <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-6 print-full-width">
+        <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-6 print-full-width" aria-label="Takeoff list and history">
           {/* Jobsite Shopping List Sidebar Card */}
           <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col shadow-sm shopping-list-print">
             <div className="flex items-center justify-between border-b border-hairline pb-3 mb-4 no-print">

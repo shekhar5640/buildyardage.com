@@ -94,10 +94,34 @@ body {
     font-size: 1.35rem;
   }
   button,
-  a.btn,
-  input[type="number"],
-  select {
+  a.btn {
     min-height: 44px;
+  }
+
+  /* Calculator number inputs: touch-friendly height without stretching the layout */
+  .calculator-inputs input[type="number"],
+  .calculator-inputs select {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  /* Currency selector inside the price input row: don't force 44px, parent handles height */
+  .calculator-inputs .relative select {
+    min-height: unset;
+  }
+
+  /* Range sliders: larger touch hit area on mobile */
+  input[type="range"] {
+    height: 24px;
+    padding: 4px 0;
+  }
+
+  /* Ensure number inputs in the calculator slider rows are tappable */
+  .calculator-inputs input[type="number"] {
+    width: 5rem;
+    min-width: 64px;
+    padding: 0.5rem 0.25rem;
+    text-align: center;
   }
 }
 
