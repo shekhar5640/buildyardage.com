@@ -12,7 +12,8 @@
     "disclaimer": "免责声明：本站计算结果为理论估算值。在订购材料前请咨询专业施工人员。",
     "copyright": "保留所有权利。",
     "language": "语言",
-    "selectLanguage": "选择语言"
+    "selectLanguage": "选择语言",
+    "methodology": "计算方法"
   },
   "headerNav": {
     "concreteSlab": "平板",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "计算方法与行业标准依据",
+    "title": "计算方法",
     "subtitle": "我们秉持透明原则。Build Yardage 计算工具严格依据几何数学与建筑规范精心设计，旨在消除工程测量中的盲目估算。以下为本平台采用的指导标准与计算逻辑。",
     "methodologyLabel": "计算方法：",
     "referenceLabel": "参考规范：",

@@ -144,6 +144,8 @@ export function formatMetaTitle(rawTitle: string): string {
         title = '500 Internal Server Error Details';
       } else if (title.toLowerCase().includes('contact')) {
         title = 'Contact & Customer Support Team';
+      } else if (title.includes('計算方法') || title.includes('计算方法') || title.toLowerCase().includes('methodolog')) {
+        title = `${title} & Building Trade Standards`;
       } else {
         title = `${title} Construction Estimator`;
       }

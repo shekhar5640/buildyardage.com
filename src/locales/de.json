@@ -12,7 +12,8 @@
     "disclaimer": "Haftungsausschluss: Berechnungen sind Richtwerte. Konsultieren Sie vor der Bestellung einen Fachbetrieb.",
     "copyright": "Alle Rechte vorbehalten.",
     "language": "Sprache",
-    "selectLanguage": "Sprache wählen"
+    "selectLanguage": "Sprache wählen",
+    "methodology": "Methodik"
   },
   "headerNav": {
     "concreteSlab": "Platte",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Methodik und Fachquellen",
+    "title": "Methodik",
     "subtitle": "Wir glauben an Transparenz. Die Rechner von Build Yardage wurden entwickelt, um Schätzungen durch präzise geometrische Berechnungen und etablierte Bauvorschriften zu ersetzen. Nachfolgend finden Sie die Standards und Regeln unserer Plattform.",
     "methodologyLabel": "Methodik:",
     "referenceLabel": "Referenz:",

@@ -9,7 +9,7 @@
     "contact": "Contact Us",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
-    "methodology": "Methodology & Sources",
+    "methodology": "Methodology",
     "disclaimer": "Disclaimer: Our calculations are approximations. Consult a professional contractor before ordering materials.",
     "copyright": "All rights reserved.",
     "language": "Language",
@@ -227,7 +227,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Methodology & Trade Sources",
+    "title": "Methodology",
     "subtitle": "We believe in transparency. Build Yardage calculators are engineered to eliminate guesswork by adhering to rigorous geometric math and established building codes. Below are the governing standards and logic applied across our platform.",
     "methodologyLabel": "Methodology:",
     "referenceLabel": "Reference:",

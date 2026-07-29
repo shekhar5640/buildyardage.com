@@ -12,7 +12,8 @@
     "disclaimer": "Aviso legal: Nuestros cálculos son aproximaciones. Consulte a un contratista profesional antes de realizar su pedido.",
     "copyright": "Todos los derechos reservados.",
     "language": "Idioma",
-    "selectLanguage": "Seleccionar Idioma"
+    "selectLanguage": "Seleccionar Idioma",
+    "methodology": "Metodología"
   },
   "headerNav": {
     "concreteSlab": "Losa",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Metodología y Fuentes Comerciales",
+    "title": "Metodología",
     "subtitle": "Creemos en la transparencia. Las calculadoras de Build Yardage están diseñadas para eliminar las suposiciones adhiriéndose a cálculos geométricos rigurosos y códigos de construcción establecidos. A continuación se presentan las normas y la lógica aplicadas en nuestra plataforma.",
     "methodologyLabel": "Metodología:",
     "referenceLabel": "Referencia:",

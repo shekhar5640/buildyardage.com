@@ -12,7 +12,8 @@
     "disclaimer": "Avviso: I calcoli sono stime. Consultare un professionista prima dell'acquisto.",
     "copyright": "Tutti i diritti riservati.",
     "language": "Lingua",
-    "selectLanguage": "Seleziona Lingua"
+    "selectLanguage": "Seleziona Lingua",
+    "methodology": "Metodologia"
   },
   "headerNav": {
     "concreteSlab": "Lastra",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Metodologia e Fonti Tecniche",
+    "title": "Metodologia",
     "subtitle": "Crediamo nella trasparenza. I calcolatori di Build Yardage sono progettati per eliminare le approssimazioni aderendo a calcoli geometrici rigorosi e codici edilizi stabiliti. Di seguito sono riportati gli standard e la logica applicati sulla nostra piattaforma.",
     "methodologyLabel": "Metodologia:",
     "referenceLabel": "Riferimento:",

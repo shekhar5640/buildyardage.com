@@ -12,7 +12,8 @@
     "disclaimer": "Aviso legal: Nossos cálculos são estimativas. Consulte um profissional antes de comprar.",
     "copyright": "Todos os direitos reservados.",
     "language": "Idioma",
-    "selectLanguage": "Selecionar Idioma"
+    "selectLanguage": "Selecionar Idioma",
+    "methodology": "Metodologia"
   },
   "headerNav": {
     "concreteSlab": "Laje",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Metodologia e Fontes Técnicas",
+    "title": "Metodologia",
     "subtitle": "Acreditamos na transparência. As calculadoras Build Yardage são projetadas para eliminar suposições aderindo a cálculos geométricos rigorosos e códigos de construção estabelecidos. Abaixo estão as normas e a lógica aplicadas em nossa plataforma.",
     "methodologyLabel": "Metodologia:",
     "referenceLabel": "Referência:",

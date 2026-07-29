@@ -12,7 +12,8 @@
     "disclaimer": "Avertissement : Nos calculs sont des estimations. Consultez un professionnel avant de commander.",
     "copyright": "Tous droits réservés.",
     "language": "Langue",
-    "selectLanguage": "Choisir la langue"
+    "selectLanguage": "Choisir la langue",
+    "methodology": "Méthodologie"
   },
   "headerNav": {
     "concreteSlab": "Dalle",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "Méthodologie et Sources Techniques",
+    "title": "Méthodologie",
     "subtitle": "Nous croyons en la transparence. Les calculatrices Build Yardage sont conçues pour éliminer les incertitudes en respectant des calculs géométriques rigoureux et des codes du bâtiment établis. Vous trouverez ci-dessous les normes et la logique appliquées sur notre plateforme.",
     "methodologyLabel": "Méthodologie :",
     "referenceLabel": "Référence :",

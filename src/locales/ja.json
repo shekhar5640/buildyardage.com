@@ -12,7 +12,8 @@
     "disclaimer": "免責事項：当サイトの計算結果は目安です。材料注文前に専門業者にご相談ください。",
     "copyright": "All rights reserved.",
     "language": "言語",
-    "selectLanguage": "言語を選択"
+    "selectLanguage": "言語を選択",
+    "methodology": "計算方法"
   },
   "headerNav": {
     "concreteSlab": "スラブ",
@@ -218,7 +219,7 @@
     ]
   },
   "methodologyPage": {
-    "title": "計算方法と業界標準典拠",
+    "title": "計算方法",
     "subtitle": "透明性を重視しています。Build Yardageの計算ツールは、厳密な幾何学計算と建築基準法に基づいて設計されています。以下に、プラットフォーム全体に適用されている基準とロジックを掲載しています。",
     "methodologyLabel": "計算方法:",
     "referenceLabel": "準拠規格:",

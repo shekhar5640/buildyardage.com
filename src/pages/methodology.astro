@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ShieldCheck, FileText, Ruler, Scale } from 'lucide-react';
+import { Scale } from 'lucide-react';
 import { DEFAULT_LOCALE, getTranslations } from '../i18n/utils';
 
 const t = getTranslations(DEFAULT_LOCALE);
@@ -8,114 +8,104 @@ const t = getTranslations(DEFAULT_LOCALE);
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": `${t.methodologyPage.title} | Build Yardage`,
+  "name": `${t.methodologyPage.title} - Build Yardage`,
   "url": "https://buildyardage.com/methodology",
   "description": t.methodologyPage.subtitle
 };
 ---
 
 <BaseLayout
-  title={`${t.methodologyPage.title} | Build Yardage`}
+  title={t.methodologyPage.title}
   description={t.methodologyPage.subtitle}
   jsonLd={jsonLd}
   lang={DEFAULT_LOCALE}
 >
+  <!-- Header Banner -->
   <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <nav class="flex text-xs text-muted mb-4 gap-2">
         <a href="/" class="hover:text-ink">{t.common.home}</a>
         <span>/</span>
-        <span class="text-brand-accent font-semibold">{t.common.methodology}</span>
+        <span class="text-brand-accent font-semibold">{t.methodologyPage.title}</span>
       </nav>
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-4xl">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-3 max-w-3xl">
         {t.methodologyPage.title}
       </h1>
-      <p class="text-base sm:text-lg text-body max-w-3xl leading-relaxed">
-        {t.methodologyPage.subtitle}
+      <p class="text-xs sm:text-sm text-muted">
+        Last Updated: July 25, 2026 • BuildYardage.com
       </p>
     </div>
   </section>
 
-  <section class="py-12 sm:py-16 transition-colors duration-200">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl space-y-12 text-left">
-    
-        <div class="space-y-4 pb-8 border-b border-hairline">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-400">
-              <Scale size={24} />
-            </div>
-            <h2 class="text-2xl font-bold text-ink">{t.methodologyPage.concreteTitle}</h2>
-          </div>
-          <p class="text-body leading-relaxed">
-            <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.concreteMethodology}
-          </p>
-          <p class="text-body leading-relaxed text-sm">
-            <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.concreteReference}
-          </p>
+  <!-- Legal/Methodology Body Content -->
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="bg-canvas border border-hairline rounded-xl p-8 sm:p-12 space-y-10 text-sm text-body leading-relaxed">
+      
+      <div class="flex items-center gap-3 border-b border-hairline pb-6">
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+          <Scale size={22} />
         </div>
-
-        <div class="space-y-4 pb-8 border-b border-hairline">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="p-2 bg-amber-100 dark:bg-amber-900/40 rounded-lg text-amber-700 dark:text-amber-500">
-              <ShieldCheck size={24} />
-            </div>
-            <h2 class="text-2xl font-bold text-ink">{t.methodologyPage.gravelTitle}</h2>
-          </div>
-          <p class="text-body leading-relaxed">
-            <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.gravelMethodology}
-          </p>
-          <p class="text-body leading-relaxed text-sm">
-            <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.gravelReference}
-          </p>
+        <div>
+          <h2 class="text-lg font-bold text-ink">Governing Calculation Standards</h2>
+          <p class="text-xs text-muted">{t.methodologyPage.subtitle}</p>
         </div>
-
-        <div class="space-y-4 pb-8 border-b border-hairline">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="p-2 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg text-emerald-600 dark:text-emerald-400">
-              <FileText size={24} />
-            </div>
-            <h2 class="text-2xl font-bold text-ink">{t.methodologyPage.drywallTitle}</h2>
-          </div>
-          <p class="text-body leading-relaxed">
-            <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.drywallMethodology}
-          </p>
-          <p class="text-body leading-relaxed text-sm">
-            <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.drywallReference}
-          </p>
-        </div>
-
-        <div class="space-y-4 pb-8 border-b border-hairline">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="p-2 bg-orange-100 dark:bg-orange-900/40 rounded-lg text-orange-600 dark:text-orange-400">
-              <Ruler size={24} />
-            </div>
-            <h2 class="text-2xl font-bold text-ink">{t.methodologyPage.framingTitle}</h2>
-          </div>
-          <p class="text-body leading-relaxed">
-            <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.framingMethodology}
-          </p>
-          <p class="text-body leading-relaxed text-sm">
-            <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.framingReference}
-          </p>
-        </div>
-
-        <div class="space-y-4">
-          <div class="flex items-center gap-3 mb-2">
-            <div class="p-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg text-zinc-700 dark:text-zinc-300">
-              <ShieldCheck size={24} />
-            </div>
-            <h2 class="text-2xl font-bold text-ink">{t.methodologyPage.rebarTitle}</h2>
-          </div>
-          <p class="text-body leading-relaxed">
-            <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.rebarMethodology}
-          </p>
-          <p class="text-body leading-relaxed text-sm">
-            <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.rebarReference}
-          </p>
-        </div>
-
       </div>
+
+      <!-- 1. Concrete Volume -->
+      <div class="space-y-4">
+        <h2 class="text-lg font-bold text-ink">1. {t.methodologyPage.concreteTitle}</h2>
+        <p>
+          <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.concreteMethodology}
+        </p>
+        <p class="text-xs text-muted">
+          <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.concreteReference}
+        </p>
+      </div>
+
+      <!-- 2. Gravel Base -->
+      <div class="space-y-4 border-t border-hairline pt-8">
+        <h2 class="text-lg font-bold text-ink">2. {t.methodologyPage.gravelTitle}</h2>
+        <p>
+          <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.gravelMethodology}
+        </p>
+        <p class="text-xs text-muted">
+          <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.gravelReference}
+        </p>
+      </div>
+
+      <!-- 3. Drywall -->
+      <div class="space-y-4 border-t border-hairline pt-8">
+        <h2 class="text-lg font-bold text-ink">3. {t.methodologyPage.drywallTitle}</h2>
+        <p>
+          <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.drywallMethodology}
+        </p>
+        <p class="text-xs text-muted">
+          <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.drywallReference}
+        </p>
+      </div>
+
+      <!-- 4. Framing -->
+      <div class="space-y-4 border-t border-hairline pt-8">
+        <h2 class="text-lg font-bold text-ink">4. {t.methodologyPage.framingTitle}</h2>
+        <p>
+          <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.framingMethodology}
+        </p>
+        <p class="text-xs text-muted">
+          <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.framingReference}
+        </p>
+      </div>
+
+      <!-- 5. Rebar Grid -->
+      <div class="space-y-4 border-t border-hairline pt-8">
+        <h2 class="text-lg font-bold text-ink">5. {t.methodologyPage.rebarTitle}</h2>
+        <p>
+          <strong>{t.methodologyPage.methodologyLabel}</strong> {t.methodologyPage.rebarMethodology}
+        </p>
+        <p class="text-xs text-muted">
+          <span class="font-semibold text-ink">{t.methodologyPage.referenceLabel}</span> {t.methodologyPage.rebarReference}
+        </p>
+      </div>
+
     </div>
   </section>
 </BaseLayout>
