@@ -1,8 +1,0 @@
-# Localized 404 Error Page Rewrites
-/es/*  /es/404/  200
-/fr/*  /fr/404/  200
-/de/*  /de/404/  200
-/pt/*  /pt/404/  200
-/it/*  /it/404/  200
-/ja/*  /ja/404/  200
-/zh/*  /zh/404/  200

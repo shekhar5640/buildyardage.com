@@ -174,6 +174,66 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
       })();
     </script>
 
+    <!--
+      iOS Safari / WebKit Range Input Fix
+      ====================================
+      Problem: On iOS Safari and some Android browsers, when `input[type="range"]` uses
+      `-webkit-appearance: none`, the browser moves the thumb visually on touch-drag BUT
+      does NOT fire the native `input` DOM event. React's synthetic `onChange` is bound to
+      the `input` event, so it never fires during drag → state never updates → calculation
+      results appear frozen even though the slider visually moves.
+
+      Fix: Intercept touchmove on range inputs, read the current value (already updated
+      by the browser internally), and dispatch a synthetic `input` event so React picks it up.
+      We use `Object.getOwnPropertyDescriptor` to read the REAL value from the prototype
+      rather than the cached React-overridden value getter.
+    -->
+    <script is:inline>
+      /**
+       * iOS Safari / WebKit Range Input Fix
+       *
+       * Root cause: iOS Safari with -webkit-appearance:none on range inputs does NOT
+       * fire the `input` DOM event during touch-drag. React's synthetic onChange is
+       * bound to the `input` event → onChange never fires → state stays stale.
+       *
+       * React 17/18 also overrides the value property getter/setter on inputs with its
+       * own tracker. To correctly trigger React's change detection we must:
+       *   1. Use the NATIVE prototype setter (bypassing React's override) to "commit"
+       *      the browser's current value into React's tracked state.
+       *   2. Then dispatch a synthetic `input` event so React's delegated listener fires.
+       *
+       * This is the same pattern used by testing-library and other React testing tools.
+       */
+      (function() {
+        var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+          window.HTMLInputElement.prototype, 'value'
+        );
+
+        function fireRangeInputEvent(el) {
+          if (!el || el.tagName !== 'INPUT' || el.type !== 'range') return;
+
+          // Use native setter so React's internal tracker sees the new value
+          if (nativeInputValueSetter && nativeInputValueSetter.set) {
+            nativeInputValueSetter.set.call(el, el.value);
+          }
+
+          // Dispatch bubbling input event — React listens at the root via delegation
+          var ev = new Event('input', { bubbles: true, cancelable: false });
+          el.dispatchEvent(ev);
+        }
+
+        // touchmove: fires continuously during drag (React never sees these on iOS)
+        document.addEventListener('touchmove', function(e) {
+          fireRangeInputEvent(e.target);
+        }, { passive: true, capture: false });
+
+        // touchend: catches the final committed value on finger-lift
+        document.addEventListener('touchend', function(e) {
+          fireRangeInputEvent(e.target);
+        }, { passive: true, capture: false });
+      })();
+    </script>
+
     <!-- Theme Initializer Script to prevent flashing -->
     <script is:inline>
       const getTheme = () => {

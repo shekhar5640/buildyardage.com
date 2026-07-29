@@ -110,19 +110,8 @@ body {
     min-height: unset;
   }
 
-  /* Range sliders: larger touch hit area on mobile */
-  input[type="range"] {
-    height: 24px;
-    padding: 4px 0;
-  }
-
-  /* Ensure number inputs in the calculator slider rows are tappable */
-  .calculator-inputs input[type="number"] {
-    width: 5rem;
-    min-width: 64px;
-    padding: 0.5rem 0.25rem;
-    text-align: center;
-  }
+  /* Range sliders: touch-action is set globally, no height override needed */
+  /* (height override breaks WebKit thumb position calculation) */
 }
 
 /* Small Devices & Mobile Landscape (640px and up) */
@@ -187,11 +176,12 @@ body {
 }
 
 /* GPU Composite Layer Promotion for 60FPS Animations */
+/* NOTE: input[type="range"] intentionally excluded - transform: translateZ(0) breaks
+   iOS Safari touch event propagation on range inputs, causing onChange not to fire */
 .bg-canvas,
 .bg-surface-card,
 header,
-button,
-input[type="range"] {
+button {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -244,6 +234,8 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
+  /* touch-action: none allows horizontal drag without triggering page scroll */
+  touch-action: none;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   background: var(--color-hairline);

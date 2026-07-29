@@ -56,6 +56,24 @@ const { title, description = 'BuildYardage Calculator Widget', lang = 'en' } = A
         }
       }
     </style>
+
+    <!-- iOS Safari range input fix (same as BaseLayout) -->
+    <script is:inline>
+      (function() {
+        var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+          window.HTMLInputElement.prototype, 'value'
+        );
+        function fireRangeInputEvent(el) {
+          if (!el || el.tagName !== 'INPUT' || el.type !== 'range') return;
+          if (nativeInputValueSetter && nativeInputValueSetter.set) {
+            nativeInputValueSetter.set.call(el, el.value);
+          }
+          el.dispatchEvent(new Event('input', { bubbles: true, cancelable: false }));
+        }
+        document.addEventListener('touchmove', function(e) { fireRangeInputEvent(e.target); }, { passive: true });
+        document.addEventListener('touchend', function(e) { fireRangeInputEvent(e.target); }, { passive: true });
+      })();
+    </script>
   </head>
   <body class="min-h-full w-full m-0 p-0 overflow-y-auto scroll-smooth bg-canvas text-ink antialiased selection:bg-brand-accent selection:text-white">
     <slot />
