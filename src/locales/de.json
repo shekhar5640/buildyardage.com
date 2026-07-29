@@ -216,5 +216,26 @@
         "answer": "Im Baugewerbe wird ein Verschnittpuffer von 10% empfohlen, um Unebenheiten im Erdreich, Schalungsdruck und Anschnitte abzudecken."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Methodik und Fachquellen",
+    "subtitle": "Wir glauben an Transparenz. Die Rechner von Build Yardage wurden entwickelt, um Schätzungen durch präzise geometrische Berechnungen und etablierte Bauvorschriften zu ersetzen. Nachfolgend finden Sie die Standards und Regeln unserer Plattform.",
+    "methodologyLabel": "Methodik:",
+    "referenceLabel": "Referenz:",
+    "concreteTitle": "Betonvolumen (Platte & Säule)",
+    "concreteMethodology": "Standardmäßige volumetrische Geometrie (Länge × Breite × Tiefe für Platten; π × r² × Höhe für Säulen). Ein Umrechnungsfaktor von 27 Kubikfuß pro Kubikyard wird angewendet.",
+    "concreteReference": "ACI 332 (Vorschrift für Wohnungsbau-Beton) für empfohlene Verschnittmargen und Geometrieberechnungen.",
+    "gravelTitle": "Kies & Aggregatbasis",
+    "gravelMethodology": "Volumetrische Geometrie, umgerechnet in Tonnage mit einem Schüttdichtefaktor von 1,4 Tonnen pro Kubikyard (2.800 lbs/yd³). Dies entspricht dem Liefergewicht ab Steinbruch vor der Verdichtung.",
+    "gravelReference": "ASTM D2940 (Standard-Spezifikation für abgestufte Aggregatmaterialien) und Branchenstandards.",
+    "drywallTitle": "Trockenbau & Gipsplatten",
+    "drywallMethodology": "Fläche geteilt durch Plattengröße (32 sq ft für 4x8). Schrauben- und Spachtelmassenraten richten sich nach Branchenstandards: 32 Schrauben pro 4x8-Platte (bei 16\" Ständerabstand), 32 ft Fugenband pro Platte und 0,05 lbs Fugenmasse pro Quadratfuß.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Montage und Spachtelung von Gipsplatten).",
+    "framingTitle": "Holzständerbauweise",
+    "framingMethodology": "Wandständer werden durch Wandlänge geteilt durch Ständerabstand berechnet. Zusätzliches Material für Ecken (3-Ständer konventionell oder 2-Ständer) und Öffnungen (Türen/Fenster) wird berücksichtigt.",
+    "framingReference": "IRC 2021 Abschnitt R602 (Wandbau-Bestimmungen) & NDS (Nationale Design-Spezifikation für Holzbau).",
+    "rebarTitle": "Bewehrungsstahl-Gitter (Rebar)",
+    "rebarMethodology": "Berechnet die benötigte Gesamtlänge für ein Gitter basierend auf Länge, Breite, Randabstand und Gitterabstand. Überlappungsstöße werden dynamisch nach Stangengröße mit dem 40d-Standardfaktor (40 × Stangendurchmesser) berechnet.",
+    "rebarReference": "ACI 318 §25.5 (Bauordnung für Stahlbeton - Überlappungsstöße) & CRSI-Handbuch."
   }
 }

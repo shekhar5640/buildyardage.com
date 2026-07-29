@@ -19,9 +19,10 @@ interface Props {
   description: string;
   jsonLd?: Record<string, any>;
   lang?: SupportedLocale;
+  ogImage?: string;
 }
 
-const { title, description, jsonLd, lang: propLang } = Astro.props;
+const { title, description, jsonLd, lang: propLang, ogImage } = Astro.props;
 
 const activeLocale = propLang || getLocaleFromUrl(Astro.url.pathname);
 const t = getTranslations(activeLocale);
@@ -29,6 +30,11 @@ const hreflangLinks = getHreflangLinks(Astro.url.pathname);
 const cleanTitle = formatMetaTitle(title);
 const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
 const ogLocale = getOgLocale(activeLocale);
+
+const siteDomain = "https://buildyardage.com";
+const ogImageUrl = ogImage 
+  ? (ogImage.startsWith('http') ? ogImage : `${siteDomain}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`)
+  : `${siteDomain}/og-image.png`;
 
 // Default structured data for the site if none provided
 const defaultJsonLd = {
@@ -87,13 +93,24 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
       <link rel={link.rel} hreflang={link.hreflang} href={link.href} />
     ))}
 
-    <!-- Open Graph -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={cleanTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Build Yardage" />
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Build Yardage - Free Construction Material Calculators" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={cleanTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Google Fonts for premium typography (Non-render-blocking with font-display: swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

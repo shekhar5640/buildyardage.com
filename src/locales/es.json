@@ -216,5 +216,26 @@
         "answer": "La norma recomendada en la industria de la construcción es del 10%. Esto cubre irregularidades en la excavación del suelo, flexión de cimbras y recortes."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Metodología y Fuentes Comerciales",
+    "subtitle": "Creemos en la transparencia. Las calculadoras de Build Yardage están diseñadas para eliminar las suposiciones adhiriéndose a cálculos geométricos rigurosos y códigos de construcción establecidos. A continuación se presentan las normas y la lógica aplicadas en nuestra plataforma.",
+    "methodologyLabel": "Metodología:",
+    "referenceLabel": "Referencia:",
+    "concreteTitle": "Volumen de Concreto (Losa y Columna)",
+    "concreteMethodology": "Geometría volumétrica estándar (Largo × Ancho × Profundidad para losas; π × r² × Altura para columnas). Se aplica un factor de conversión estricto de 27 pies cúbicos por yarda cúbica. Las estimaciones de sacos se basan en pesos estándar de la industria (80 lb = rendimiento de 0.60 pies³).",
+    "concreteReference": "ACI 332 (Código de Concreto Residencial) para márgenes de desperdicio recomendados y matemática volumétrica estándar. Nota: Nuestra insignia genérica anterior \"ASTM C94\" se eliminó ya que C94 rige la entrega de concreto premezclado, no la geometría dimensional.",
+    "gravelTitle": "Base de Grava y Agregados",
+    "gravelMethodology": "Geometría volumétrica convertida a toneladas utilizando un factor de densidad de agregado suelto de 1.4 toneladas por yarda cúbica (2,800 lbs/yd³). Esto refleja el peso tal como se entrega desde la cantera antes de la compactación en el sitio.",
+    "gravelReference": "ASTM D2940 (Especificación Estándar para Materiales de Agregados Graduados para Bases) y factores de densidad suelta estándar de la industria.",
+    "drywallTitle": "Tablaroca y Paneles de Yeso",
+    "drywallMethodology": "Área de superficie dividida por el tamaño de la hoja (32 pies² para 4x8). Las tasas de fijadores y compuesto están estrictamente gobernadas por tasas estándar de la industria: 32 tornillos por hoja de 4x8 (para estructuras a 16\" O.C.), 32 pies de cinta por hoja y 0.05 lbs de compuesto para juntas por pie cuadrado.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Aplicación y Acabado de Paneles de Yeso).",
+    "framingTitle": "Estructura de Madera para Paredes",
+    "framingMethodology": "Los pies derechos se calculan dividiendo la longitud de la pared por la separación O.C. Tomamos en cuenta la profundidad estructural agregando material específico para esquinas (convencional de 3 pies derechos o avanzada de 2) y aberturas (2 dinteres + 2 criados por puerta/ventana), descontando los pies derechos interrumpidos.",
+    "framingReference": "IRC 2021 Sección R602 (Disposiciones para Estructuras de Paredes) y NDS (Especificación Nacional de Diseño para Construcción en Madera).",
+    "rebarTitle": "Refuerzo de Malla de Varilla (Rebar)",
+    "rebarMethodology": "Calcula el metraje lineal requerido para una matriz según longitud, ancho, espacio libre al borde y separación de la cuadrícula. Los empalmes traslapados se calculan dinámicamente según el tamaño de la varilla usando el multiplicador estándar de 40d (40 × diámetro de la varilla).",
+    "rebarReference": "ACI 318 §25.5 (Requisitos del Código de Edificación para Concreto Estructural - Empalmes Traslapados) y Manual de Prácticas Estándar del CRSI."
   }
 }

@@ -8,6 +8,7 @@ const CORE_PATHS = [
   '/',
   '/about',
   '/contact',
+  '/methodology',
   '/privacy-policy',
   '/terms-and-conditions',
   '/calculators/concrete-slab-calculator',

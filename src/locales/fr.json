@@ -216,5 +216,26 @@
         "answer": "La règle standard du bâtiment est d'ajouter 10% de marge pour compenser l'irrégularité des sols et les chutes de coupe."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Méthodologie et Sources Techniques",
+    "subtitle": "Nous croyons en la transparence. Les calculatrices Build Yardage sont conçues pour éliminer les incertitudes en respectant des calculs géométriques rigoureux et des codes du bâtiment établis. Vous trouverez ci-dessous les normes et la logique appliquées sur notre plateforme.",
+    "methodologyLabel": "Méthodologie :",
+    "referenceLabel": "Référence :",
+    "concreteTitle": "Volume de Béton (Dalle et Colonne)",
+    "concreteMethodology": "Géométrie volumétrique standard (Longueur × Largeur × Épaisseur pour les dalles ; π × r² × Hauteur pour les colonnes). Un facteur de conversion de 27 pieds cubes par verge cube est appliqué. Les estimations de sacs sont basées sur les poids standards de l'industrie (80 lb = rendement de 0,60 pi³).",
+    "concreteReference": "ACI 332 (Code du Béton Résidentiel) pour les marges de perte recommandées et le calcul volumétrique standard.",
+    "gravelTitle": "Base de Gravier et d'Agrégats",
+    "gravelMethodology": "Géométrie volumétrique convertie en tonnage avec un facteur de densité de masse de 1,4 tonne par verge cube (2 800 lb/yd³). Cela reflète le poids livré depuis la carrière avant la compaction sur le site.",
+    "gravelReference": "ASTM D2940 (Spécification Standard pour Matériaux d'Agrégats Gradués) et facteurs de densité standard de l'industrie.",
+    "drywallTitle": "Plaques de Plâtre (Sèche-Plâtre)",
+    "drywallMethodology": "Surface divisée par la taille de la plaque (32 pi² pour 4x8). Les taux de vis et d'enduit sont strictement régis par les normes de l'industrie : 32 vis par plaque 4x8 (pour ossature à 16\" d'entraxe), 32 pi de ruban par plaque, et 0,05 lb d'enduit à joint par pied carré.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Application et Finition des Plaques de Plâtre).",
+    "framingTitle": "Ossature Murale en Bois",
+    "framingMethodology": "Les montants sont calculés par la longueur du mur divisée par l'entraxe. Nous prenons en compte la structure en ajoutant du matériel pour les coins (3 montants conventionnel ou 2 montants avancé) et les ouvertures (portes/fenêtres).",
+    "framingReference": "IRC 2021 Section R602 (Dispositions d'Ossature Murale) et NDS (Spécification Nationale de Conception pour la Construction en Bois).",
+    "rebarTitle": "Armature d'Armature en Acier (Rebar)",
+    "rebarMethodology": "Calcule la longueur linéaire requise pour un maillage en fonction de la longueur, de la largeur, du dégagement des bords et de l'espacement. Les recouvrements sont calculés dynamiquement selon la taille de la barre en utilisant le multiplicateur standard de 40d (40 × diamètre de la barre).",
+    "rebarReference": "ACI 318 §25.5 (Exigences du Code du Bâtiment pour le Béton Structural) et Manuel de Pratique Standard du CRSI."
   }
 }

@@ -216,5 +216,26 @@
         "answer": "La norma raccomandata nel settore delle costruzioni è il 10% per coprire l'irregolarità dello scavo e i tagli di rifilatura."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Metodologia e Fonti Tecniche",
+    "subtitle": "Crediamo nella trasparenza. I calcolatori di Build Yardage sono progettati per eliminare le approssimazioni aderendo a calcoli geometrici rigorosi e codici edilizi stabiliti. Di seguito sono riportati gli standard e la logica applicati sulla nostra piattaforma.",
+    "methodologyLabel": "Metodologia:",
+    "referenceLabel": "Riferimento:",
+    "concreteTitle": "Volume di Calcestruzzo (Piastra e Colonna)",
+    "concreteMethodology": "Geometria volumetrica standard (Lunghezza × Larghezza × Spessore per piastre; π × r² × Altezza per colonne). Si applica un fattore di conversione rigido di 27 piedi cubi per yarda cubica.",
+    "concreteReference": "ACI 332 (Codice Calcestruzzo Residenziale) per margini di scarto raccomandati e matematica volumetrica standard.",
+    "gravelTitle": "Base di Ghiaia e Aggregati",
+    "gravelMethodology": "Geometria volumetrica convertita in tonnellate utilizzando un fattore di densità dell'aggregato sciolto di 1,4 tonnellate per yarda cubica (2.800 lbs/yd³).",
+    "gravelReference": "ASTM D2940 (Specifiche Standard per Materiali Aggregati per Basi) e fattori di densità sciolta standard.",
+    "drywallTitle": "Cartongesso e Pannelli",
+    "drywallMethodology": "Superficie divisa per dimensione pannello (32 piedi² per 4x8). Le velocità di fissaggio e stucco sono regolate da norme standard: 32 viti per pannello 4x8, 32 piedi di nastro per pannello e 0,05 lbs di stucco per piede quadrato.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Applicazione e Finitura Cartongesso).",
+    "framingTitle": "Telaio in Legno per Pareti",
+    "framingMethodology": "I montanti sono calcolati dividendo la lunghezza della parete per la spaziatura O.C. Si tiene conto del materiale per angoli (3 montanti convenzionali o 2 avanzati) e aperture per porte e finestre.",
+    "framingReference": "IRC 2021 Sezione R602 (Disposizioni Telai Pareti) e NDS (Specifica Nazionale di Progettazione per Costruzioni in Legno).",
+    "rebarTitle": "Armatura di Rete in Acciaio (Rebar)",
+    "rebarMethodology": "Calcola la lunghezza lineare richiesta per una griglia in base a lunghezza, larghezza, margine dal bordo e spaziatura. Le sovrapposizioni vengono calcolate dinamicamente in base alla dimensione della barra usando il moltiplicatore standard 40d (40 × diametro barra).",
+    "rebarReference": "ACI 318 §25.5 (Requisiti del Codice Edilizio per Calcestruzzo Strutturale) e Manuale di Pratica Standard CRSI."
   }
 }

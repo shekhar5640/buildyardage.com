@@ -225,5 +225,26 @@
         "answer": "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts. A complete drywall estimate includes approx 32 feet of paper joint tape, 32 drywall screws, and 0.05 lbs of joint compound mud per square foot (Level 4 finish standard)."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Methodology & Trade Sources",
+    "subtitle": "We believe in transparency. Build Yardage calculators are engineered to eliminate guesswork by adhering to rigorous geometric math and established building codes. Below are the governing standards and logic applied across our platform.",
+    "methodologyLabel": "Methodology:",
+    "referenceLabel": "Reference:",
+    "concreteTitle": "Concrete Volume (Slab & Column)",
+    "concreteMethodology": "Standard volumetric geometry (Length × Width × Depth for slabs; π × r² × Height for columns). A strict conversion factor of 27 cubic feet per cubic yard is applied. Bag yield estimates are based on industry-standard pre-mix weights (80lb = 0.60 cu ft yield).",
+    "concreteReference": "ACI 332 (Residential Concrete Code) for recommended waste margins and standard volumetric math. Note: Our prior generic 'ASTM C94' badge was removed as C94 governs ready-mix delivery, not dimensional geometry.",
+    "gravelTitle": "Gravel & Aggregate Base",
+    "gravelMethodology": "Volumetric geometry converted to tonnage using a canonical loose aggregate density factor of 1.4 tons per cubic yard (2,800 lbs/yd³). This reflects the as-delivered weight from the quarry before in-place compaction.",
+    "gravelReference": "ASTM D2940 (Standard Specification for Graded Aggregate Material for Bases) and industry-standard loose density factors.",
+    "drywallTitle": "Drywall & Sheetrock",
+    "drywallMethodology": "Surface area divided by sheet size (32 sq ft for 4x8). Fastener and compound rates are strictly governed by canonical industry rates: 32 screws per 4x8 sheet (for 16\" O.C. framing), 32 ft of tape per sheet, and 0.05 lbs of joint compound per square foot.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Application and Finishing of Gypsum Board).",
+    "framingTitle": "Wood Wall Framing",
+    "framingMethodology": "Field studs are calculated by wall length divided by O.C. spacing. We account for structural depth by adding specific material for corners (3-stud conventional or 2-stud advanced) and openings (2 kings + 2 jacks per door/window), while deducting the interrupted field studs spanning the opening width.",
+    "framingReference": "IRC 2021 Section R602 (Wall Framing Provisions) & NDS (National Design Specification for Wood Construction).",
+    "rebarTitle": "Rebar Grid Reinforcement",
+    "rebarMethodology": "Calculates linear footage required for a matrix based on length, width, edge clearance, and grid spacing. Lap splices are dynamically calculated per bar size using the standard 40d (40 × bar diameter) multiplier.",
+    "rebarReference": "ACI 318 §25.5 (Building Code Requirements for Structural Concrete - Lap Splices) & CRSI Manual of Standard Practice."
   }
 }

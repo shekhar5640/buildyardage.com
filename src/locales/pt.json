@@ -216,5 +216,26 @@
         "answer": "A norma padrão da construção é incluir 10% de margem de perda para compensar desníveis no solo e cortes de materiais."
       }
     ]
+  },
+  "methodologyPage": {
+    "title": "Metodologia e Fontes Técnicas",
+    "subtitle": "Acreditamos na transparência. As calculadoras Build Yardage são projetadas para eliminar suposições aderindo a cálculos geométricos rigorosos e códigos de construção estabelecidos. Abaixo estão as normas e a lógica aplicadas em nossa plataforma.",
+    "methodologyLabel": "Metodologia:",
+    "referenceLabel": "Referência:",
+    "concreteTitle": "Volume de Concreto (Laje e Coluna)",
+    "concreteMethodology": "Geometria volumétrica padrão (Comprimento × Largura × Espessura para lajes; π × r² × Altura para colunas). Um fator de conversão de 27 pés cúbicos por jarda cúbica é aplicado.",
+    "concreteReference": "ACI 332 (Código de Concreto Residencial) para margens de desperdício recomendadas e matemática volumétrica.",
+    "gravelTitle": "Base de Brita e Agregados",
+    "gravelMethodology": "Geometria volumétrica convertida em toneladas usando um fator de densidade de agregado solto de 1,4 toneladas por jarda cúbica (2.800 lbs/yd³).",
+    "gravelReference": "ASTM D2940 (Especificação Padrão para Materiais Agregados) e fatores de densidade padrão do setor.",
+    "drywallTitle": "Gesso Acartonado / Drywall",
+    "drywallMethodology": "Área de superfície dividida pelo tamanho da chapa (32 pés² para 4x8). As taxas de parafusos e massa são governadas por padrões da indústria: 32 parafusos por chapa 4x8, 32 pés de fita por chapa e 0,05 lbs de massa por pé quadrado.",
+    "drywallReference": "ASTM C840 / Gypsum Association GA-216 (Aplicação e Acabamento de Placas de Gesso).",
+    "framingTitle": "Estrutura de Madeira para Paredes",
+    "framingMethodology": "Os montantes são calculados pelo comprimento da parede dividido pelo espaçamento O.C. Consideramos material adicional para cantos (3 montantes convencional ou 2 avançado) e aberturas de portas/janelas.",
+    "framingReference": "IRC 2021 Seção R602 (Disposições para Estruturas de Parede) e NDS (Especificação Nacional de Projeto para Construção em Madeira).",
+    "rebarTitle": "Armadura de Vergalhão de Aço (Rebar)",
+    "rebarMethodology": "Calcula a metragem linear necessária para uma malha com base no comprimento, largura, recuo de borda e espaçamento. As traspasses são calculados dinamicamente por tamanho de barra usando o multiplicador padrão de 40d (40 × diâmetro da barra).",
+    "rebarReference": "ACI 318 §25.5 (Requisitos do Código de Edificações para Concreto Estrutural) e Manual de Prática Padrão CRSI."
   }
 }

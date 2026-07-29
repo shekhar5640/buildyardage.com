@@ -20,4 +20,6 @@
 ## Documentation & Links
 
 - [Homepage](https://buildyardage.com/): Access all construction calculators and site tools.
-- [Sitemap](https://buildyardage.com/sitemap.xml): Full XML index of all public routes and calculators.
+- [Methodology & Trade Sources](https://buildyardage.com/methodology): Mathematical methodologies and trade code standards (ACI 332, ASTM D2940, ASTM C840, IRC 2021, ACI 318) governing all calculations.
+- [About Us](https://buildyardage.com/about): Civil engineering and contractor mission behind Build Yardage.
+- [Sitemap](https://buildyardage.com/sitemap.xml): Full XML index of all public routes, calculators, and localized pages.
