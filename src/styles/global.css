@@ -175,16 +175,7 @@ body {
   }
 }
 
-/* GPU Composite Layer Promotion for 60FPS Animations */
-/* NOTE: input[type="range"] intentionally excluded - transform: translateZ(0) breaks
-   iOS Safari touch event propagation on range inputs, causing onChange not to fire */
-.bg-canvas,
-.bg-surface-card,
-header,
-button {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
+
 
 /* Off-screen Content Rendering Optimization for Low-End Devices */
 .content-visibility-auto {
@@ -234,8 +225,8 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  /* touch-action: none allows horizontal drag without triggering page scroll */
-  touch-action: none;
+  /* touch-action: pan-y allows horizontal drag on WebKit without dropping touch events */
+  touch-action: pan-y;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   background: var(--color-hairline);

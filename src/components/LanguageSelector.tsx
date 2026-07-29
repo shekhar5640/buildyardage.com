@@ -101,10 +101,10 @@ export const LanguageSelector: React.FC<Props> = ({
 
       {isOpen && (
         <div
-          className={`absolute right-0 mt-2 w-52 rounded-xl shadow-xl border backdrop-blur-md z-50 py-1.5 overflow-hidden animate-in fade-in zoom-in-95 duration-100 ${
+          className={`absolute mt-2 w-52 rounded-xl shadow-xl border backdrop-blur-md z-50 py-1.5 overflow-hidden animate-in fade-in zoom-in-95 duration-100 ${
             variant === 'footer'
-              ? 'bottom-full mb-2 bg-zinc-950 border-zinc-800 text-zinc-200'
-              : 'bg-canvas border-hairline text-ink'
+              ? 'bottom-full mb-2 left-0 sm:left-auto sm:right-0 bg-zinc-950 border-zinc-800 text-zinc-200'
+              : 'right-0 bg-canvas border-hairline text-ink'
           }`}
         >
           <div className="px-3 py-1.5 text-[10px] font-bold text-muted uppercase tracking-wider border-b border-hairline">
