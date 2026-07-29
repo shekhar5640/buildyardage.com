@@ -31,7 +31,10 @@ const cleanTitle = formatMetaTitle(title);
 const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
 const ogLocale = getOgLocale(activeLocale);
 
-const siteDomain = "https://buildyardage.com";
+const siteDomain = Astro.url && !Astro.url.origin.includes('localhost') 
+  ? Astro.url.origin 
+  : "https://buildyardage.com";
+
 const ogImageUrl = ogImage 
   ? (ogImage.startsWith('http') ? ogImage : `${siteDomain}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`)
   : `${siteDomain}/og-image.png`;
@@ -101,6 +104,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
@@ -111,6 +115,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     <meta name="twitter:title" content={cleanTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:src" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content="Build Yardage - Free Construction Material Calculators" />
 
     <!-- Google Fonts for premium typography (Non-render-blocking with font-display: swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
