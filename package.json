@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npx tsx scripts/validateSitemap.ts",
+    "test": "npx tsx scripts/validateFormulas.ts",
+    "build": "npx tsx scripts/validateFormulas.ts && astro build && npx tsx scripts/validateSitemap.ts",
     "preview": "astro preview",
-    "deploy": "astro build && npx wrangler deploy",
+    "deploy": "npm run test && astro build && npx wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {

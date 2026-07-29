@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { calculateGravel, type GravelResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
+import DimensionInput from './DimensionInput';
 import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 interface GravelProps {
@@ -137,79 +138,40 @@ export default function GravelCalculator({
       )}
     >
       {/* Length */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.length} ({isMetric ? 'm' : 'ft'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="1" 
-            max={isMetric ? 50 : 150} 
-            step="1"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.length}
+        value={length}
+        onChange={setLength}
+        isMetric={isMetric}
+        metricUnit="m"
+        imperialUnit="ft"
+        max={isMetric ? 50 : 150}
+        step={1}
+      />
 
       {/* Width */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.width} ({isMetric ? 'm' : 'ft'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{width} {isMetric ? 'm' : 'ft'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="1" 
-            max={isMetric ? 30 : 100} 
-            step="1"
-            value={width}
-            onChange={(e) => setWidth(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={width}
-            onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.width}
+        value={width}
+        onChange={setWidth}
+        isMetric={isMetric}
+        metricUnit="m"
+        imperialUnit="ft"
+        max={isMetric ? 30 : 50}
+        step={0.5}
+      />
 
       {/* Depth */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.depth} ({isMetric ? 'cm' : 'in'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'cm' : 'in'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="1" 
-            max={isMetric ? 60 : 24} 
-            step="0.5"
-            value={thickness}
-            onChange={(e) => setThickness(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={thickness}
-            onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.depth}
+        value={thickness}
+        onChange={setThickness}
+        isMetric={isMetric}
+        metricUnit="cm"
+        imperialUnit="in"
+        max={isMetric ? 50 : 24}
+        step={0.5}
+      />
     </CalculatorShell>
   );
 }

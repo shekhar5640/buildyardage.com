@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { calculateFraming, type FramingResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
+import DimensionInput from './DimensionInput';
 import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 interface FramingProps {
@@ -23,7 +24,12 @@ export default function FramingCalculator({
 
   const [length, setLength] = useState<number>(initialWallLength); // wall length
   const [studSpacing, setStudSpacing] = useState<number>(initialStudSpacing);
-  const [corners, setCorners] = useState<number>(4);
+  const [corners, setCorners] = useState<number>(0);
+  const [cornerType, setCornerType] = useState<'3-stud' | '2-stud'>('3-stud');
+  const [doorCount, setDoorCount] = useState<number>(0);
+  const [doorWidth, setDoorWidth] = useState<number>(36);
+  const [windowCount, setWindowCount] = useState<number>(0);
+  const [windowWidth, setWindowWidth] = useState<number>(48);
   const [topPlates, setTopPlates] = useState<number>(2);
   const [bottomPlates, setBottomPlates] = useState<number>(1);
   const [waste, setWaste] = useState<number>(10);
@@ -33,7 +39,7 @@ export default function FramingCalculator({
   const pricePerUnit = useMemo(() => parseFloat(priceInput) || 0, [priceInput]);
 
   const results = useMemo(() => {
-    const res = calculateFraming(length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric);
+    const res = calculateFraming(length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric, cornerType, doorCount, doorWidth, windowCount, windowWidth);
     if (pricePerUnit > 0) {
       const totalPieces = res.studsCount + res.topPlates16ft + res.bottomPlates16ft;
       res.estimatedCost = parseFloat((totalPieces * pricePerUnit).toFixed(2));
@@ -41,13 +47,18 @@ export default function FramingCalculator({
       res.estimatedCost = undefined;
     }
     return res;
-  }, [length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric, pricePerUnit]);
+  }, [length, studSpacing, corners, topPlates, bottomPlates, waste, isMetric, cornerType, doorCount, doorWidth, windowCount, windowWidth, pricePerUnit]);
 
   const handleRestore = (inputs: Record<string, any>, metric: boolean) => {
     setIsMetric(metric);
     if (inputs.length !== undefined) setLength(inputs.length);
     if (inputs.studSpacing !== undefined) setStudSpacing(inputs.studSpacing);
     if (inputs.corners !== undefined) setCorners(inputs.corners);
+    if (inputs.cornerType !== undefined) setCornerType(inputs.cornerType);
+    if (inputs.doorCount !== undefined) setDoorCount(inputs.doorCount);
+    if (inputs.doorWidth !== undefined) setDoorWidth(inputs.doorWidth);
+    if (inputs.windowCount !== undefined) setWindowCount(inputs.windowCount);
+    if (inputs.windowWidth !== undefined) setWindowWidth(inputs.windowWidth);
   };
 
   const handleAdd = (): ShoppingItem => {
@@ -64,7 +75,7 @@ export default function FramingCalculator({
       type: 'framing',
       details: itemDetails,
       checked: true,
-      inputs: { length, studSpacing, corners, topPlates, bottomPlates, waste, pricePerUnit },
+      inputs: { length, studSpacing, corners, cornerType, doorCount, doorWidth, windowCount, windowWidth, topPlates, bottomPlates, waste, pricePerUnit },
       outputs: results,
       isMetric,
       unitPrice: pricePerUnit > 0 ? pricePerUnit : undefined,
@@ -132,29 +143,16 @@ export default function FramingCalculator({
       )}
     >
       {/* Wall Length */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.length} ({isMetric ? 'm' : 'ft'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="1" 
-            max={isMetric ? 60 : 200} 
-            step="1"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.length}
+        value={length}
+        onChange={setLength}
+        isMetric={isMetric}
+        metricUnit="m"
+        imperialUnit="ft"
+        max={isMetric ? 60 : 200}
+        step={1}
+      />
 
       {/* Stud Spacing */}
       <div className="space-y-2">
@@ -162,12 +160,91 @@ export default function FramingCalculator({
         <select
           value={studSpacing}
           onChange={(e) => setStudSpacing(parseInt(e.target.value))}
-          className="w-full px-3 py-2 bg-surface-card border border-hairline rounded text-sm text-ink font-medium focus:outline-none focus:border-brand-accent"
+          className="w-full px-3 py-2 text-sm font-medium border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent cursor-pointer"
         >
-          <option value={16}>16 inches On-Center (Standard Code)</option>
-          <option value={24}>24 inches On-Center (Advanced Framing)</option>
-          <option value={12}>12 inches On-Center (Heavy Duty Load)</option>
+          <option value={16}>16 inches On-Center (Standard)</option>
+          <option value={24}>24 inches On-Center (Advanced)</option>
+          <option value={12}>12 inches On-Center (Heavy)</option>
         </select>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-hairline pt-4">
+        {/* Corners */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.corners || 'Corners / T-Intersects'}</label>
+            <input 
+              type="number"
+              min="0"
+              value={corners}
+              onChange={(e) => setCorners(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 text-sm font-mono border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            />
+        </div>
+        
+        {/* Corner Type */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.cornerType || 'Corner Type'}</label>
+          <select
+            value={cornerType}
+            onChange={(e) => setCornerType(e.target.value as '3-stud' | '2-stud')}
+            className="w-full px-3 py-2 text-sm font-medium border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent cursor-pointer"
+          >
+            <option value="3-stud">{t.calculator.cornerType3 || '3-Stud (Conventional)'}</option>
+            <option value="2-stud">{t.calculator.cornerType2 || '2-Stud (California)'}</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-hairline pt-4">
+        {/* Doors */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.doors || 'Doors'}</label>
+            <input 
+              type="number"
+              min="0"
+              value={doorCount}
+              onChange={(e) => setDoorCount(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 text-sm font-mono border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            />
+        </div>
+        
+        {/* Door Width */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.doorWidth || 'Avg Door Width (in)'}</label>
+            <input 
+              type="number"
+              min="0"
+              value={doorWidth}
+              onChange={(e) => setDoorWidth(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 text-sm font-mono border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-hairline pt-4">
+        {/* Windows */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.windows || 'Windows'}</label>
+            <input 
+              type="number"
+              min="0"
+              value={windowCount}
+              onChange={(e) => setWindowCount(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 text-sm font-mono border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            />
+        </div>
+        
+        {/* Window Width */}
+        <div className="space-y-2">
+          <label className="block text-xs font-semibold text-ink uppercase tracking-wider">{t.calculator.windowWidth || 'Avg Window Width (in)'}</label>
+            <input 
+              type="number"
+              min="0"
+              value={windowWidth}
+              onChange={(e) => setWindowWidth(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 text-sm font-mono border border-hairline rounded bg-canvas text-ink focus:outline-none focus:border-brand-accent"
+            />
+        </div>
       </div>
     </CalculatorShell>
   );

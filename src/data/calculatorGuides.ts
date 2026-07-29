@@ -228,8 +228,8 @@ export const calculatorGuides: Record<string, ToolGuide> = {
       highlights: [
         'Calculates 4x8 ft, 4x12 ft, and 4x10 ft drywall sheet counts',
         'Provides total wall and ceiling surface coverage in Square Feet',
-        'Estimates Joint Tape feet (32 ft per sheet) & Mud gallons (0.05 gal/sq ft)',
-        'Computes Drywall Screws count (approx 35 screws per 4x8 sheet)'
+        'Estimates Joint Tape feet (32 ft per sheet) & Mud weight (0.05 lbs/sq ft)',
+        'Computes Drywall Screws count (32 screws per 4x8 sheet)'
       ]
     },
     howToUse: {
@@ -338,7 +338,7 @@ export const calculatorGuides: Record<string, ToolGuide> = {
     },
     technicalGuide: {
       formulaTitle: 'Stud Count Calculation Formula',
-      formulaText: 'Studs = (Wall Length in inches / Spacing in inches) + 1 + Corner Extra Studs (3 per corner)',
+      formulaText: 'Studs = (Wall Length in inches / Spacing in inches) + 1 + Corner Extra Studs (2 per corner)',
       tips: [
         {
           title: 'Pressure-Treated Sole Plate',

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { calculateConcreteColumn, type ConcreteColumnResult } from '../utils/calcEngine';
 import CalculatorShell, { type ShoppingItem } from './CalculatorShell';
+import DimensionInput from './DimensionInput';
 import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 interface ConcreteColumnProps {
@@ -133,55 +134,26 @@ export default function ConcreteColumnCalculator({
         </>
       )}
     >
-      {/* Diameter */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.diameter} ({isMetric ? 'cm' : 'in'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{thickness} {isMetric ? 'cm' : 'in'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="4" 
-            max={isMetric ? 120 : 48} 
-            step="1"
-            value={thickness}
-            onChange={(e) => setThickness(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={thickness}
-            onChange={(e) => setThickness(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.diameter}
+        value={thickness}
+        onChange={setThickness}
+        isMetric={isMetric}
+        metricUnit="cm"
+        imperialUnit="in"
+        max={isMetric ? 100 : 48}
+        step={0.5}
+      />
 
-      {/* Depth / Height */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <label className="font-medium text-ink">{t.calculator.height} ({isMetric ? 'm' : 'ft'})</label>
-          <span className="font-mono font-semibold text-brand-accent">{length} {isMetric ? 'm' : 'ft'}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <input 
-            type="range" 
-            min="1" 
-            max={isMetric ? 10 : 30} 
-            step="0.5"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value))}
-            className="flex-grow accent-indigo-600 dark:accent-indigo-400"
-          />
-          <input 
-            type="number"
-            value={length}
-            onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
-            className="w-20 text-center text-sm font-mono border border-hairline rounded px-2.5 py-1 bg-canvas text-ink focus:outline-none focus:border-brand-accent"
-          />
-        </div>
-      </div>
+      <DimensionInput 
+        label={t.calculator.depth}
+        value={length}
+        onChange={setLength}
+        isMetric={isMetric}
+        metricUnit="m"
+        imperialUnit="ft"
+        max={isMetric ? 10 : 30}
+      />
     </CalculatorShell>
   );
 }

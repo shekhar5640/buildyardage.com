@@ -81,6 +81,22 @@ export const LanguageSelector: React.FC<Props> = ({
 
   return (
     <div ref={dropdownRef} className="relative inline-block text-left">
+      {/* Native select overlay for mobile to prevent overflow and provide native UX */}
+      <select
+        value={locale}
+        onChange={(e) => handleSelect(e.target.value as SupportedLocale)}
+        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer sm:hidden z-10"
+        aria-label="Select Language"
+      >
+        {SUPPORTED_LOCALES.map((code) => {
+          const item = LOCALES[code];
+          return (
+            <option key={code} value={code}>
+              {item.nativeName} ({item.name})
+            </option>
+          );
+        })}
+      </select>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -121,8 +137,8 @@ export const LanguageSelector: React.FC<Props> = ({
                   onClick={() => handleSelect(code)}
                   className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-brand-accent/10 text-brand-accent font-bold'
-                      : 'hover:bg-surface-soft text-ink font-medium'
+                      ? variant === 'footer' ? 'bg-brand-accent/20 text-brand-accent font-bold' : 'bg-brand-accent/10 text-brand-accent font-bold'
+                      : variant === 'footer' ? 'hover:bg-zinc-800 text-zinc-300 hover:text-white font-medium' : 'hover:bg-surface-soft text-ink font-medium'
                   }`}
                 >
                   <span className="flex items-center gap-2">

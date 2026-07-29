@@ -45,7 +45,7 @@
     "default_waste_percent": 10,
     "default_thickness": 0,
     "lsi_title": "Drywall Panel Optimization & Estimation",
-    "lsi_text": "To minimize seams, contractors use the largest practical sheet sizes (typically 4x12 sheets for walls over 10 feet). Standard calculation rules allocate approximately 32 feet of tape and 35 screws per drywall sheet."
+    "lsi_text": "To minimize seams, contractors use the largest practical sheet sizes (typically 4x12 sheets for walls over 10 feet). Standard calculation rules allocate approximately 32 feet of tape and 32 screws per drywall sheet."
   },
   {
     "slug": "framing-calculator",
@@ -69,6 +69,6 @@
     "default_waste_percent": 10,
     "default_thickness": 3,
     "lsi_title": "Concrete Rebar Layout Guidelines",
-    "lsi_text": "To reinforce concrete slabs, steel rebars are laid out in a grid pattern. Industry standard guidelines suggest keeping rebar at least 3 inches away from the outer edges to prevent environmental exposure and rust. Lap splices, where bars overlap by 12 to 18 inches, are critical to maintaining structural continuous tension."
+    "lsi_text": "To reinforce concrete slabs, steel rebars are laid out in a grid pattern. Industry standard guidelines suggest keeping rebar at least 3 inches away from the outer edges to prevent environmental exposure and rust. Lap splices, where bars overlap by 40 times the bar diameter (40d, e.g. 20 inches for #4 rebar), are critical to maintaining structural continuous tension."
   }
 ]

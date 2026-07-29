@@ -1,4 +1,11 @@
 // Build Yardage Material Calculation Engine
+import { 
+  DRYWALL_CONSTANTS, 
+  FRAMING_CONSTANTS, 
+  REBAR_CONSTANTS, 
+  CONCRETE_CONSTANTS, 
+  GRAVEL_CONSTANTS 
+} from './constants';
 
 export interface ConcreteSlabResult {
   cubicFeet: number;
@@ -47,8 +54,31 @@ export interface FramingResult {
   topPlates16ft: number;
   totalPlatesLinearFt: number;
   platesTotalLength?: number;
+  headersLinearFt?: number;
   estimatedCost?: number;
 }
+
+export interface RebarResult {
+  gridLength: number;
+  gridWidth: number;
+  totalLength: number;
+  totalPieces: number;
+  estimatedWeightLbs: number;
+  estimatedWeightKgs: number;
+  lapSpliceInches: number;
+  lapSpliceCm: number;
+  estimatedCost?: number;
+}
+
+// Unit weights and diameter for standard rebar sizes (#3 to #8)
+export const REBAR_SIZES: Record<string, { name: string, diameterInches: number, weightLbsPerFt: number, weightKgsPerM: number }> = {
+  '#3': { name: '#3 (3/8" or 9.5mm)', diameterInches: 0.375, weightLbsPerFt: 0.376, weightKgsPerM: 0.560 },
+  '#4': { name: '#4 (1/2" or 12.7mm)', diameterInches: 0.500, weightLbsPerFt: 0.668, weightKgsPerM: 0.994 },
+  '#5': { name: '#5 (5/8" or 15.9mm)', diameterInches: 0.625, weightLbsPerFt: 1.043, weightKgsPerM: 1.552 },
+  '#6': { name: '#6 (3/4" or 19.1mm)', diameterInches: 0.750, weightLbsPerFt: 1.502, weightKgsPerM: 2.235 },
+  '#7': { name: '#7 (7/8" or 22.2mm)', diameterInches: 0.875, weightLbsPerFt: 2.044, weightKgsPerM: 3.042 },
+  '#8': { name: '#8 (1" or 25.4mm)', diameterInches: 1.000, weightLbsPerFt: 2.670, weightKgsPerM: 3.973 }
+};
 
 /**
  * Calculates concrete needed for a rectangular slab
@@ -78,16 +108,15 @@ export function calculateConcreteSlab(
   const rawVolumeNoWaste = lFt * wFt * (tIn / 12);
   const cubicFeet = rawVolumeNoWaste * (1 + wastePercent / 100);
   const cubicYards = cubicFeet / 27;
-  // Exact conversion from cubic feet to cubic meters: 1 cu ft = 0.028316846592 cu m
   const cubicMeters = cubicFeet * 0.028316846592;
 
   return {
     cubicFeet,
     cubicYards,
     cubicMeters,
-    bags80lb: Math.ceil(cubicFeet / 0.60),
-    bags60lb: Math.ceil(cubicFeet / 0.45),
-    bags40lb: Math.ceil(cubicFeet / 0.30),
+    bags80lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_80LB_CUFT),
+    bags60lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_60LB_CUFT),
+    bags40lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_40LB_CUFT),
     rawVolumeNoWaste,
   };
 }
@@ -109,12 +138,10 @@ export function calculateConcreteColumn(
   let hFt = 0;
 
   if (isMetric) {
-    // diameter in cm, convert to feet; height in m, convert exactly to feet
     const dIn = diameter / 2.54;
     rFt = (dIn / 2) / 12;
     hFt = height / 0.3048;
   } else {
-    // diameter in inches; height in feet
     rFt = diameter / 24; // D / 2 / 12
     hFt = height;
   }
@@ -128,9 +155,9 @@ export function calculateConcreteColumn(
     cubicFeet,
     cubicYards,
     cubicMeters,
-    bags80lb: Math.ceil(cubicFeet / 0.60),
-    bags60lb: Math.ceil(cubicFeet / 0.45),
-    bags40lb: Math.ceil(cubicFeet / 0.30),
+    bags80lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_80LB_CUFT),
+    bags60lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_60LB_CUFT),
+    bags40lb: Math.ceil(cubicFeet / CONCRETE_CONSTANTS.BAG_YIELD_40LB_CUFT),
     rawVolumeNoWaste,
   };
 }
@@ -149,8 +176,8 @@ export function calculateGravel(
   width: number,
   depth: number,
   wastePercent: number,
-  densityTonsPerYd: number = 1.4,
-  isMetric: boolean
+  densityTonsPerYd: number = GRAVEL_CONSTANTS.DEFAULT_DENSITY_TONS_PER_CUYD,
+  isMetric: boolean = false
 ): GravelResult {
   let lFt = length;
   let wFt = width;
@@ -209,17 +236,14 @@ export function calculateDrywall(
   // Calculate wall area
   let wallAreaSqFt = 0;
   if (wFt > 0) {
-    // 4 walls of the room
     wallAreaSqFt = 2 * (lFt + wFt) * hFt;
   } else {
-    // Single wall
     wallAreaSqFt = lFt * hFt;
   }
 
   // Calculate ceiling area
   const ceilingAreaSqFt = (includeCeiling && wFt > 0) ? (lFt * wFt) : 0;
   const totalAreaSqFt = wallAreaSqFt + ceilingAreaSqFt;
-  // 1 sq ft = 0.3048^2 sq meters = 0.09290304 sq meters
   const totalAreaSqM = totalAreaSqFt * 0.09290304;
 
   // Drywall sheets calculation
@@ -227,13 +251,13 @@ export function calculateDrywall(
   const rawSheets = totalAreaSqFt / sheetAreaSqFt;
   const sheetsNeeded = Math.ceil(rawSheets * (1 + wastePercent / 100));
 
-  // Screws, Tape, Mud estimate rules of thumb
-  // Approx 32 ft of tape per sheet
-  const tapeFeet = Math.ceil(sheetsNeeded * 32);
-  // Approx 35-40 screws per sheet
-  const screwsNeeded = Math.ceil(sheetsNeeded * 38);
-  // Approx 0.05 lbs of joint compound per sq ft of wall
-  const compoundLbs = parseFloat((totalAreaSqFt * 0.05).toFixed(1));
+  // Screws, Tape, Mud calculations using single source of truth constants
+  // 32 ft of tape per 4x8 sheet (1 ft tape / sq ft)
+  const tapeFeet = Math.ceil(sheetsNeeded * DRYWALL_CONSTANTS.TAPE_FEET_PER_4X8_SHEET);
+  // 32 screws per 4x8 sheet (1 screw / sq ft for 16" O.C. studs)
+  const screwsNeeded = Math.ceil(sheetsNeeded * DRYWALL_CONSTANTS.SCREWS_PER_4X8_SHEET);
+  // 0.05 lbs of joint compound per sq ft (Level 4 drywall finish standard)
+  const compoundLbs = parseFloat((totalAreaSqFt * DRYWALL_CONSTANTS.MUD_LBS_PER_SQFT).toFixed(1));
 
   return {
     totalAreaSqFt,
@@ -262,7 +286,12 @@ export function calculateFraming(
   topPlatesCount: number = 2,
   bottomPlatesCount: number = 1,
   wastePercent: number = 10,
-  isMetric: boolean = false
+  isMetric: boolean = false,
+  cornerType: '3-stud' | '2-stud' = '3-stud',
+  doorCount: number = 0,
+  doorWidthInches: number = 36,
+  windowCount: number = 0,
+  windowWidthInches: number = 48
 ): FramingResult {
   let lFt = length;
 
@@ -276,24 +305,41 @@ export function calculateFraming(
   // Basic studs = (Length / spacing) + 1 stud at end
   const basicStuds = Math.ceil(lFt / spacingFt) + 1;
 
-  // Add studs for corners (standard 2 extra studs per corner/intersection)
-  const cornerStuds = cornersCount * 2;
+  // Add studs for corners
+  const studsPerCorner = cornerType === '3-stud' ? 3 : 2;
+  const cornerStuds = cornersCount * studsPerCorner;
 
-  // Subtotal studs
-  const subtotalStuds = basicStuds + cornerStuds;
+  // Calculate openings (Kings, Jacks, and interrupted field studs)
+  let openingKingAndJackStuds = 0;
+  let interruptedFieldStuds = 0;
+  let headersLinearFt = 0;
+
+  if (doorCount > 0) {
+    openingKingAndJackStuds += doorCount * 4; // 2 kings, 2 jacks per door
+    interruptedFieldStuds += doorCount * Math.floor(doorWidthInches / studSpacing);
+    headersLinearFt += doorCount * ((doorWidthInches + 3) / 12); // Header spans opening + jack thickness (approx 3")
+  }
+
+  if (windowCount > 0) {
+    openingKingAndJackStuds += windowCount * 4; // 2 kings, 2 jacks per window
+    interruptedFieldStuds += windowCount * Math.floor(windowWidthInches / studSpacing);
+    headersLinearFt += windowCount * ((windowWidthInches + 3) / 12);
+  }
+
+  // Subtotal studs: basic + corners + kings/jacks - interrupted
+  const subtotalStuds = Math.max(basicStuds + cornerStuds + openingKingAndJackStuds - interruptedFieldStuds, 2);
 
   // Total studs with waste factor
   const studsCount = Math.ceil(subtotalStuds * (1 + wastePercent / 100));
 
-  // Plates calculations (Plates run along top and bottom of wall)
-  // Plates linear feet
+  // Plates calculations
   const bottomPlatesLinear = lFt * bottomPlatesCount;
   const topPlatesLinear = lFt * topPlatesCount;
   const totalPlatesLinearFt = bottomPlatesLinear + topPlatesLinear;
 
   // Standard plate lumber length is 16 ft
-  const bottomPlates16ft = Math.ceil(bottomPlatesLinear / 16);
-  const topPlates16ft = Math.ceil(topPlatesLinear / 16);
+  const bottomPlates16ft = Math.ceil(bottomPlatesLinear / FRAMING_CONSTANTS.STOCK_LUMBER_LENGTH_FT);
+  const topPlates16ft = Math.ceil(topPlatesLinear / FRAMING_CONSTANTS.STOCK_LUMBER_LENGTH_FT);
 
   return {
     studsCount,
@@ -301,28 +347,9 @@ export function calculateFraming(
     topPlates16ft,
     totalPlatesLinearFt,
     platesTotalLength: totalPlatesLinearFt,
+    headersLinearFt: parseFloat(headersLinearFt.toFixed(1)),
   };
 }
-
-export interface RebarResult {
-  gridLength: number;
-  gridWidth: number;
-  totalLength: number;
-  totalPieces: number;
-  estimatedWeightLbs: number;
-  estimatedWeightKgs: number;
-  estimatedCost?: number;
-}
-
-// Unit weights for standard rebar sizes: weight per foot in lbs, weight per meter in kgs
-export const REBAR_SIZES: Record<string, { name: string, weightLbsPerFt: number, weightKgsPerM: number }> = {
-  '#3': { name: '#3 (3/8" or 9.5mm)', weightLbsPerFt: 0.376, weightKgsPerM: 0.560 },
-  '#4': { name: '#4 (1/2" or 12.7mm)', weightLbsPerFt: 0.668, weightKgsPerM: 0.994 },
-  '#5': { name: '#5 (5/8" or 15.9mm)', weightLbsPerFt: 1.043, weightKgsPerM: 1.552 },
-  '#6': { name: '#6 (3/4" or 19.1mm)', weightLbsPerFt: 1.502, weightKgsPerM: 2.235 },
-  '#7': { name: '#7 (7/8" or 22.2mm)', weightLbsPerFt: 2.044, weightKgsPerM: 3.042 },
-  '#8': { name: '#8 (1" or 25.4mm)', weightLbsPerFt: 2.670, weightKgsPerM: 3.973 }
-};
 
 /**
  * Calculates rebar grid dimensions, total length, pieces, and weight
@@ -331,7 +358,7 @@ export const REBAR_SIZES: Record<string, { name: string, weightLbsPerFt: number,
  * @param edgeClearance Edge clearance (inches or cm)
  * @param spacing Rebar grid spacing (inches or cm)
  * @param stickLength Rebar stick length (ft or m, e.g. 20ft or 6m)
- * @param overlap Overlap / lap splice length (inches or cm, e.g. 12in or 30cm)
+ * @param overlap Overlap / lap splice length (inches or cm)
  * @param wastePercent Waste percentage buffer (e.g. 10)
  * @param rebarSize Selected rebar size (e.g. '#4')
  * @param isMetric True if inputs are in metric, false if imperial
@@ -341,16 +368,25 @@ export function calculateRebar(
   width: number,
   edgeClearance: number,
   spacing: number,
-  stickLength: number,
-  overlap: number,
-  wastePercent: number,
+  stickLength: number = REBAR_CONSTANTS.STOCK_BAR_LENGTH_FT,
+  overlap: number = 0,
+  wastePercent: number = 10,
   rebarSize: string = '#4',
-  isMetric: boolean
+  isMetric: boolean = false
 ): RebarResult {
+  const barWeightInfo = REBAR_SIZES[rebarSize] || REBAR_SIZES['#4'];
+
+  // Calculate 40d lap splice overlap dynamically based on bar diameter (40 * bar diameter)
+  const lapSpliceInches = barWeightInfo.diameterInches * REBAR_CONSTANTS.LAP_SPLICE_MULTIPLIER;
+  const lapSpliceCm = parseFloat((lapSpliceInches * 2.54).toFixed(1));
+
+  // Determine effective lap splice overlap
+  const effectiveOverlapVal = (overlap > 0 && overlap !== 18) ? overlap : (isMetric ? lapSpliceCm : lapSpliceInches);
+
   const divFactor = isMetric ? 100 : 12;
   const cNative = edgeClearance / divFactor;
   const sNative = spacing / divFactor;
-  const oNative = overlap / divFactor;
+  const oNative = effectiveOverlapVal / divFactor;
 
   // 1. Grid Dimensions
   const gridLength = Math.max(0, length - 2 * cNative);
@@ -368,7 +404,6 @@ export function calculateRebar(
   }
 
   // 3. Overlaps calculation per bar run
-  // Lengthwise runs (running parallel to Slab Length)
   let overlapsPerL = 0;
   if (gridLength > stickLength && (stickLength - oNative) > 0) {
     overlapsPerL = Math.ceil((gridLength - stickLength) / (stickLength - oNative));
@@ -376,7 +411,6 @@ export function calculateRebar(
   const lengthPerLRun = gridLength + overlapsPerL * oNative;
   const totalLengthwiseRebar = lengthwiseBars * lengthPerLRun;
 
-  // Widthwise runs (running parallel to Slab Width)
   let overlapsPerW = 0;
   if (gridWidth > stickLength && (stickLength - oNative) > 0) {
     overlapsPerW = Math.ceil((gridWidth - stickLength) / (stickLength - oNative));
@@ -388,26 +422,20 @@ export function calculateRebar(
   const totalLengthNoWaste = totalLengthwiseRebar + totalWidthwiseRebar;
   const totalLength = totalLengthNoWaste * (1 + wastePercent / 100);
 
-  // Pieces needed
   let totalPieces = 0;
   if (stickLength > 0) {
     totalPieces = Math.ceil(totalLength / stickLength);
   }
 
   // 5. Weight Estimation
-  const barWeightInfo = REBAR_SIZES[rebarSize] || REBAR_SIZES['#4'];
   let estimatedWeightLbs = 0;
   let estimatedWeightKgs = 0;
 
   if (isMetric) {
-    // totalLength is in meters, so weight in kgs is length * weightKgsPerM
     estimatedWeightKgs = totalLength * barWeightInfo.weightKgsPerM;
-    // Exact lb to kg definition: 1 lb = 0.45359237 kg
     estimatedWeightLbs = estimatedWeightKgs / 0.45359237;
   } else {
-    // totalLength is in feet, so weight in lbs is length * weightLbsPerFt
     estimatedWeightLbs = totalLength * barWeightInfo.weightLbsPerFt;
-    // Exact lb to kg definition: 1 lb = 0.45359237 kg
     estimatedWeightKgs = estimatedWeightLbs * 0.45359237;
   }
 
@@ -418,6 +446,7 @@ export function calculateRebar(
     totalPieces: Math.ceil(totalPieces),
     estimatedWeightLbs,
     estimatedWeightKgs,
+    lapSpliceInches,
+    lapSpliceCm,
   };
 }
-

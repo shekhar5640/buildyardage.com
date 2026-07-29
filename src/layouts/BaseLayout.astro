@@ -493,6 +493,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
                 <a href={getLocalizedPath('/about', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.about}</a>
               </li>
               <li>
+                <a href={getLocalizedPath('/methodology', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.methodology || 'Methodology & Sources'}</a>
+              </li>
+              <li>
                 <a href={getLocalizedPath('/privacy-policy', activeLocale)} class="text-sm text-zinc-400 hover:text-white transition-colors">{t.common.privacy}</a>
               </li>
               <li>

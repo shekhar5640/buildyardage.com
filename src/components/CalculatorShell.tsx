@@ -14,6 +14,7 @@ import {
   type FramingResult,
   type RebarResult
 } from '../utils/calcEngine';
+import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
 
 export interface HistoryItem {
   id: string;
@@ -369,35 +370,6 @@ function renderPrintSpecs(item: ShoppingItem) {
   return null;
 }
 
-import { getTranslations, getLocaleFromUrl, type SupportedLocale } from '../i18n/utils';
-
-export interface HistoryItem {
-  id: string;
-  slug: string;
-  material: string;
-  shape: string;
-  inputs: Record<string, any>;
-  outputs: Record<string, any>;
-  isMetric: boolean;
-  timestamp: number;
-}
-
-export interface ShoppingItem {
-  id: string;
-  slug: string;
-  material: string;
-  shape: string;
-  type: string;
-  title: string;
-  details: string;
-  checked: boolean;
-  inputs?: Record<string, any>;
-  outputs?: Record<string, any>;
-  isMetric?: boolean;
-  unitPrice?: number;
-  estimatedCost?: number;
-}
-
 interface CalculatorShellProps {
   type: string;
   material: string;
@@ -484,6 +456,26 @@ export default function CalculatorShell({
     } catch (e) {
       console.error('LocalStorage hydration failed:', e);
     }
+
+    // Sync across tabs
+    const handleStorage = (e: StorageEvent) => {
+      try {
+        if (e.key === 'buildyardage_shopping' && e.newValue) {
+          setShoppingList(JSON.parse(e.newValue));
+        }
+        if (e.key === 'buildyardage_history' && e.newValue) {
+          const parsed = JSON.parse(e.newValue);
+          setHistory(Array.isArray(parsed) ? parsed.slice(0, 3) : []);
+        }
+        if (e.key === 'buildyardage_currency' && e.newValue) {
+          setCurrency(e.newValue);
+        }
+      } catch (err) {
+        console.error('Storage sync error:', err);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
   const handleCurrencyChange = (newCurrency: string) => {
@@ -636,7 +628,7 @@ export default function CalculatorShell({
               max="30" 
               value={waste}
               onChange={(e) => setWaste(parseInt(e.target.value) || 0)}
-              className="w-full h-1.5 accent-indigo-600 dark:accent-indigo-400 cursor-pointer"
+              className="w-full h-1.5 accent-brand-accent cursor-pointer"
             />
           </div>
         </div>
@@ -662,22 +654,21 @@ export default function CalculatorShell({
       {/* Upper Grid Layout */}
       <div className="flex flex-col gap-6 lg:grid lg:grid-cols-12 print-full-width no-print">
         
-        {/* COLUMN 1: Inputs Panel (4 cols) */}
+        {/* COLUMN 1: Inputs Panel (5 cols - expanded width by 15-25% for desktop view) */}
         {/* order-1 on mobile so inputs appear FIRST before the SVG visualizer */}
-        <section className="order-1 lg:order-none lg:col-span-4 bg-canvas border border-hairline rounded-lg p-4 sm:p-6 flex flex-col justify-between shadow-sm calculator-inputs">
+        <section className="order-1 lg:order-none lg:col-span-5 bg-canvas border border-hairline rounded-xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-xs calculator-inputs">
           <div>
             <div className="flex items-center justify-between border-b border-hairline pb-4 mb-5">
               <h2 
-                className="font-bold uppercase tracking-wider text-ink flex items-center gap-2 whitespace-nowrap"
-                style={{ fontSize: '15px', lineHeight: '1.2' }}
+                className="font-bold uppercase tracking-wider text-ink flex items-center gap-2.5 whitespace-nowrap text-base"
               >
-                <Ruler size={16} className="text-brand-accent shrink-0" />
+                <Ruler size={18} className="text-brand-accent shrink-0" />
                 <span className="whitespace-nowrap">{t.calculatorShell.inputsHeader}</span>
               </h2>
               {/* Unit Toggle Switch - large touch target on mobile */}
               <button 
                 onClick={handleUnitToggle}
-                className="flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer min-h-[36px]"
+                className="flex items-center gap-2 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer min-h-[44px]"
               >
                 <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
               </button>
@@ -688,7 +679,7 @@ export default function CalculatorShell({
               {children}
 
               {/* Waste Factor Slider */}
-              <div className="space-y-2 border-t border-hairline pt-4 mt-4">
+              <div className="space-y-2 border-t border-hairline pt-4 mt-5">
                 <div className="flex justify-between text-sm">
                   <label className="font-semibold text-ink">{t.calculatorShell.wasteMargin} (%)</label>
                   <span className="font-mono font-bold text-red-500">+{waste}%</span>
@@ -699,7 +690,7 @@ export default function CalculatorShell({
                   max="30" 
                   value={waste}
                   onChange={(e) => setWaste(parseInt(e.target.value) || 0)}
-                  className="w-full"
+                  className="w-full h-1.5 accent-brand-accent cursor-pointer"
                 />
               </div>
             </div>
@@ -708,24 +699,24 @@ export default function CalculatorShell({
           <button
             type="button"
             onClick={() => handleAddItem()}
-            className="w-full mt-6 flex items-center justify-center gap-2 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-md shadow-sm active:scale-95 transition-all cursor-pointer text-sm"
+            className="w-full mt-6 flex items-center justify-center gap-2 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-lg shadow-xs active:scale-95 transition-all cursor-pointer text-sm"
           >
             <Plus size={18} />
             <span>{t.calculatorShell.addToTakeoff}</span>
           </button>
         </section>
 
-        {/* COLUMN 2: Visualizer & Outputs (5 cols)
+        {/* COLUMN 2: Visualizer & Outputs (4 cols)
             Uses display:contents on mobile so its children become direct flex children
             with their own order: visualizer=order-2, outputs=order-3 */}
-        <section className="contents lg:col-span-5 lg:flex lg:flex-col lg:gap-6 lg:order-none print-card-border">
+        <section className="contents lg:col-span-4 lg:flex lg:flex-col lg:gap-6 lg:order-none print-card-border">
           {/* Dynamic SVG Visualizer Panel - order-2 on mobile so it appears after inputs */}
-          <div className="order-2 lg:order-none bg-surface-card border border-hairline rounded-lg p-5 flex items-center justify-center min-h-[200px]">
+          <div className="order-2 lg:order-none bg-surface-card border border-hairline rounded-xl p-5 flex items-center justify-center min-h-[200px] shadow-xs">
             {renderVisualizer()}
           </div>
 
           {/* Core Calculation Outputs Card - order-3 on mobile so it appears after the SVG visualizer */}
-          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-lg p-4 sm:p-6 flex flex-col justify-between flex-grow shadow-sm">
+          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between flex-grow shadow-xs">
             <div>
               <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">{t.calculatorShell.resultsHeader}</h3>
               
@@ -817,7 +808,7 @@ export default function CalculatorShell({
         {/* COLUMN 3: Shopping List & History (3 cols) */}
         <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-6 print-full-width" aria-label="Takeoff list and history">
           {/* Jobsite Shopping List Sidebar Card */}
-          <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col shadow-sm shopping-list-print">
+          <div className="bg-canvas border border-hairline rounded-xl p-5 sm:p-6 flex flex-col shadow-xs shopping-list-print">
             <div className="flex items-center justify-between border-b border-hairline pb-3 mb-4 no-print">
               <h3 className="text-sm font-bold text-ink flex items-center gap-2">
                 <ShoppingBag size={16} className="text-brand-accent" />
@@ -1047,15 +1038,19 @@ export default function CalculatorShell({
               <div className="space-y-2 text-[11px] text-zinc-700 font-sans">
                 <div>
                   <span className="font-bold text-zinc-900 block">Wall Studs (16" O.C. Layout):</span>
-                  Calculate 1 stud per linear foot of wall length + 2 extra studs per corner or intersection.
+                  (Wall Length ft ÷ 1.33) + 1 end stud + 2 extra studs per corner or wall intersection.
                 </div>
                 <div>
-                  <span className="font-bold text-zinc-900 block">Drywall Seam & mud Estimation:</span>
-                  Approx. 75 ft of joint tape & 0.05 lbs of joint compound per 100 sq ft of sheet surface.
+                  <span className="font-bold text-zinc-900 block">Drywall Seam & Mud Estimation:</span>
+                  32 linear ft of joint tape & 0.05 lbs of joint compound per sq ft (Level 4 drywall finish standard).
                 </div>
                 <div>
                   <span className="font-bold text-zinc-900 block">Drywall Screws Coverage:</span>
-                  Approx. 30 screws needed per 4ft x 8ft panel (spaced 12" O.C. on studs).
+                  Approx. 32 screws needed per 4ft x 8ft panel (spaced 12" O.C. on studs, 16" O.C. framing).
+                </div>
+                <div>
+                  <span className="font-bold text-zinc-900 block">Rebar 40d Lap Splice:</span>
+                  40x bar diameter overlap allowance per continuous bar run (e.g., 20" overlap for #4 bar, 15" for #3 bar).
                 </div>
               </div>
             </div>

@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ShieldCheck, FileText, Ruler, Scale } from 'lucide-react';
+import { DEFAULT_LOCALE, getTranslations } from '../i18n/utils';
+
+const t = getTranslations(DEFAULT_LOCALE);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Methodology & Sources | Build Yardage",
+  "url": "https://buildyardage.com/methodology",
+  "description": "Learn about the mathematical methodologies and trade standards (ASTM, ACI, IRC) powering Build Yardage material calculations."
+};
+---
+
+<BaseLayout
+  title="Methodology & Sources | Build Yardage"
+  description="Mathematical methodologies and trade standards powering Build Yardage."
+  jsonLd={jsonLd}
+  lang={DEFAULT_LOCALE}
+>
+  <section class="bg-canvas border-b border-hairline py-12 sm:py-16 transition-colors duration-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex text-xs text-muted mb-4 gap-2">
+        <a href="/" class="hover:text-ink">{t.common.home}</a>
+        <span>/</span>
+        <span class="text-brand-accent font-semibold">Methodology & Sources</span>
+      </nav>
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4 max-w-4xl">
+        Methodology & Trade Sources
+      </h1>
+      <p class="text-base sm:text-lg text-body max-w-3xl leading-relaxed">
+        We believe in transparency. Build Yardage calculators are engineered to eliminate guesswork by adhering to rigorous geometric math and established building codes. Below are the governing standards and logic applied across our platform.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 space-y-12">
+    
+    <div class="space-y-4 pb-8 border-b border-hairline">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="p-2 bg-indigo-100 dark:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-400">
+          <Scale size={24} />
+        </div>
+        <h2 class="text-2xl font-bold text-ink">Concrete Volume (Slab & Column)</h2>
+      </div>
+      <p class="text-body leading-relaxed">
+        <strong>Methodology:</strong> Standard volumetric geometry (Length × Width × Depth for slabs; π × r² × Height for columns). A strict conversion factor of 27 cubic feet per cubic yard is applied. Bag yield estimates are based on industry-standard pre-mix weights (80lb = 0.60 cu ft yield).
+      </p>
+      <p class="text-body leading-relaxed text-sm">
+        <span class="font-semibold text-ink">Reference:</span> ACI 332 (Residential Concrete Code) for recommended waste margins and standard volumetric math. <em>Note: Our prior generic 'ASTM C94' badge was removed as C94 governs ready-mix delivery, not dimensional geometry.</em>
+      </p>
+    </div>
+
+    <div class="space-y-4 pb-8 border-b border-hairline">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="p-2 bg-amber-100 dark:bg-amber-900/40 rounded-lg text-amber-700 dark:text-amber-500">
+          <ShieldCheck size={24} />
+        </div>
+        <h2 class="text-2xl font-bold text-ink">Gravel & Aggregate Base</h2>
+      </div>
+      <p class="text-body leading-relaxed">
+        <strong>Methodology:</strong> Volumetric geometry converted to tonnage using a canonical loose aggregate density factor of <strong>1.4 tons per cubic yard (2,800 lbs/yd³)</strong>. This reflects the as-delivered weight from the quarry before in-place compaction.
+      </p>
+      <p class="text-body leading-relaxed text-sm">
+        <span class="font-semibold text-ink">Reference:</span> ASTM D2940 (Standard Specification for Graded Aggregate Material for Bases) and industry-standard loose density factors.
+      </p>
+    </div>
+
+    <div class="space-y-4 pb-8 border-b border-hairline">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="p-2 bg-emerald-100 dark:bg-emerald-900/40 rounded-lg text-emerald-600 dark:text-emerald-400">
+          <FileText size={24} />
+        </div>
+        <h2 class="text-2xl font-bold text-ink">Drywall & Sheetrock</h2>
+      </div>
+      <p class="text-body leading-relaxed">
+        <strong>Methodology:</strong> Surface area divided by sheet size (32 sq ft for 4x8). Fastener and compound rates are strictly governed by canonical industry rates: <strong>32 screws per 4x8 sheet</strong> (for 16" O.C. framing), <strong>32 ft of tape per sheet</strong>, and <strong>0.05 lbs of joint compound per square foot</strong>.
+      </p>
+      <p class="text-body leading-relaxed text-sm">
+        <span class="font-semibold text-ink">Reference:</span> ASTM C840 / Gypsum Association GA-216 (Application and Finishing of Gypsum Board).
+      </p>
+    </div>
+
+    <div class="space-y-4 pb-8 border-b border-hairline">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="p-2 bg-orange-100 dark:bg-orange-900/40 rounded-lg text-orange-600 dark:text-orange-400">
+          <Ruler size={24} />
+        </div>
+        <h2 class="text-2xl font-bold text-ink">Wood Wall Framing</h2>
+      </div>
+      <p class="text-body leading-relaxed">
+        <strong>Methodology:</strong> Field studs are calculated by wall length divided by O.C. spacing. We account for structural depth by adding specific material for corners (3-stud conventional or 2-stud advanced) and openings (2 kings + 2 jacks per door/window), while deducting the interrupted field studs spanning the opening width.
+      </p>
+      <p class="text-body leading-relaxed text-sm">
+        <span class="font-semibold text-ink">Reference:</span> IRC 2021 Section R602 (Wall Framing Provisions) & NDS (National Design Specification for Wood Construction).
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="p-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg text-zinc-700 dark:text-zinc-300">
+          <ShieldCheck size={24} />
+        </div>
+        <h2 class="text-2xl font-bold text-ink">Rebar Grid Reinforcement</h2>
+      </div>
+      <p class="text-body leading-relaxed">
+        <strong>Methodology:</strong> Calculates linear footage required for a matrix based on length, width, edge clearance, and grid spacing. Lap splices are dynamically calculated per bar size using the standard <strong>40d (40 × bar diameter)</strong> multiplier.
+      </p>
+      <p class="text-body leading-relaxed text-sm">
+        <span class="font-semibold text-ink">Reference:</span> ACI 318 §25.5 (Building Code Requirements for Structural Concrete - Lap Splices) & CRSI Manual of Standard Practice.
+      </p>
+    </div>
+
+  </section>
+</BaseLayout>

@@ -9,6 +9,7 @@
     "contact": "Contact Us",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions",
+    "methodology": "Methodology & Sources",
     "disclaimer": "Disclaimer: Our calculations are approximations. Consult a professional contractor before ordering materials.",
     "copyright": "All rights reserved.",
     "language": "Language",
@@ -161,7 +162,15 @@
     "restoreConfirm": "Do you want to restore your previous inputs for this calculator?",
     "clearHistory": "Clear History",
     "copied": "Copied to clipboard!",
-    "copyResults": "Copy Results"
+    "copyResults": "Copy Results",
+    "corners": "Corners / T-Intersects",
+    "cornerType": "Corner Type",
+    "cornerType3": "3-Stud (Conventional)",
+    "cornerType2": "2-Stud (California / Advanced)",
+    "doors": "Doors",
+    "doorWidth": "Avg Door Width (in)",
+    "windows": "Windows",
+    "windowWidth": "Avg Window Width (in)"
   },
   "guides": {
     "whatItDoes": "What Does This Calculator Do?",
@@ -209,11 +218,11 @@
       },
       {
         "question": "How do I calculate how many studs I need for a framing wall?",
-        "answer": "To calculate wall studs, convert wall length to inches and divide by stud spacing (16\" or 24\" on-center), then add 1 end stud. Next, add 2–3 extra studs per corner or wall intersection, plus double studs for window or door headers, and apply a 10% waste buffer."
+        "answer": "To calculate wall studs, convert wall length to inches and divide by stud spacing (16\" or 24\" on-center), then add 1 end stud. Next, add 2 extra studs per corner or wall intersection, plus double studs for window or door headers, and apply a 10% waste buffer."
       },
       {
         "question": "How do I calculate how many drywall sheets I need for a room?",
-        "answer": "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts."
+        "answer": "Calculate total surface area by multiplying wall perimeter by ceiling height, plus room length by width if including the ceiling. Divide total square footage by sheet coverage (32 sq ft for a 4x8 sheet or 48 sq ft for a 4x12 sheet), then add a 10% waste margin for window and door cutouts. A complete drywall estimate includes approx 32 feet of paper joint tape, 32 drywall screws, and 0.05 lbs of joint compound mud per square foot (Level 4 finish standard)."
       }
     ]
   }

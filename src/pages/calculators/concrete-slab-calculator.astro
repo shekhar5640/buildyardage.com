@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConcreteSlabCalculator from '../../components/ConcreteSlabCalculator.tsx';
 import ToolGuideSection from '../../components/ToolGuideSection.astro';
 import materials from '../../data/materials.json';
+import { STANDARDS_CITATIONS } from '../../utils/constants';
 
 const item = materials.find(m => m.slug === 'concrete-slab-calculator')!;
 
@@ -50,7 +51,7 @@ const jsonLd = {
         </div>
         <div class="bg-surface-card border border-hairline px-4 py-3 rounded-lg flex flex-col items-center min-w-[100px]">
           <span class="text-[10px] font-bold uppercase text-muted tracking-wider">Standard</span>
-          <span class="text-sm font-mono font-extrabold text-ink mt-0.5">ASTM C94</span>
+          <span class="text-sm font-mono font-extrabold text-ink mt-0.5">{STANDARDS_CITATIONS.CONCRETE_SLAB}</span>
         </div>
         <button
           onclick="window.dispatchEvent(new CustomEvent('open-embed-modal'))"
