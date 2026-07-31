@@ -4,6 +4,15 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable, no-transform
 
+/_astro/*.mjs
+  Content-Type: application/javascript
+
+/_astro/*.js
+  Content-Type: application/javascript
+
+/_astro/*.css
+  Content-Type: text/css
+
 /*.png
   Cache-Control: public, max-age=31536000, immutable
 
@@ -18,9 +27,3 @@
 
 /site.webmanifest
   Cache-Control: public, max-age=31536000, immutable
-
-/_astro/*.js
-  Content-Type: application/javascript
-
-/_astro/*.css
-  Content-Type: text/css

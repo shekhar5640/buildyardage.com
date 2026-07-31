@@ -14,5 +14,13 @@ export default defineConfig({
     optimizeDeps: {
       include: ['react', 'react-dom', 'lucide-react', 'react/jsx-runtime'],
     },
+    build: {
+      rollupOptions: {
+        output: {
+          entryFileNames: '_astro/[name].[hash].mjs',
+          chunkFileNames: '_astro/[name].[hash].mjs',
+        }
+      }
+    }
   },
 });
