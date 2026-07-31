@@ -45,6 +45,7 @@ export default function ConcreteSlabCalculator({
   }, [length, width, thickness, waste, isMetric, pricePerUnit]);
 
   const handleRestore = (inputs: Record<string, any>, metric: boolean) => {
+    console.log("cache bust version 2");
     setIsMetric(metric);
     if (inputs.length !== undefined) setLength(inputs.length);
     if (inputs.width !== undefined) setWidth(inputs.width);
