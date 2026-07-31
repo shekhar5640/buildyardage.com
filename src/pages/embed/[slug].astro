@@ -35,11 +35,11 @@ const { routeData } = Astro.props;
 
 <EmbedLayout title={`${routeData.title} Widget | BuildYardage`}>
   <div class="min-h-full w-full p-4 sm:p-6 font-sans">
-    {routeData.component === 'concrete-slab' && <ConcreteSlabCalculator isEmbed={true} client:load />}
-    {routeData.component === 'concrete-column' && <ConcreteColumnCalculator isEmbed={true} client:load />}
-    {routeData.component === 'gravel' && <GravelCalculator isEmbed={true} client:load />}
-    {routeData.component === 'drywall' && <DrywallCalculator isEmbed={true} client:load />}
-    {routeData.component === 'framing' && <FramingCalculator isEmbed={true} client:load />}
-    {routeData.component === 'rebar' && <RebarCalculator isEmbed={true} client:load />}
+    {routeData.component === 'concrete-slab' && <ConcreteSlabCalculator isEmbed={true} client:load  locale="en" />}
+    {routeData.component === 'concrete-column' && <ConcreteColumnCalculator isEmbed={true} client:load  locale="en" />}
+    {routeData.component === 'gravel' && <GravelCalculator isEmbed={true} client:load  locale="en" />}
+    {routeData.component === 'drywall' && <DrywallCalculator isEmbed={true} client:load  locale="en" />}
+    {routeData.component === 'framing' && <FramingCalculator isEmbed={true} client:load  locale="en" />}
+    {routeData.component === 'rebar' && <RebarCalculator isEmbed={true} client:load  locale="en" />}
   </div>
 </EmbedLayout>
