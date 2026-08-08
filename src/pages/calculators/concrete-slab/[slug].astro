@@ -62,11 +62,11 @@ const jsonLd = {
 ---
 
 <BaseLayout title={pageData.metaTitle} description={pageData.metaDescription} jsonLd={jsonLd}>
-  <div class="bg-canvas border-b border-hairline py-10 transition-colors duration-200">
+  <div class="bg-canvas border-b border-hairline py-5 sm:py-6 transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       
       <!-- Breadcrumbs -->
-      <nav class="flex text-xs text-muted mb-4 gap-2">
+      <nav class="flex text-xs text-muted mb-2 gap-2">
         <a href="/" class="hover:text-ink">Home</a>
         <span>/</span>
         <a href="/calculators/concrete-slab-calculator" class="hover:text-ink">Concrete Slab Calculator</a>
@@ -75,10 +75,10 @@ const jsonLd = {
       </nav>
 
       <!-- Target H1 Title -->
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight mb-3 max-w-4xl">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-ink tracking-tight mb-2 max-w-4xl">
         {pageData.h1Title}
       </h1>
-      <p class="text-sm text-body leading-relaxed max-w-3xl mb-8">
+      <p class="text-sm text-body leading-relaxed max-w-3xl mb-4">
         Instant, pre-calculated material breakdown for a {pageData.inputs.length}ft × {pageData.inputs.width}ft concrete slab at {pageData.inputs.thickness} inches depth. Automatically factors in ASTM volumetric standards and a 10% jobsite waste buffer.
       </p>
 
@@ -91,7 +91,7 @@ const jsonLd = {
        locale="en" />
 
       <!-- Quick Answer Summary Box -->
-      <div class="mt-8 bg-brand-accent/10 border border-brand-accent/30 rounded-xl p-6 shadow-xs max-w-7xl">
+      <div class="mt-4 bg-brand-accent/10 border border-brand-accent/30 rounded-xl p-4 sm:p-5 shadow-xs max-w-7xl">
         <div class="flex items-start gap-3">
           <span class="text-brand-accent font-bold text-xl">💡</span>
           <div>
@@ -107,10 +107,10 @@ const jsonLd = {
   </div>
 
   <!-- Programmatic Educational & Math Section -->
-  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-12">
+  <section class="mx-auto max-w-7xl px-4 py-6 sm:py-8 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
     
     <!-- LaTeX Math Formula Breakdown -->
-    <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8">
+    <div class="bg-canvas border border-hairline rounded-xl p-4 sm:p-6">
       <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-2">
         {pageData.latexMath.title}
       </h2>
@@ -125,7 +125,7 @@ const jsonLd = {
     </div>
 
     <!-- Material Estimating Cheat Sheet (Comparative Table) -->
-    <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8">
+    <div class="bg-canvas border border-hairline rounded-xl p-4 sm:p-6">
       <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-2">
         Concrete Slab Material Cheat Sheet
       </h2>
@@ -157,9 +157,9 @@ const jsonLd = {
     </div>
 
     <!-- Jobsite Tips -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {pageData.jobsiteTips.map(tip => (
-        <div class="bg-canvas border border-hairline rounded-lg p-5">
+        <div class="bg-canvas border border-hairline rounded-lg p-4">
           <h3 class="text-sm font-bold text-ink mb-1.5 flex items-center gap-2">
             <span class="text-brand-accent">★</span>
             <span>{tip.title}</span>
@@ -170,7 +170,7 @@ const jsonLd = {
     </div>
 
     <!-- Programmatic FAQs Section -->
-    <div class="bg-surface-card border border-hairline rounded-xl p-6 sm:p-8">
+    <div class="bg-surface-card border border-hairline rounded-xl p-4 sm:p-6">
       <h2 class="text-2xl font-extrabold text-ink tracking-tight mb-6">
         Frequently Asked Questions
       </h2>
@@ -189,7 +189,7 @@ const jsonLd = {
     </div>
 
     <!-- Cross-Tool Interlinking & Silo Navigation -->
-    <div class="border-t border-hairline pt-8 space-y-6">
+    <div class="border-t border-hairline pt-5 space-y-4">
       <h3 class="text-sm font-bold uppercase text-muted tracking-wider">Related Estimators & Nearby Sizes</h3>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

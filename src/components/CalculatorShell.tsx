@@ -233,7 +233,7 @@ function renderPrintSpecs(item: ShoppingItem) {
 
   if (type === 'rectangular') {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Concrete Volume</span>
           <span className="text-sm font-mono font-bold">{outputs.cubicYards} cu yd</span>
@@ -258,7 +258,7 @@ function renderPrintSpecs(item: ShoppingItem) {
 
   if (type === 'cylindrical') {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Concrete Volume</span>
           <span className="text-sm font-mono font-bold">{outputs.cubicYards} cu yd</span>
@@ -279,7 +279,7 @@ function renderPrintSpecs(item: ShoppingItem) {
 
   if (type === 'gravel-rect') {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Gravel Tons</span>
           <span className="text-sm font-mono font-bold">{outputs.tons} tons</span>
@@ -300,7 +300,7 @@ function renderPrintSpecs(item: ShoppingItem) {
 
   if (type === 'drywall') {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Sheets Needed</span>
           <span className="text-sm font-mono font-bold">{outputs.sheetsNeeded} ({sheetSize})</span>
@@ -326,7 +326,7 @@ function renderPrintSpecs(item: ShoppingItem) {
   if (type === 'framing') {
     const totalP = (outputs.topPlates16ft || 0) + (outputs.bottomPlates16ft || 0);
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Studs Count</span>
           <span className="text-sm font-mono font-bold">{outputs.studsCount} pcs</span>
@@ -348,7 +348,7 @@ function renderPrintSpecs(item: ShoppingItem) {
   if (type === 'rebar') {
     const clearanceText = isMetric ? `${inputs.thickness} cm` : `${inputs.thickness} in`;
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border-b border-zinc-100 pb-2">
           <span className="text-[9px] text-zinc-500 uppercase block font-semibold">Total sticks</span>
           <span className="text-sm font-mono font-bold">{outputs.totalPieces} pcs</span>
@@ -585,17 +585,17 @@ export default function CalculatorShell({
     return (
       <div className="w-full max-w-2xl mx-auto bg-canvas border border-hairline rounded-xl p-4 sm:p-6 space-y-5 shadow-sm font-sans box-border text-ink">
         {/* Widget Top Bar Header */}
-        <div className="flex items-center justify-between border-b border-hairline pb-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-3">
+          <div className="flex items-center gap-2 min-w-0 shrink-0">
             <img src={LOGO_DATA_URI} alt="BuildYardage Logo" className="h-5 w-5 select-none" />
-            <span className="text-sm font-extrabold tracking-tight text-ink">
+            <span className="text-sm font-extrabold tracking-tight text-ink truncate">
               Build<span className="text-brand-accent">Yardage</span>
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button 
               onClick={handleUnitToggle}
-              className="text-xs font-semibold px-2.5 py-1 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline cursor-pointer transition-all active:scale-95"
+              className="text-xs font-semibold px-2.5 py-1 rounded-md border border-hairline bg-surface-soft text-ink hover:bg-hairline cursor-pointer transition-all active:scale-95 shrink-0"
             >
               {isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}
             </button>
@@ -603,7 +603,7 @@ export default function CalculatorShell({
               href={`https://buildyardage.com/calculators/${slug}`}
               target="_blank" 
               rel="noopener"
-              className="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-brand-accent hover:underline flex items-center gap-1 shrink-0"
             >
               <span>Full Calculator</span>
             </a>
@@ -635,7 +635,7 @@ export default function CalculatorShell({
 
         {/* Results Output Card */}
         <div className="bg-surface-card border border-hairline rounded-lg p-4 space-y-3">
-          <h3 className="text-xs font-semibold text-muted uppercase tracking-wider">{t.calculatorShell.resultsHeader}</h3>
+          <h3 className="text-base font-bold text-ink uppercase tracking-wider">{t.calculatorShell.resultsHeader}</h3>
           <div className="space-y-3">
             {renderOutputs()}
           </div>
@@ -650,36 +650,36 @@ export default function CalculatorShell({
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
       {/* Upper Grid Layout */}
-      <div className="flex flex-col gap-6 lg:grid lg:grid-cols-12 print-full-width no-print">
+      <div className="flex flex-col gap-5 lg:grid lg:grid-cols-12 print-full-width no-print">
         
         {/* COLUMN 1: Inputs Panel (5 cols - expanded width by 15-25% for desktop view) */}
         {/* order-1 on mobile so inputs appear FIRST before the SVG visualizer */}
-        <section className="order-1 lg:order-none lg:col-span-5 bg-canvas border border-hairline rounded-xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-xs calculator-inputs">
+        <section className="order-1 lg:order-none lg:col-span-5 bg-canvas border border-hairline rounded-xl p-4 sm:p-5 lg:p-6 flex flex-col justify-between shadow-xs calculator-inputs">
           <div>
-            <div className="flex items-center justify-between border-b border-hairline pb-4 mb-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline pb-3 mb-3.5">
               <h2 
-                className="font-bold uppercase tracking-wider text-ink flex items-center gap-2.5 whitespace-nowrap text-base"
+                className="font-bold uppercase tracking-wider text-ink flex items-center gap-2.5 text-xl flex-1 min-w-0"
               >
                 <Ruler size={18} className="text-brand-accent shrink-0" />
-                <span className="whitespace-nowrap">{t.calculatorShell.inputsHeader}</span>
+                <span className="truncate">{t.calculatorShell.inputsHeader}</span>
               </h2>
               {/* Unit Toggle Switch - large touch target on mobile */}
               <button 
                 onClick={handleUnitToggle}
-                className="flex items-center gap-2 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer min-h-[44px]"
+                className="shrink-0 flex items-center gap-2 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-lg border border-hairline bg-surface-soft text-ink hover:bg-hairline active:scale-95 transition-all cursor-pointer min-h-[44px]"
               >
                 <span>{isMetric ? t.calculatorShell.metric : t.calculatorShell.imperial}</span>
               </button>
             </div>
 
             {/* Form Inputs (Children) */}
-            <div className="space-y-5">
+            <div className="space-y-3.5">
               {children}
 
               {/* Waste Factor Slider */}
-              <div className="space-y-2 border-t border-hairline pt-4 mt-5">
+              <div className="space-y-1.5 border-t border-hairline pt-3 mt-3.5">
                 <div className="flex justify-between text-sm">
                   <label className="font-semibold text-ink">{t.calculatorShell.wasteMargin} (%)</label>
                   <span className="font-mono font-bold text-red-500">+{waste}%</span>
@@ -699,7 +699,7 @@ export default function CalculatorShell({
           <button
             type="button"
             onClick={() => handleAddItem()}
-            className="w-full mt-6 flex items-center justify-center gap-2 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-lg shadow-xs active:scale-95 transition-all cursor-pointer text-sm"
+            className="w-full mt-4 flex items-center justify-center gap-2 py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-semibold rounded-lg shadow-xs active:scale-95 transition-all cursor-pointer text-sm"
           >
             <Plus size={18} />
             <span>{t.calculatorShell.addToTakeoff}</span>
@@ -709,25 +709,25 @@ export default function CalculatorShell({
         {/* COLUMN 2: Visualizer & Outputs (4 cols)
             Uses display:contents on mobile so its children become direct flex children
             with their own order: visualizer=order-2, outputs=order-3 */}
-        <section className="contents lg:col-span-4 lg:flex lg:flex-col lg:gap-6 lg:order-none print-card-border">
+        <section className="contents lg:col-span-4 lg:flex lg:flex-col lg:gap-5 lg:order-none print-card-border">
           {/* Dynamic SVG Visualizer Panel - order-2 on mobile so it appears after inputs */}
-          <div className="order-2 lg:order-none bg-surface-card border border-hairline rounded-xl p-5 flex items-center justify-center min-h-[200px] shadow-xs">
+          <div className="order-2 lg:order-none bg-surface-card border border-hairline rounded-xl p-4 flex items-center justify-center min-h-[180px] shadow-xs">
             {renderVisualizer()}
           </div>
 
           {/* Core Calculation Outputs Card - order-3 on mobile so it appears after the SVG visualizer */}
-          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-xl p-5 sm:p-6 lg:p-7 flex flex-col justify-between flex-grow shadow-xs">
+          <div className="order-3 lg:order-none bg-canvas border border-hairline rounded-xl p-4 sm:p-5 lg:p-6 flex flex-col justify-between flex-grow shadow-xs">
             <div>
-              <h3 className="text-sm font-semibold text-muted uppercase tracking-wider mb-4">{t.calculatorShell.resultsHeader}</h3>
+              <h3 className="text-lg font-bold text-ink uppercase tracking-wider mb-3">{t.calculatorShell.resultsHeader}</h3>
               
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {renderOutputs()}
 
                 {/* Pricing Input & Cost Estimation */}
                 {results && (
-                  <div className="border-t border-hairline pt-4 mt-6 space-y-4">
+                  <div className="border-t border-hairline pt-3 mt-4 space-y-3">
                     {/* Unit Price input row - stacks vertically on mobile, horizontal on sm+ */}
-                    <div className="flex flex-col gap-2.5">
+                    <div className="flex flex-col gap-2">
                       <div className="flex items-center justify-between gap-1.5">
                         <label className="text-sm font-semibold text-ink">
                           {t.calculatorShell.pricePerUnit}
@@ -796,7 +796,7 @@ export default function CalculatorShell({
             </div>
 
             {/* Note on Waste Margin */}
-            <div className="mt-6 p-3 bg-red-50 dark:bg-zinc-900 border border-red-100 dark:border-zinc-800 rounded flex gap-2.5 items-start">
+            <div className="mt-4 p-2.5 bg-red-50 dark:bg-zinc-900 border border-red-100 dark:border-zinc-800 rounded flex gap-2 items-start">
               <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
               <span className="text-xs text-red-700 dark:text-zinc-400">
                 Calculations include a <strong>{waste}% waste margin</strong>.
@@ -806,21 +806,22 @@ export default function CalculatorShell({
         </section>
 
         {/* COLUMN 3: Shopping List & History (3 cols) */}
-        <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-6 print-full-width" aria-label="Takeoff list and history">
+        <section className="order-4 lg:order-none lg:col-span-3 flex flex-col gap-5 print-full-width" aria-label="Takeoff list and history">
           {/* Jobsite Shopping List Sidebar Card */}
-          <div className="bg-canvas border border-hairline rounded-xl p-5 sm:p-6 flex flex-col shadow-xs shopping-list-print">
-            <div className="flex items-center justify-between border-b border-hairline pb-3 mb-4 no-print">
-              <h3 className="text-sm font-bold text-ink flex items-center gap-2">
-                <ShoppingBag size={16} className="text-brand-accent" />
+          <div className="bg-canvas border border-hairline rounded-xl p-4 sm:p-5 flex flex-col shadow-xs shopping-list-print">
+            <div className="flex items-center justify-between border-b border-hairline pb-2 mb-3 no-print">
+              <h3 className="text-lg font-bold text-ink flex items-center gap-2">
+                <ShoppingBag size={18} className="text-brand-accent" />
                 <span>{t.calculatorShell.takeoffTitle}</span>
               </h3>
               {shoppingList.length > 0 && (
                 <button 
                   onClick={clearShoppingList}
-                  className="text-xs text-red-500 hover:text-red-600 flex items-center gap-1 font-medium transition-colors cursor-pointer"
+                  className="p-1 text-muted hover:text-red-500 hover:bg-red-500/10 rounded transition-colors cursor-pointer"
+                  title={t.calculatorShell.clearTakeoff}
+                  aria-label={t.calculatorShell.clearTakeoff}
                 >
-                  <Trash2 size={12} />
-                  <span>{t.calculatorShell.clearTakeoff}</span>
+                  <Trash2 size={15} />
                 </button>
               )}
             </div>
@@ -834,16 +835,16 @@ export default function CalculatorShell({
 
             {/* Shopping List Items */}
             {shoppingList.length === 0 ? (
-              <div className="text-center py-8 text-muted no-print">
+              <div className="text-center py-6 text-muted no-print">
                 <p className="text-xs">{t.calculatorShell.noTakeoffItems}</p>
               </div>
             ) : (
-              <div className="space-y-4">
-                <ul className="space-y-3">
+              <div className="space-y-3">
+                <ul className="space-y-2">
                   {shoppingList.map((item) => (
                     <li 
                       key={item.id} 
-                      className="flex items-start justify-between gap-3 text-xs border-b border-hairline-soft pb-3 last:border-b-0 last:pb-0"
+                      className="flex items-start justify-between gap-3 text-xs border-b border-hairline-soft pb-2 last:border-b-0 last:pb-0"
                     >
                       <div className="flex items-start gap-2">
                         {/* Checkbox */}
@@ -859,11 +860,11 @@ export default function CalculatorShell({
                         </button>
                         <div className="hidden print:block border border-black h-4.5 w-4.5 shrink-0 mr-1 mt-0.5"></div>
                         
-                        <div>
-                          <p className={`font-semibold text-ink print-text-black ${item.checked ? '' : 'line-through opacity-50'}`}>
+                        <div className="flex-1 min-w-0">
+                          <p className={`font-semibold text-ink print-text-black break-words ${item.checked ? '' : 'line-through opacity-50'}`}>
                             {item.title}
                           </p>
-                          <p className="text-[10px] text-muted font-mono mt-0.5 print-text-black">
+                          <p className="text-[10px] text-muted font-mono mt-0.5 print-text-black break-words">
                             {item.details}
                           </p>
                           {item.estimatedCost !== undefined && item.estimatedCost !== null && (
@@ -888,7 +889,7 @@ export default function CalculatorShell({
 
                 {/* Grand Total Cost Summary */}
                 {grandTotalCost > 0 && (
-                  <div className="border-t border-hairline pt-3 mt-3 flex justify-between items-baseline">
+                  <div className="border-t border-hairline pt-2 mt-2 flex justify-between items-baseline">
                     <span className="text-xs font-bold text-ink uppercase tracking-wider">{t.calculatorShell.totalProjectCost}</span>
                     <span className="text-sm font-mono font-extrabold text-indigo-600 dark:text-indigo-400">
                       ${grandTotalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -896,21 +897,14 @@ export default function CalculatorShell({
                   </div>
                 )}
 
-                {/* Print & Embed Actions */}
-                <div className="flex gap-2 mt-4 no-print">
+                {/* Print Action */}
+                <div className="flex gap-2 mt-3 no-print">
                   <button
                     onClick={handlePrint}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 cursor-pointer"
                   >
                     <Printer size={13} />
                     <span>{t.calculatorShell.printTakeoff}</span>
-                  </button>
-                  <button
-                    onClick={() => setIsEmbedModalOpen(true)}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-hairline hover:bg-surface-soft text-ink font-semibold rounded text-xs transition-all active:scale-95 duration-100 cursor-pointer"
-                  >
-                    <Code size={13} />
-                    <span>{t.calculatorShell.embedWidget || 'Embed Widget'}</span>
                   </button>
                 </div>
               </div>
@@ -918,16 +912,16 @@ export default function CalculatorShell({
           </div>
 
           {/* History / Local Cache Panel (no-print) */}
-          <div className="bg-canvas border border-hairline rounded-lg p-5 flex flex-col shadow-sm history-panel no-print">
-            <h3 className="text-sm font-bold text-ink flex items-center gap-2 border-b border-hairline pb-3 mb-4">
-              <History size={16} className="text-zinc-500" />
+          <div className="bg-canvas border border-hairline rounded-lg p-4 flex flex-col shadow-sm history-panel no-print">
+            <h3 className="text-lg font-bold text-ink flex items-center gap-2 border-b border-hairline pb-2 mb-3">
+              <History size={18} className="text-zinc-500" />
               <span>{t.calculatorShell.history}</span>
             </h3>
 
             {history.length === 0 ? (
-              <p className="text-xs text-muted text-center py-6">No recent calculations.</p>
+              <p className="text-xs text-muted text-center py-4">No recent calculations.</p>
             ) : (
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {history.map((item) => (
                   <li key={item.id} className="text-xs">
                     <button
@@ -1072,7 +1066,7 @@ export default function CalculatorShell({
 
         {/* Section 1: Detailed Calculation Cards List */}
         <div className="space-y-8">
-          <h2 className="text-md font-bold uppercase tracking-wider text-zinc-800 border-b border-zinc-300 pb-1 mb-4">
+          <h2 className="text-xl font-bold uppercase tracking-wider text-zinc-800 border-b border-zinc-300 pb-1 mb-4">
             Compiled Project Specifications
           </h2>
           

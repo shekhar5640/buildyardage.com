@@ -116,7 +116,7 @@ export default function ConcreteColumnCalculator({
 
           <div className="mt-4 pt-2">
             <h4 className="text-xs font-bold text-muted uppercase mb-3">{t.calculator.bagsNeeded}</h4>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-surface-soft p-3 rounded border border-hairline text-center">
                 <span className="block text-xs text-muted font-medium mb-1">{t.calculator.bags80lb}</span>
                 <span className="text-md font-mono font-extrabold text-brand-accent">{results.bags80lb}</span>

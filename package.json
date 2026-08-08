@@ -6,7 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node dev.mjs",
     "test": "npx tsx scripts/validateFormulas.ts",
     "build": "npx tsx scripts/validateFormulas.ts && astro build && node scripts/cacheBust.js && npx tsx scripts/validateSitemap.ts",
     "preview": "astro preview",

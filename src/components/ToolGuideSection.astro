@@ -16,12 +16,12 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
 ---
 
 {guide && (
-  <section class="no-print print:hidden mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 border-t border-hairline transition-colors duration-200 content-visibility-auto">
-    <div class="space-y-12">
+  <section class="no-print print:hidden mx-auto max-w-7xl px-4 py-6 sm:py-8 border-t border-hairline transition-colors duration-200 content-visibility-auto">
+    <div class="space-y-6 sm:space-y-8">
       
       <!-- Section 1: What Does This Calculator Do? -->
-      <div class="bg-canvas border border-hairline rounded-xl p-6 sm:p-8 shadow-xs">
-        <div class="flex items-center gap-3 mb-4">
+      <div class="bg-canvas border border-hairline rounded-xl p-4 sm:p-6 shadow-xs">
+        <div class="flex items-center gap-3 mb-3">
           <div class="flex h-8 w-8 items-center justify-center rounded-md bg-brand-accent/10 text-brand-accent font-bold text-sm">
             ?
           </div>
@@ -32,9 +32,9 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
         <p class="text-sm text-body leading-relaxed w-full">
           {guide.whatItDoes.description}
         </p>
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {guide.whatItDoes.highlights.map((item) => (
-            <div class="flex items-start gap-2.5 p-3 rounded-lg bg-surface-card border border-hairline text-xs font-medium text-ink">
+            <div class="flex items-start gap-2 p-2.5 rounded-lg bg-surface-card border border-hairline text-xs font-medium text-ink">
               <span class="text-brand-accent font-bold mt-0.5">✓</span>
               <span>{item}</span>
             </div>
@@ -44,7 +44,7 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
 
       <!-- Section 2: How to Use This Calculator (Step-by-Step) -->
       <div>
-        <div class="mb-6">
+        <div class="mb-4">
           <h2 class="text-2xl font-extrabold tracking-tight text-ink">
             {t.guides.howToUse}
           </h2>
@@ -53,35 +53,35 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="bg-canvas border border-hairline rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">{t.guides.stepPrefix} 1</span>
-              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step1.title.replace(/^\d+\.\s*/, '')}</h3>
+              <span class="inline-block px-2 py-0.5 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-2">{t.guides.stepPrefix} 1</span>
+              <h3 class="text-lg font-bold text-ink mb-1.5">{guide.howToUse.step1.title.replace(/^\d+\.\s*/, '')}</h3>
               <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step1.desc}</p>
             </div>
           </div>
 
-          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+          <div class="bg-canvas border border-hairline rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">{t.guides.stepPrefix} 2</span>
-              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step2.title.replace(/^\d+\.\s*/, '')}</h3>
+              <span class="inline-block px-2 py-0.5 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-2">{t.guides.stepPrefix} 2</span>
+              <h3 class="text-lg font-bold text-ink mb-1.5">{guide.howToUse.step2.title.replace(/^\d+\.\s*/, '')}</h3>
               <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step2.desc}</p>
             </div>
           </div>
 
-          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+          <div class="bg-canvas border border-hairline rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">{t.guides.stepPrefix} 3</span>
-              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step3.title.replace(/^\d+\.\s*/, '')}</h3>
+              <span class="inline-block px-2 py-0.5 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-2">{t.guides.stepPrefix} 3</span>
+              <h3 class="text-lg font-bold text-ink mb-1.5">{guide.howToUse.step3.title.replace(/^\d+\.\s*/, '')}</h3>
               <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step3.desc}</p>
             </div>
           </div>
 
-          <div class="bg-canvas border border-hairline rounded-lg p-5 flex flex-col justify-between">
+          <div class="bg-canvas border border-hairline rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-2.5 py-1 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-3">{t.guides.stepPrefix} 4</span>
-              <h3 class="text-sm font-bold text-ink mb-1.5">{guide.howToUse.step4.title.replace(/^\d+\.\s*/, '')}</h3>
+              <span class="inline-block px-2 py-0.5 rounded bg-brand-accent/10 text-brand-accent text-xs font-mono font-bold mb-2">{t.guides.stepPrefix} 4</span>
+              <h3 class="text-lg font-bold text-ink mb-1.5">{guide.howToUse.step4.title.replace(/^\d+\.\s*/, '')}</h3>
               <p class="text-xs text-muted leading-relaxed">{guide.howToUse.step4.desc}</p>
             </div>
           </div>
@@ -89,17 +89,17 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
       </div>
 
       <!-- Section 3 & 4 Grid: Technical Guide -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
         
         <!-- Left: Why Use Build Yardage Calculator? -->
-        <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
+        <div class="lg:col-span-7 flex flex-col justify-between h-full space-y-3">
           <h2 class="text-2xl font-extrabold tracking-tight text-ink">
             {t.guides.whyUse}
           </h2>
-          <div class="space-y-3 flex-grow flex flex-col justify-between">
+          <div class="space-y-2.5 flex-grow flex flex-col justify-between">
             {guide.whyBuildYardage.reasons.map((r) => (
-              <div class="bg-canvas border border-hairline rounded-lg p-4 flex-1 flex flex-col justify-center">
-                <h3 class="text-sm font-bold text-ink mb-1 flex items-center gap-2">
+              <div class="bg-canvas border border-hairline rounded-lg p-3.5 flex-1 flex flex-col justify-center">
+                <h3 class="text-lg font-bold text-ink mb-1 flex items-center gap-2">
                   <span class="text-brand-accent font-bold">★</span>
                   <span>{r.title}</span>
                 </h3>
@@ -110,26 +110,26 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
         </div>
 
         <!-- Right: Technical Formulas & Field Best Practices -->
-        <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-4">
+        <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-3">
           <h2 class="text-2xl font-extrabold tracking-tight text-ink">
             {t.guides.formulaMath}
           </h2>
           
-          <div class="space-y-3 flex-grow flex flex-col justify-between">
+          <div class="space-y-2.5 flex-grow flex flex-col justify-between">
             <!-- Formula Box -->
-            <div class="bg-surface-card border border-hairline rounded-lg p-4">
-              <h3 class="text-xs font-bold uppercase text-muted tracking-wider mb-2">
+            <div class="bg-surface-card border border-hairline rounded-lg p-3.5">
+              <h3 class="text-base font-bold uppercase text-muted tracking-wider mb-1.5">
                 {guide.technicalGuide.formulaTitle}
               </h3>
-              <div class="bg-canvas border border-hairline rounded p-3 text-xs font-mono font-semibold text-brand-accent break-words">
+              <div class="bg-canvas border border-hairline rounded p-2.5 text-xs font-mono font-semibold text-brand-accent break-words">
                 {guide.technicalGuide.formulaText}
               </div>
             </div>
 
             <!-- Pro Tips -->
             {guide.technicalGuide.tips.map((tip) => (
-              <div class="bg-canvas border border-hairline rounded-lg p-4 flex-1 flex flex-col justify-center">
-                <h4 class="text-xs font-bold text-ink uppercase tracking-wider mb-1 text-brand-accent">
+              <div class="bg-canvas border border-hairline rounded-lg p-3.5 flex-1 flex flex-col justify-center">
+                <h4 class="text-base font-bold text-ink uppercase tracking-wider mb-1 text-brand-accent">
                   {t.guides.proTip}: {tip.title}
                 </h4>
                 <p class="text-xs text-muted leading-relaxed">{tip.desc}</p>
@@ -141,7 +141,7 @@ const otherMaterials = materials.filter((m) => m.slug !== slug);
       </div>
       
       <!-- Trust Signals -->
-      <div class="mt-8 border-t border-hairline pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-muted">
+      <div class="mt-6 border-t border-hairline pt-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-muted">
         <div class="flex items-center gap-3">
           <span class="inline-flex w-8 h-8 rounded-full bg-surface-card border border-hairline items-center justify-center font-bold text-[10px]">
             👤
