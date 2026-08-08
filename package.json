@@ -10,7 +10,7 @@
     "test": "npx tsx scripts/validateFormulas.ts",
     "build": "npx tsx scripts/validateFormulas.ts && astro build && node scripts/cacheBust.js && npx tsx scripts/validateSitemap.ts",
     "preview": "astro preview",
-    "deploy": "npm run test && astro build && node scripts/cacheBust.js && npx wrangler pages deploy dist --project-name buildyardage",
+    "deploy": "npm run test && astro build && node scripts/cacheBust.js && npx wrangler pages deploy dist --project-name buildyardage-com",
     "astro": "astro"
   },
   "dependencies": {
